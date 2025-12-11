@@ -1,0 +1,32 @@
+.indicator {
+  height: 0.25rem;
+  background: #e5e5e5;
+  opacity: 1;
+}
+
+.indicatorActive {
+  height: 100%;
+  background: #000;
+}
+
+.arrowsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.arrowPrevious,
+.arrowNext {
+  height: 1.25rem;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+}
+.arrowPrevious:hover,
+.arrowNext:hover {
+  opacity: 1;
+}
+.arrowNext {
+  transform: rotate(180deg);
+}

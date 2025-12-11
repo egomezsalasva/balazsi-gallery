@@ -1,0 +1,29 @@
+.newsSlideshowLeftContainer {
+  grid-column: 1 / 5;
+}
+
+.newsSlideshowCenterContainer {
+  grid-column: 5 / 9;
+}
+
+.newsSlideshowRightContainer {
+  grid-column: 9 / 13;
+}
+
+.slideshowImage {
+  object-fit: cover;
+  width: 100%;
+  height: 20rem;
+}
+
+.slideshowTitleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-family: "Test American Grotesk", Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: uppercase;
+}

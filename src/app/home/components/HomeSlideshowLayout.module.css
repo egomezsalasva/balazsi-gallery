@@ -1,0 +1,35 @@
+.slideshowContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  gap: 1rem;
+  padding-bottom: 3.5rem;
+}
+
+.slideshowContentContainer {
+  grid-column: 1 / 13;
+  grid-row: 1 / 12;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+}
+
+.slideshowContentContainer > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.indicatorContainer {
+  grid-column: 2 / 11;
+  grid-row: 12 / 13;
+  align-self: center;
+  width: calc(100% + 1rem);
+  margin-left: -1rem;
+}
+
+.arrowsContainer {
+  grid-column: 11 / 12;
+  grid-row: 12 / 13;
+  width: calc(100% + 1rem);
+}

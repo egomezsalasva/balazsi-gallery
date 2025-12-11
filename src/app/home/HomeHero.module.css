@@ -1,6 +1,7 @@
 .container {
   width: 100%;
   height: 100vh;
+  min-height: 50rem;
   padding: 3.5rem;
 }
 .imageContainer {
@@ -10,4 +11,80 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  gap: 1rem;
+  /* padding: 3.5rem; */
+}
+
+.detailsContainer {
+  grid-column: 2 / 12;
+  grid-row: 3 / 12;
+  align-self: end;
+  display: flex;
+  text-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.25);
+}
+
+.detailsBox {
+  margin-left: -1rem;
+  padding: 1.25rem;
+  /* background: rgba(255, 255, 255, 1);
+  backdrop-filter: blur(8px); */
+}
+
+.detailsLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.detailsTitleContainer {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detailsDash {
+  width: 1.25rem;
+  height: 3px;
+  background: #000;
+}
+
+.detailsTitle,
+.detailsArtist {
+  font-family: "Test American Grotesk", Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 500;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.detailsTitle {
+  font-style: italic;
+}
+
+.detailsDate {
+  font-size: 1.25rem;
+}
+
+.indicatorContainer,
+.arrowsContainer {
+  width: calc(100% + 1rem);
+  grid-row: 12 / 13;
+  /* margin-bottom: -1rem; */
+  align-self: start;
+}
+
+.indicatorContainer {
+  grid-column: 2 / 11;
+  margin-left: -1rem;
+}
+
+.arrowsContainer {
+  grid-column: 11 / 12;
+  height: 100%;
+  transform: translateY(calc(-50% + 0.125rem));
 }

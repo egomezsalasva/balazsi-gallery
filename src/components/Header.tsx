@@ -9,13 +9,12 @@ type NavLinkProps = {
   children: React.ReactNode;
 };
 
-const NavLink = ({ href, children }: NavLinkProps) => {
+export const NavLink = ({ href, children }: NavLinkProps) => {
   const pathname = usePathname();
-  const isActive = pathname === href;
-
+  const isActive = pathname === href || pathname.startsWith(href + "/");
   return (
     <Link href={href} className={isActive ? styles.activeNavLink : ""}>
-      <span className={isActive ? styles.activeDash : ""} />
+      <span style={{ background: isActive ? "#000" : "#fff" }} />
       {children}
     </Link>
   );
