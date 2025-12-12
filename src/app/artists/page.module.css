@@ -1,0 +1,29 @@
+.container {
+  width: 100%;
+  padding: 3.5rem;
+  min-height: 100vh;
+}
+
+.titleContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  position: sticky;
+  top: 3.5rem;
+  margin-top: 1.5rem;
+  z-index: 10;
+}
+
+.container h2 {
+  grid-column: 1 / 5;
+  font-size: 1.75rem;
+  line-height: 3.5rem;
+  text-transform: uppercase;
+  background: #fff;
+}
+
+.groupArtistSectionContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+}

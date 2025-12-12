@@ -1,0 +1,62 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  margin: 2rem 0 7rem;
+}
+
+.detailsContainer {
+  grid-column: 1 / 5;
+}
+
+/* .detailsContainerSticky{
+    position: sticky;
+    top: 7.5rem;
+} */
+
+.imageContainer {
+  grid-column: 6 / 12;
+}
+
+.image {
+  width: 100%;
+  height: 25rem;
+  object-fit: cover;
+}
+
+.detailsArtistContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 1.5rem 0;
+}
+
+.detailsArtistDash {
+  width: 1.25rem;
+  height: 3px;
+  background: #000;
+}
+
+.detailsArtistContainer h3 {
+  font-size: 2.5rem;
+  line-height: 1;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+}
+
+.detailsArtistContainer h3 span {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+.readMoreBtn {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  /* background: #000; */
+  color: #000;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+  margin-top: 1rem;
+}

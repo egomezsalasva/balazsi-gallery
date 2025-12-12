@@ -1,50 +1,28 @@
 import Image from "next/image";
-import styles from "./Exhibition.module.css";
+import styles from "./Fair.module.css";
 import Link from "next/link";
 
-export type ExhibitionType = {
+type FairProps = {
   img: {
     src: string;
     alt: string;
   };
   title: string;
-  artist: string;
-  startDate: string;
-  endDate: string;
+  date: string;
   description: string;
 };
 
-const Exhibition = ({
-  img,
-  title,
-  artist,
-  startDate,
-  endDate,
-  description,
-}: ExhibitionType) => {
-  const formatDate = (date: string) => {
-    return new Date(date)
-      .toLocaleDateString("en-GB", {
-        month: "numeric",
-        day: "numeric",
-        year: "2-digit",
-      })
-      .replace(/\//g, ".");
-  };
-
+const Fair = ({ img, title, date, description }: FairProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.detailsContainer}>
         <div className={styles.titleContainer}>
           <div className={styles.titleDash} />
           <div>
-            <h2 className={styles.title}>{title}</h2>
-            <h3>{artist}</h3>
+            <h3 className={styles.title}>{title}</h3>
           </div>
         </div>
-        <p>
-          {formatDate(startDate)} - {formatDate(endDate)}
-        </p>
+        <p>{date}</p>
         <div>
           <p>{description}</p>
         </div>
@@ -65,4 +43,4 @@ const Exhibition = ({
   );
 };
 
-export default Exhibition;
+export default Fair;

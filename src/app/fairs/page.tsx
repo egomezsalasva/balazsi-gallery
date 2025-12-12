@@ -1,22 +1,5 @@
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Fairs | Balazsi Gallery",
-  description: "Fairs | Balazsi Gallery",
-};
+import { redirect } from "next/navigation";
 
 export default function Fairs() {
-  return (
-    <div
-      style={{
-        height: "100vh",
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      Fairs
-    </div>
-  );
+  return redirect("/fairs/on-view");
 }

@@ -1,21 +1,43 @@
 import { Metadata } from "next";
 import Exhibition from "../components/Exhibition";
+import {
+  ExhibitionContentfulType,
+  fetchExhibitions,
+} from "../utils/fetchExhibitions";
+import { getExhibitionsByStatus } from "@/utils/getExhibitionsByStatus";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Exhibitions Current | Balazsi Gallery",
   description: "Exhibitions Current | Balazsi Gallery",
 };
 
-const ExhibitionsCurrent = () => {
+const ExhibitionsCurrent = async () => {
+  const exhibitions = await fetchExhibitions();
+  const currentExhibitionsList = getExhibitionsByStatus(exhibitions, "Current");
+  if (currentExhibitionsList.length === 0) {
+    redirect("/exhibitions/archive");
+  }
   return (
     <div>
-      <Exhibition
-        img={{ src: "/gallery.jpg", alt: "Jack Burton" }}
-        title="Solo Exhibition"
-        artist="Jack Burton"
-        date="20.09 -  22.09"
-        description="Tube Gallery is pleased to take part in this year’s Nit de l’Art on September 20th, from 6 to 11pm. On view: a solo exhibition by Jack Burton, featuring new works that explore materiality and narrative through his distinctive visual language."
-      />
+      {currentExhibitionsList.map((exhibition: any) => (
+        <Exhibition
+          key={exhibition.title}
+          img={{
+            src: exhibition.heroImage.url,
+            alt: exhibition.heroImage.fileName,
+          }}
+          artist={
+            exhibition.artistsCollection.items.length > 1
+              ? "Group Show"
+              : exhibition.artistsCollection.items[0].name
+          }
+          title={exhibition.title}
+          startDate={exhibition.startDate}
+          endDate={exhibition.endDate}
+          description={exhibition.summaryText}
+        />
+      ))}
     </div>
   );
 };
