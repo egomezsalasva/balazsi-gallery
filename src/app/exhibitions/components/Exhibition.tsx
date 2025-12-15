@@ -5,6 +5,7 @@ import DateLabel from "@/components/DateLabel";
 import styles from "./Exhibition.module.css";
 import { artistNameDisplay } from "../utils/artistNameDisplay";
 import { ExhibitionContentfulType } from "../utils/fetchExhibitions";
+import ReactMarkdown from "react-markdown";
 
 type ExhibitionProps = {
   exhibition: ExhibitionContentfulType;
@@ -37,7 +38,7 @@ const Exhibition = ({ exhibition }: ExhibitionProps) => {
           withMargin
         />
         <DescriptionFade>
-          <p>{summaryText}</p>
+          <ReactMarkdown>{summaryText}</ReactMarkdown>
         </DescriptionFade>
         <ReadMoreBtn href={`/exhibition/${url}`} title="View Exhibition +" />
       </div>

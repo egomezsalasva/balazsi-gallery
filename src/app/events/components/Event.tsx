@@ -1,8 +1,9 @@
 import Image from "next/image";
-import styles from "./Event.module.css";
+import ReactMarkdown from "react-markdown";
 import ReadMoreBtn from "@/components/ReadMoreBtn";
 import DateLabel from "@/components/DateLabel";
 import { EventContentfulType } from "../utils/fetchEvents";
+import styles from "./Event.module.css";
 
 type EventProps = {
   event: EventContentfulType;
@@ -22,7 +23,9 @@ const Event = ({ event }: EventProps) => {
             endDate={endDate ? endDate : undefined}
             withMargin
           />
-          <p className={styles.description}>{summaryText}</p>
+          <div className={styles.description}>
+            <ReactMarkdown>{summaryText}</ReactMarkdown>
+          </div>
           <ReadMoreBtn href={`/`} />
         </div>
       </div>

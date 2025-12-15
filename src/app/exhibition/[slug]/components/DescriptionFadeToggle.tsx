@@ -2,6 +2,7 @@
 import { useState } from "react";
 import styles from "./DescriptionFadeToggle.module.css";
 import useDescriptionFade from "@/utils/useDescriptionFade";
+import ReactMarkdown from "react-markdown";
 
 const DescriptionFadeToggle = ({ children }: { children: React.ReactNode }) => {
   const { descriptionRef, hasOverflow } = useDescriptionFade(children);
@@ -16,7 +17,7 @@ const DescriptionFadeToggle = ({ children }: { children: React.ReactNode }) => {
         ref={descriptionRef}
         className={`${styles.descriptionContainer} ${hasOverflow && !isExpanded ? styles.hasOverflow : ""} ${isExpanded ? styles.expanded : ""}`}
       >
-        {children}
+        <ReactMarkdown>{children as string}</ReactMarkdown>
       </div>
       {!isExpanded ? (
         <button className={styles.readMoreBtn} onClick={handleToggle}>

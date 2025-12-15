@@ -3,6 +3,7 @@ import ReadMoreBtn from "@/components/ReadMoreBtn";
 import styles from "./Fair.module.css";
 import DateLabel from "@/components/DateLabel";
 import { FairContentfulType } from "../utils/fetchFairs";
+import ReactMarkdown from "react-markdown";
 
 type FairProps = {
   fair: FairContentfulType;
@@ -18,7 +19,7 @@ const Fair = ({ fair }: FairProps) => {
         </div>
         <DateLabel startDate={startDate} endDate={endDate} withMargin />
         <div className={styles.description}>
-          <p>{summaryText}</p>
+          <ReactMarkdown>{summaryText}</ReactMarkdown>
         </div>
         <ReadMoreBtn href={`/fairs`} />
       </div>

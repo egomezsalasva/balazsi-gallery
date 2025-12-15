@@ -3,6 +3,7 @@ import DateLabel from "@/components/DateLabel";
 import ReadMoreBtn from "@/components/ReadMoreBtn";
 import styles from "./NewsItem.module.css";
 import { NewsContentfulType } from "../utils/fetchNews";
+import ReactMarkdown from "react-markdown";
 
 type NewsItemProps = {
   newsItem: NewsContentfulType;
@@ -22,7 +23,9 @@ const NewsItem = ({ newsItem }: NewsItemProps) => {
             endDate={endDate ? endDate : undefined}
             withMargin
           />
-          <p className={styles.description}>{summaryText}</p>
+          <div className={styles.description}>
+            <ReactMarkdown>{summaryText}</ReactMarkdown>
+          </div>
           <ReadMoreBtn href={`/`} />
         </div>
       </div>
