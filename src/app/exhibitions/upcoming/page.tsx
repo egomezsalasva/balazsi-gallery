@@ -1,7 +1,7 @@
 import { Metadata } from "next";
-import Exhibition from "../components/Exhibition";
-import { getExhibitionsByStatus } from "@/utils/getExhibitionsByStatus";
 import { redirect } from "next/navigation";
+import Exhibition from "../components/Exhibition";
+import { getByStatus } from "@/utils/getByStatus";
 import {
   ExhibitionContentfulType,
   fetchExhibitions,
@@ -14,32 +14,15 @@ export const metadata: Metadata = {
 
 const ExhibitionsUpcoming = async () => {
   const exhibitions = await fetchExhibitions();
-  const upcomingExhibitionsList = getExhibitionsByStatus(
-    exhibitions,
-    "Upcoming",
-  );
+  const upcomingExhibitionsList = getByStatus(exhibitions, "Upcoming");
   if (upcomingExhibitionsList.length === 0) {
     redirect("/exhibitions/current");
   }
+
   return (
     <div>
-      {upcomingExhibitionsList.map((exhibition: any) => (
-        <Exhibition
-          key={exhibition.title}
-          img={{
-            src: exhibition.heroImage.url,
-            alt: exhibition.heroImage.fileName,
-          }}
-          artist={
-            exhibition.artistsCollection.items.length > 1
-              ? "Group Show"
-              : exhibition.artistsCollection.items[0].name
-          }
-          title={exhibition.title}
-          startDate={exhibition.startDate}
-          endDate={exhibition.endDate}
-          description={exhibition.summaryText}
-        />
+      {upcomingExhibitionsList.map((exhibition: ExhibitionContentfulType) => (
+        <Exhibition exhibition={exhibition} key={exhibition.url} />
       ))}
     </div>
   );

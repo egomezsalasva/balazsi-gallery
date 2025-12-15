@@ -1,0 +1,52 @@
+.container {
+  width: 100%;
+  padding: 3.5rem;
+  min-height: 100vh;
+}
+
+.contentContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  margin-top: 3.5rem;
+}
+
+.infoContainer {
+  grid-column: 1 / 5;
+}
+
+.imageContainer {
+  grid-column: 6 / 12;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-display);
+}
+
+.titleContainer h1 {
+  font-style: italic;
+}
+
+.titleContainer h1,
+.titleContainer h2 {
+  font-size: 2.25rem;
+  line-height: 1.1;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+}
+
+.titleDash {
+  width: 1.25rem;
+  height: 3px;
+  background: #000;
+}
+
+.image {
+  width: 100%;
+  height: 25rem;
+  object-fit: cover;
+}

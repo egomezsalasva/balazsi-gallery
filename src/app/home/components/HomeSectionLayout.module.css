@@ -1,7 +1,12 @@
 .container {
   width: 100%;
   padding: 3.5rem;
+  /* padding-top: 0; */
+}
+/* first container should have no padding-top */
+.container:first-child {
   padding-top: 0;
+  background: red;
 }
 
 .separatorLine {

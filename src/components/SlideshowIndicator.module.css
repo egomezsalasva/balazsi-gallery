@@ -1,5 +1,5 @@
 .indicator {
-  height: 0.25rem;
+  height: 3px;
   background: #e5e5e5;
   opacity: 1;
 }
@@ -18,7 +18,7 @@
 
 .arrowPrevious,
 .arrowNext {
-  height: 1.25rem;
+  height: 1.125rem;
   opacity: 0.5;
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;

@@ -1,24 +1,24 @@
 import Image from "next/image";
 import styles from "./SoloArtist.module.css";
-import Link from "next/link";
+import ReadMoreBtn from "@/components/ReadMoreBtn";
+import { ArtistContentfulType } from "../utils/fetchExhibitionsForArtists";
 
-type SoloArtistProps = {
-  img: {
-    src: string;
-    alt: string;
-  };
-  // status: "Upcoming" | "Current" | "Archive";
-  artist: string;
-  placeOfBirth: string;
-  dateOfBirth: string;
+type SoloArtitsProps = {
+  artist: ArtistContentfulType;
 };
 
-const SoloArtist = ({
-  img,
-  artist,
-  placeOfBirth,
-  dateOfBirth,
-}: SoloArtistProps) => {
+const SoloArtist = ({ artist }: SoloArtitsProps) => {
+  const { name, portraitImage, heroImage, placeOfBirth, yearOfBirth } = artist;
+  const imageSrc = heroImage
+    ? heroImage.url
+    : portraitImage
+      ? portraitImage.url
+      : "/fallback.png";
+  const imageAlt = heroImage
+    ? heroImage.title
+    : portraitImage
+      ? portraitImage.title
+      : "Artist Image";
   return (
     <div className={styles.container}>
       <div className={styles.detailsContainer}>
@@ -26,22 +26,20 @@ const SoloArtist = ({
           <div className={styles.detailsArtistContainer}>
             <div className={styles.detailsArtistDash} />
             <h3>
-              {artist}
+              {name}
               {/* {status && status !== "Archive" && <span>{status}</span>} */}
             </h3>
           </div>
-          <p>
-            {placeOfBirth}, {dateOfBirth}
+          <p className={styles.birthInfo}>
+            {placeOfBirth}, {yearOfBirth}
           </p>
-          <Link href={`/`} className={styles.readMoreBtn}>
-            Read More
-          </Link>
+          <ReadMoreBtn href={`/`} title="View Artist +" />
         </div>
       </div>
       <div className={styles.imageContainer}>
         <Image
-          src={img.src}
-          alt={img.alt}
+          src={imageSrc}
+          alt={imageAlt}
           width={1000}
           height={1000}
           className={styles.image}

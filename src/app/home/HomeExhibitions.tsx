@@ -1,6 +1,7 @@
 import Image from "next/image";
 import HomeSectionLayout from "./components/HomeSectionLayout";
 import HomeSlideshowLayout from "./components/HomeSlideshowLayout";
+import DateLabel from "@/components/DateLabel";
 import styles from "./HomeExhibitions.module.css";
 
 type SlideshowItemType = {
@@ -11,7 +12,10 @@ type SlideshowItemType = {
   status: "Current" | "Past";
   title: string;
   artist: string;
-  date: string;
+  dates: {
+    startDate: string;
+    endDate: string;
+  };
 };
 
 const SlideshowItem = ({
@@ -19,7 +23,7 @@ const SlideshowItem = ({
   status,
   title,
   artist,
-  date,
+  dates,
 }: SlideshowItemType) => {
   return (
     <>
@@ -39,7 +43,7 @@ const SlideshowItem = ({
             <div>{artist}</div>
           </div>
         </div>
-        <div>{date}</div>
+        <DateLabel startDate={dates.startDate} endDate={dates.endDate} />
       </div>
     </>
   );
@@ -48,7 +52,11 @@ const SlideshowItem = ({
 const HomeExhibitions = () => {
   const numExhibitions = 3;
   return (
-    <HomeSectionLayout title="Exhibitions" linkHref="/exhibitions/current">
+    <HomeSectionLayout
+      title="Exhibitions"
+      linkHref="/exhibitions/current"
+      styleContainer={{ paddingTop: "5rem" }}
+    >
       <HomeSlideshowLayout numItems={numExhibitions}>
         <div className={styles.exhibitionsSlideshowLeftContainer}>
           <SlideshowItem
@@ -56,7 +64,7 @@ const HomeExhibitions = () => {
             status="Current"
             title="Cynic's Bedtime"
             artist="Jack Burton"
-            date="20.09 - 21.11"
+            dates={{ startDate: "20:09:2025", endDate: "21:11:2025" }}
           />
         </div>
         <div className={styles.exhibitionsSlideshowRightContainer}>
@@ -68,7 +76,7 @@ const HomeExhibitions = () => {
             status="Past"
             title="Shoreline"
             artist="Group Show"
-            date="25.05 - 21.11"
+            dates={{ startDate: "22:05:2025", endDate: "21:11:2025" }}
           />
         </div>
       </HomeSlideshowLayout>

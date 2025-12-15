@@ -1,7 +1,7 @@
 import { fetchContentfulData } from "@/utils/fetchContentfulData";
 import styles from "./layout.module.css";
 import { NavLink } from "@/components/Header";
-import { getExhibitionsByStatus } from "@/utils/getExhibitionsByStatus";
+import { getByStatus } from "@/utils/getByStatus";
 
 const EXHIBITIONS_QUERY = `
 query{
@@ -25,11 +25,8 @@ const ExhibitionsLayout = async ({
   children: React.ReactNode;
 }) => {
   const exhibitions = await fetchExhibitions();
-  const currentExhibitionsList = getExhibitionsByStatus(exhibitions, "Current");
-  const upcomingExhibitionsList = getExhibitionsByStatus(
-    exhibitions,
-    "Upcoming",
-  );
+  const currentExhibitionsList = getByStatus(exhibitions, "Current");
+  const upcomingExhibitionsList = getByStatus(exhibitions, "Upcoming");
   return (
     <div className={styles.container}>
       <div className={styles.exhibitions}>{children}</div>

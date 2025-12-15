@@ -5,15 +5,17 @@ type HomeSectionLayoutProps = {
   title: string;
   linkHref: string;
   children: React.ReactNode;
+  styleContainer?: React.CSSProperties;
 };
 
 const HomeSectionLayout = ({
   title,
   linkHref,
   children,
+  styleContainer,
 }: HomeSectionLayoutProps) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={styleContainer}>
       <div className={styles.separatorLine} />
       <div className={styles.header}>
         <h2>{title}</h2>

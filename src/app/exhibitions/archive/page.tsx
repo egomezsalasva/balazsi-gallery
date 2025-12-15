@@ -1,7 +1,10 @@
 import { Metadata } from "next";
 import Exhibition from "../components/Exhibition";
-import { fetchExhibitions } from "../utils/fetchExhibitions";
-import { getExhibitionsByStatus } from "@/utils/getExhibitionsByStatus";
+import {
+  ExhibitionContentfulType,
+  fetchExhibitions,
+} from "../utils/fetchExhibitions";
+import { getByStatus } from "@/utils/getByStatus";
 
 export const metadata: Metadata = {
   title: "Exhibitions Upcoming | Balazsi Gallery",
@@ -10,26 +13,11 @@ export const metadata: Metadata = {
 
 const ExhibitionsArchive = async () => {
   const exhibitions = await fetchExhibitions();
-  const archiveExhibitionsList = getExhibitionsByStatus(exhibitions, "Archive");
+  const archiveExhibitionsList = getByStatus(exhibitions, "Archive");
   return (
     <div>
-      {archiveExhibitionsList.map((exhibition: any) => (
-        <Exhibition
-          key={exhibition.title}
-          img={{
-            src: exhibition.heroImage.url,
-            alt: exhibition.heroImage.fileName,
-          }}
-          artist={
-            exhibition.artistsCollection.items.length > 1
-              ? "Group Show"
-              : exhibition.artistsCollection.items[0].name
-          }
-          title={exhibition.title}
-          startDate={exhibition.startDate}
-          endDate={exhibition.endDate}
-          description={exhibition.summaryText}
-        />
+      {archiveExhibitionsList.map((exhibition: ExhibitionContentfulType) => (
+        <Exhibition exhibition={exhibition} key={exhibition.url} />
       ))}
     </div>
   );

@@ -1,0 +1,8 @@
+.readMoreBtn {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+.readMoreBtn:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.375rem;
+}

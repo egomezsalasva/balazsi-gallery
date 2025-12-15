@@ -1,13 +1,15 @@
 import { fetchContentfulData } from "@/utils/fetchContentfulData";
 
 export type ExhibitionContentfulType = {
+  url: string;
   title: string;
   heroImage: {
     url: string;
-    fileName: string;
+    title: string;
   };
   startDate: string;
   endDate: string;
+  hideEndDate: boolean;
   summaryText: string;
   artistsCollection: {
     items: {
@@ -20,13 +22,15 @@ const EXHIBITIONS_QUERY = `
 query{
   exhibitionCollection(order: startDate_DESC){
     items{
+      url
       title
       heroImage{
         url
-        fileName
+        title
       }
       startDate
       endDate
+      hideEndDate
       summaryText
       artistsCollection(limit: 30){
         items{

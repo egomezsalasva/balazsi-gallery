@@ -17,7 +17,7 @@ const HomeHero = () => {
                 <h3 className={styles.detailsArtist}>Jack Burton</h3>
               </div>
             </div>
-            <div className={styles.detailsDate}>20.09 - 21.11</div>
+            <div className={styles.detailsDate}>20.09 — 21.11</div>
           </div>
         </div>
         {numExhibitions > 1 && (

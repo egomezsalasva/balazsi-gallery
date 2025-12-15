@@ -1,18 +1,22 @@
 import Link from "next/link";
 import styles from "./GroupArtists.module.css";
+import {
+  ArtistContentfulType,
+  ExhibitionForArtistsContentfulType,
+} from "../utils/fetchExhibitionsForArtists";
 
 type GroupArtistsProps = {
-  title: string;
-  artists: {
-    name: string;
-  }[];
+  exhibition: ExhibitionForArtistsContentfulType;
+  artists: ArtistContentfulType[];
 };
 
-const GroupExhibitionArtists = ({ title, artists }: GroupArtistsProps) => {
+const GroupExhibitionArtists = ({ exhibition, artists }: GroupArtistsProps) => {
   return (
     <div className={styles.groupExhibitionArtistsContainer}>
-      <h3>{title}</h3>
-      {artists.map((artist) => (
+      <div className={styles.titleContainer}>
+        <h3>{exhibition.title}</h3>
+      </div>
+      {artists.map((artist: ArtistContentfulType) => (
         <div key={artist.name} className={styles.artistContainer}>
           <div className={styles.dash} />
           <Link href={`/`} className={styles.artistLink}>

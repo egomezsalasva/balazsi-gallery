@@ -6,15 +6,19 @@ import { usePathname } from "next/navigation";
 
 type NavLinkProps = {
   href: string;
+  additionalHref?: string;
   children: React.ReactNode;
 };
 
-export const NavLink = ({ href, children }: NavLinkProps) => {
+export const NavLink = ({ href, additionalHref, children }: NavLinkProps) => {
   const pathname = usePathname();
-  const isActive = pathname === href || pathname.startsWith(href + "/");
+  const isActive =
+    pathname === href ||
+    pathname.startsWith(href + "/") ||
+    (additionalHref && pathname.startsWith(additionalHref + "/"));
   return (
     <Link href={href} className={isActive ? styles.activeNavLink : ""}>
-      <span style={{ background: isActive ? "#000" : "#fff" }} />
+      <span style={{ background: isActive ? "#000" : "transparent" }} />
       {children}
     </Link>
   );
@@ -26,7 +30,9 @@ const Header = () => {
       <Logo className={styles.logo} />
       <nav>
         <NavLink href="/">Home</NavLink>
-        <NavLink href="/exhibitions">Exhibitions</NavLink>
+        <NavLink href="/exhibitions" additionalHref="/exhibition">
+          Exhibitions
+        </NavLink>
         <NavLink href="/artists">Artists</NavLink>
         <NavLink href="/fairs">Fairs</NavLink>
         <NavLink href="/news">News</NavLink>

@@ -15,7 +15,7 @@
 .exhibitionsHeader {
   grid-column: 10 / 13;
   display: flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
   text-transform: uppercase;
   font-size: 15px;
