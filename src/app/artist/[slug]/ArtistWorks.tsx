@@ -6,7 +6,11 @@ type ArtistWorksProps = {
 };
 
 const ArtistWorks = ({ works }: ArtistWorksProps) => {
-  return <WorksSection works={works} />;
+  return (
+    <div>
+      <WorksSection works={works} />
+    </div>
+  );
 };
 
 export default ArtistWorks;
