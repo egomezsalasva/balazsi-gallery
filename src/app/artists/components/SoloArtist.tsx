@@ -8,7 +8,8 @@ type SoloArtitsProps = {
 };
 
 const SoloArtist = ({ artist }: SoloArtitsProps) => {
-  const { name, portraitImage, heroImage, placeOfBirth, yearOfBirth } = artist;
+  const { slug, name, portraitImage, heroImage, placeOfBirth, yearOfBirth } =
+    artist;
   const imageSrc = heroImage
     ? heroImage.url
     : portraitImage
@@ -33,7 +34,7 @@ const SoloArtist = ({ artist }: SoloArtitsProps) => {
           <p className={styles.birthInfo}>
             {placeOfBirth}, {yearOfBirth}
           </p>
-          <ReadMoreBtn href={`/`} title="View Artist +" />
+          <ReadMoreBtn href={`/artist/${slug}`} title="View Artist +" />
         </div>
       </div>
       <div className={styles.imageContainer}>

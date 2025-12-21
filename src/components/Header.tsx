@@ -33,8 +33,12 @@ const Header = () => {
         <NavLink href="/exhibitions" additionalHref="/exhibition">
           Exhibitions
         </NavLink>
-        <NavLink href="/artists">Artists</NavLink>
-        <NavLink href="/fairs">Fairs</NavLink>
+        <NavLink href="/artists" additionalHref="/artist">
+          Artists
+        </NavLink>
+        <NavLink href="/fairs" additionalHref="/fair">
+          Fairs
+        </NavLink>
         <NavLink href="/news">News</NavLink>
         <NavLink href="/events">Events</NavLink>
         <NavLink href="/media-library">Media Library</NavLink>

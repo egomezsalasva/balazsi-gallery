@@ -10,7 +10,7 @@ type EventProps = {
 };
 
 const Event = ({ event }: EventProps) => {
-  const { title, heroImage, startDate, endDate, summaryText } = event;
+  const { slug, title, heroImage, startDate, endDate, summaryText } = event;
   return (
     <div className={styles.container}>
       <div className={styles.detailsContainer}>
@@ -26,7 +26,7 @@ const Event = ({ event }: EventProps) => {
           <div className={styles.description}>
             <ReactMarkdown>{summaryText}</ReactMarkdown>
           </div>
-          <ReadMoreBtn href={`/`} />
+          <ReadMoreBtn href={`/events/${slug}`} />
         </div>
       </div>
       <div className={styles.imageContainer}>

@@ -1,7 +1,7 @@
 import { fetchContentfulData } from "@/utils/fetchContentfulData";
 
 export type FairContentfulType = {
-  url: string;
+  slug: string;
   title: string;
   heroImage: {
     url: string;
@@ -22,6 +22,7 @@ const FAIRS_QUERY = `
 query{
   fairCollection(order: startDate_DESC){
     items{
+      slug
       title
       heroImage{
         url

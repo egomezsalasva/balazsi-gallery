@@ -1,0 +1,79 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  margin-top: 7rem;
+}
+
+.title {
+  grid-column: 1 / 13;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.slideshowContainer {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  gap: 1rem;
+}
+
+.slideshowImageContainer {
+  grid-column: 2 / 12;
+  grid-row: 1 / 12;
+}
+
+.slideshowPreviousImageContainer {
+  grid-column: 1 / 2;
+  grid-row: 1 / 12;
+  position: relative;
+  opacity: 0.25;
+}
+
+.slideshowNextImageContainer {
+  grid-column: 12 / 13;
+  grid-row: 1 / 12;
+  position: relative;
+  opacity: 0.25;
+}
+
+/* .slideshowPreviousImageFade{
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background: linear-gradient(to left, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1));
+  }
+  
+  .slideshowNextImageFade{
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1));
+  } */
+
+.image {
+  width: 100%;
+  height: 40rem;
+  object-fit: cover;
+}
+
+.indicatorContainer {
+  grid-column: 2 / 11;
+  grid-row: 12 / 13;
+  align-self: center;
+  width: 100%;
+}
+
+.arrowsContainer {
+  grid-column: 11 / 12;
+  grid-row: 12 / 13;
+  width: 100%;
+}

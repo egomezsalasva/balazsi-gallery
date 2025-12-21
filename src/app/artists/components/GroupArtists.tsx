@@ -19,7 +19,7 @@ const GroupExhibitionArtists = ({ exhibition, artists }: GroupArtistsProps) => {
       {artists.map((artist: ArtistContentfulType) => (
         <div key={artist.name} className={styles.artistContainer}>
           <div className={styles.dash} />
-          <Link href={`/`} className={styles.artistLink}>
+          <Link href={`/artist/${artist.slug}`} className={styles.artistLink}>
             {artist.name}
           </Link>
         </div>

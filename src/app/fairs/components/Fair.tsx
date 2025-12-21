@@ -10,7 +10,7 @@ type FairProps = {
 };
 
 const Fair = ({ fair }: FairProps) => {
-  const { title, heroImage, startDate, endDate, summaryText } = fair;
+  const { slug, title, heroImage, startDate, endDate, summaryText } = fair;
   return (
     <div className={styles.container}>
       <div className={styles.detailsContainer}>
@@ -21,7 +21,7 @@ const Fair = ({ fair }: FairProps) => {
         <div className={styles.description}>
           <ReactMarkdown>{summaryText}</ReactMarkdown>
         </div>
-        <ReadMoreBtn href={`/fairs`} />
+        <ReadMoreBtn href={`/fair/${slug}`} />
       </div>
       <div className={styles.imageContainer}>
         <Image

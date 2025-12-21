@@ -1,4 +1,4 @@
-import SlideshowIndicator from "@/components/SlideshowIndicator";
+import SlideshowIndicator from "@/components/slideshows/SlideshowIndicator";
 import styles from "./HomeSlideshowLayout.module.css";
 
 type HomeSlideshowLayoutProps = {

@@ -21,7 +21,7 @@ const ExhibitionsCurrent = async () => {
   return (
     <div>
       {currentExhibitionsList.map((exhibition: ExhibitionContentfulType) => (
-        <Exhibition exhibition={exhibition} key={exhibition.url} />
+        <Exhibition exhibition={exhibition} key={exhibition.slug} />
       ))}
     </div>
   );

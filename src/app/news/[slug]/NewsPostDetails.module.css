@@ -1,0 +1,58 @@
+.contentContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  margin-top: 3.5rem;
+}
+
+.infoContainer {
+  grid-column: 1 / 5;
+}
+
+.imageContainer {
+  grid-column: 6 / 12;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.titleContainer h1 {
+  font-size: 2.25rem;
+  line-height: 1.1;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+}
+
+.image {
+  width: 100%;
+  height: 25rem;
+  object-fit: cover;
+  position: sticky;
+  top: 7rem;
+}
+
+.description {
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.description p {
+  margin-bottom: 0.75rem;
+}
+
+.description p:last-child {
+  margin-bottom: 0;
+}
+
+.groupShowText {
+  margin-bottom: 1rem;
+}
+
+.groupShowText a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}

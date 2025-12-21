@@ -1,9 +1,8 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
-import DateLabel from "@/components/DateLabel";
-import DescriptionFadeToggle from "./components/DescriptionFadeToggle";
 import { fetchExhibition } from "./utils/fetchExhibition";
-import { artistNameDisplay } from "@/app/exhibitions/utils/artistNameDisplay";
+import ExhibitionDetails from "./ExhibitionDetails";
+import ExhibitionInstallation from "./ExhibitionInstallation";
+import ExhibitionWorks from "./ExhibitionWorks";
 import styles from "./page.module.css";
 
 type PageProps = {
@@ -16,32 +15,17 @@ export default async function Page({ params }: PageProps) {
   if (!exhibition) {
     notFound();
   }
-  const { title, startDate, endDate, fullText, artistsCollection } = exhibition;
-  const artistName = artistNameDisplay(artistsCollection.items);
   return (
     <div className={styles.container}>
-      <div className={styles.contentContainer}>
-        <div className={styles.infoContainer}>
-          <div className={styles.titleContainer}>
-            <div className={styles.titleDash} />
-            <div>
-              <h1>{title}</h1>
-              <h2>{artistName}</h2>
-            </div>
-          </div>
-          <DateLabel startDate={startDate} endDate={endDate} withMargin />
-          <DescriptionFadeToggle>{fullText}</DescriptionFadeToggle>
-        </div>
-        <div className={styles.imageContainer}>
-          <Image
-            src="/gallery.jpg"
-            alt="Exhibition Image"
-            width={1000}
-            height={1000}
-            className={styles.image}
-          />
-        </div>
-      </div>
+      <ExhibitionDetails exhibition={exhibition} />
+      {exhibition.installationImagesCollection.items.length > 0 && (
+        <ExhibitionInstallation
+          images={exhibition.installationImagesCollection.items}
+        />
+      )}
+      {exhibition.worksCollection.items.length > 0 && (
+        <ExhibitionWorks works={exhibition.worksCollection.items} />
+      )}
     </div>
   );
 }

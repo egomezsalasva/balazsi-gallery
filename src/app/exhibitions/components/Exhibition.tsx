@@ -13,7 +13,7 @@ type ExhibitionProps = {
 
 const Exhibition = ({ exhibition }: ExhibitionProps) => {
   const {
-    url,
+    slug,
     heroImage,
     title,
     startDate,
@@ -40,7 +40,7 @@ const Exhibition = ({ exhibition }: ExhibitionProps) => {
         <DescriptionFade>
           <ReactMarkdown>{summaryText}</ReactMarkdown>
         </DescriptionFade>
-        <ReadMoreBtn href={`/exhibition/${url}`} title="View Exhibition +" />
+        <ReadMoreBtn href={`/exhibition/${slug}`} title="View Exhibition +" />
       </div>
       <div className={styles.imageContainer}>
         <Image

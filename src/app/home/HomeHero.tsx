@@ -1,6 +1,6 @@
 import Arrow from "@/components/Arrow";
 import styles from "./HomeHero.module.css";
-import SlideshowIndicator from "@/components/SlideshowIndicator";
+import SlideshowIndicator from "@/components/slideshows/SlideshowIndicator";
 
 const HomeHero = () => {
   const numExhibitions = 2;

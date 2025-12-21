@@ -1,0 +1,46 @@
+.container {
+  margin: 7rem 0;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.fairs {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+}
+
+.fair_left {
+  grid-column: 1 / 5;
+}
+
+.fair_center {
+  grid-column: 5 / 9;
+}
+
+.fair_right {
+  grid-column: 9 / 13;
+}
+
+.fairImage {
+  width: 100%;
+  height: 20rem;
+  object-fit: cover;
+}
+
+.indicatorContainer {
+  grid-column: 1 / 12;
+  align-self: center;
+  width: 100%;
+}
+
+.arrowsContainer {
+  grid-column: 12 / 13;
+  width: 100%;
+}

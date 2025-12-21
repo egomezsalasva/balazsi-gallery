@@ -1,7 +1,7 @@
 import { fetchContentfulData } from "@/utils/fetchContentfulData";
 
 export type ExhibitionContentfulType = {
-  url: string;
+  slug: string;
   title: string;
   heroImage: {
     url: string;
@@ -22,7 +22,7 @@ const EXHIBITIONS_QUERY = `
 query{
   exhibitionCollection(order: startDate_DESC){
     items{
-      url
+      slug
       title
       heroImage{
         url

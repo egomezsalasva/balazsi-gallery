@@ -1,38 +1,84 @@
 import { fetchContentfulData } from "@/utils/fetchContentfulData";
 
-export type ExhibitionContentfulType = {
+export type WorkContentfulType = {
+  slug: string;
+  title: string;
+  details: string;
+  workImagesCollection: {
+    items: {
+      url: string;
+      title: string;
+    }[];
+  };
+  enquire: boolean;
+};
+
+export type InstallationImageContentfulType = {
   url: string;
+  title: string;
+};
+
+export type ExhibitionContentfulType = {
+  slug: string;
   title: string;
   heroImage: {
     url: string;
-    fileName: string;
+    title: string;
   };
   startDate: string;
   endDate: string;
   fullText: string;
   artistsCollection: {
     items: {
+      slug: string;
       name: string;
     }[];
+  };
+  installationImagesCollection: {
+    items: InstallationImageContentfulType[];
+  };
+  worksCollection: {
+    items: WorkContentfulType[];
   };
 };
 
 const EXHIBITION_QUERY = `
 query($slug: String!){
-  exhibitionCollection(limit: 1, where: {url: $slug}){
+  exhibitionCollection(limit: 1, where: {slug: $slug}){
     items{
-      url
+      slug
       title
       heroImage{
         url
-        fileName
+        title
       }
       startDate
       endDate
       fullText
       artistsCollection(limit: 30){
         items{
+          slug
           name
+        }
+      }
+      installationImagesCollection{
+        items{
+          url
+          title
+        }
+      }
+      worksCollection{
+        items{
+          slug
+          title
+          details
+          workImagesCollection(limit: 1){
+            items{
+              url
+              title
+            }
+          }
+          enquire
         }
       }
     }

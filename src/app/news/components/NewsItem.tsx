@@ -10,7 +10,7 @@ type NewsItemProps = {
 };
 
 const NewsItem = ({ newsItem }: NewsItemProps) => {
-  const { title, heroImage, startDate, endDate, summaryText } = newsItem;
+  const { slug, title, heroImage, startDate, endDate, summaryText } = newsItem;
   return (
     <div className={styles.container}>
       <div className={styles.detailsContainer}>
@@ -26,7 +26,7 @@ const NewsItem = ({ newsItem }: NewsItemProps) => {
           <div className={styles.description}>
             <ReactMarkdown>{summaryText}</ReactMarkdown>
           </div>
-          <ReadMoreBtn href={`/`} />
+          <ReadMoreBtn href={`/news/${slug}`} />
         </div>
       </div>
       <div className={styles.imageContainer}>

@@ -1,6 +1,7 @@
 import { fetchContentfulData } from "@/utils/fetchContentfulData";
 
 export type ArtistContentfulType = {
+  slug: string;
   name: string;
   portraitImage: {
     url: string;
@@ -32,6 +33,7 @@ query{
       endDate
       artistsCollection(limit: 30){
         items{
+          slug
           portraitImage{
             url
             title

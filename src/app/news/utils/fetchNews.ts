@@ -1,6 +1,7 @@
 import { fetchContentfulData } from "@/utils/fetchContentfulData";
 
 export type NewsContentfulType = {
+  slug: string;
   title: string;
   heroImage: {
     url: string;
@@ -15,6 +16,7 @@ const NEWS_QUERY = `
 query{
   newsCollection(order: startDate_DESC){
     items{
+      slug
       title
       heroImage{
         url

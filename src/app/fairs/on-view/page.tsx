@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 
 const FairsOnViewUpcoming = async () => {
   const fairs = await fetchFairs();
-  // fetch fairs that are in the current date range or are upcoming
   const currentFairs = getByStatus(fairs, "Current");
   const upcomingFairs = getByStatus(fairs, "Upcoming");
   const currentAndUpcomingFairs = [...currentFairs, ...upcomingFairs];
@@ -21,7 +20,7 @@ const FairsOnViewUpcoming = async () => {
   return (
     <div>
       {currentAndUpcomingFairs.map((fair: FairContentfulType) => (
-        <Fair key={fair.title} fair={fair} />
+        <Fair key={fair.slug} fair={fair} />
       ))}
     </div>
   );

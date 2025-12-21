@@ -14,7 +14,7 @@ const FairsArchive = async () => {
   return (
     <div>
       {archiveFairs.map((fair: FairContentfulType) => (
-        <Fair key={fair.title} fair={fair} />
+        <Fair key={fair.slug} fair={fair} />
       ))}
     </div>
   );
