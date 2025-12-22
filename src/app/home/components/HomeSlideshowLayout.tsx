@@ -4,6 +4,9 @@ import styles from "./HomeSlideshowLayout.module.css";
 type HomeSlideshowLayoutProps = {
   children: React.ReactNode;
   numItems: number;
+  currentIndex: number;
+  onPreviousClick: () => void;
+  onNextClick: () => void;
   indicator?: boolean;
   styleContainer?: React.CSSProperties;
 };
@@ -11,6 +14,9 @@ type HomeSlideshowLayoutProps = {
 const HomeSlideshowLayout = ({
   children,
   numItems,
+  currentIndex,
+  onPreviousClick,
+  onNextClick,
   indicator = true,
   styleContainer,
 }: HomeSlideshowLayoutProps) => {
@@ -22,6 +28,9 @@ const HomeSlideshowLayout = ({
           numItems={numItems}
           classNameIndicator={styles.indicatorContainer}
           classNameArrows={styles.arrowsContainer}
+          currentIndex={currentIndex}
+          onPreviousClick={onPreviousClick}
+          onNextClick={onNextClick}
         />
       )}
     </div>

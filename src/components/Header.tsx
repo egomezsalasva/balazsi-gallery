@@ -27,7 +27,9 @@ export const NavLink = ({ href, additionalHref, children }: NavLinkProps) => {
 const Header = () => {
   return (
     <header className={styles.container}>
-      <Logo className={styles.logo} />
+      <Link href="/">
+        <Logo className={styles.logo} />
+      </Link>
       <nav>
         <NavLink href="/">Home</NavLink>
         <NavLink href="/exhibitions" additionalHref="/exhibition">
