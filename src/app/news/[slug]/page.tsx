@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { fetchNewsPost } from "./utils/fetchNewsPost";
 import NewsPostDetails from "./NewsPostDetails";
+import NewsAdditionalImages from "./NewsAdditionalImages";
 import styles from "./page.module.css";
 
 type PageProps = {
@@ -16,6 +17,9 @@ export default async function Page({ params }: PageProps) {
   return (
     <div className={styles.container}>
       <NewsPostDetails newsPost={newsPost} />
+      <NewsAdditionalImages
+        additionalImages={newsPost.additionalImagesCollection.items}
+      />
     </div>
   );
 }

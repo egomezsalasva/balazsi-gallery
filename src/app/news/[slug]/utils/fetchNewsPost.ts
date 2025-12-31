@@ -16,6 +16,12 @@ export type NewsPostContentfulType = {
     url: string;
     title: string;
   };
+  additionalImagesCollection: {
+    items: {
+      url: string;
+      title: string;
+    }[];
+  };
 };
 
 const NEWS_POST_QUERY = `
@@ -36,6 +42,12 @@ query($slug: String!){
       heroImage{
         url
         title
+      }
+      additionalImagesCollection(limit: 20){
+        items{
+          url
+          title
+        }
       }
     }
   }
