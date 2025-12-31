@@ -8,24 +8,34 @@ type SlideshowIndicatorProps = {
   onPreviousClick: () => void;
   onNextClick: () => void;
   currentIndex: number;
+  indicatorPreviousRef?: React.RefObject<HTMLDivElement | null>;
+  indicatorNextRef?: React.RefObject<HTMLDivElement | null>;
 };
 
 const SlideshowIndicator = ({
   classNameIndicator,
   classNameArrows,
   numItems,
-  currentIndex,
   onPreviousClick,
   onNextClick,
+  indicatorPreviousRef,
+  indicatorNextRef,
 }: SlideshowIndicatorProps) => {
   return (
     <>
       <div className={`${styles.indicator} ${classNameIndicator}`}>
         <div
+          ref={indicatorPreviousRef}
           className={styles.indicatorActive}
           style={{
             width: `calc(100% / ${numItems})`,
-            left: `calc(${currentIndex} * (100% / ${numItems}))`,
+          }}
+        />
+        <div
+          ref={indicatorNextRef}
+          className={styles.indicatorActive}
+          style={{
+            width: `calc(100% / ${numItems})`,
           }}
         />
       </div>

@@ -11,12 +11,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 1rem;
-}
-
-.slideshowContentContainer > div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  overflow-x: hidden;
 }
 
 .indicatorContainer {

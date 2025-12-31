@@ -8,6 +8,8 @@ type HomeSlideshowLayoutProps = {
   onPreviousClick: () => void;
   onNextClick: () => void;
   indicator?: boolean;
+  indicatorPreviousRef?: React.RefObject<HTMLDivElement | null>;
+  indicatorNextRef?: React.RefObject<HTMLDivElement | null>;
   styleContainer?: React.CSSProperties;
 };
 
@@ -18,6 +20,8 @@ const HomeSlideshowLayout = ({
   onPreviousClick,
   onNextClick,
   indicator = true,
+  indicatorPreviousRef,
+  indicatorNextRef,
   styleContainer,
 }: HomeSlideshowLayoutProps) => {
   return (
@@ -31,6 +35,8 @@ const HomeSlideshowLayout = ({
           currentIndex={currentIndex}
           onPreviousClick={onPreviousClick}
           onNextClick={onNextClick}
+          indicatorPreviousRef={indicatorPreviousRef}
+          indicatorNextRef={indicatorNextRef}
         />
       )}
     </div>
