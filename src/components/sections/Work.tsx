@@ -9,6 +9,9 @@ export type WorkType = {
   slug: string;
   title: string;
   details: string;
+  artist: {
+    name: string;
+  };
   workImagesCollection: {
     items: {
       url: string;

@@ -103,6 +103,38 @@
   padding: 0 3.5rem;
 }
 
+.workDetailTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.workDetailTitleSeparator {
+  width: 1.25rem;
+  height: 3px;
+  background-color: #000;
+}
+
+.workDetailTitleText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.workDetailTitleText h3,
+.workDetailTitleText h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+
+.workDetailTitleText h4 {
+  font-style: italic;
+}
+
 .workDetailCover {
   width: 100vw;
   height: 100vh;
@@ -203,14 +235,6 @@
   justify-content: space-between;
 }
 
-.workDetailContent h3 {
-  font-size: 1.5rem;
-  font-weight: 500;
-  line-height: 1.1;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-}
-
 .workDetailEnquireBtn {
   font-size: 1rem;
   text-transform: uppercase;
@@ -229,4 +253,72 @@
 .workDetailEnquireBtn:hover {
   background-color: #000;
   color: #fff;
+}
+
+/* ENQUIRE MODAL */
+.enquireContent {
+  padding: 2.5rem;
+  padding-right: 3.5rem;
+  color: #fff;
+}
+
+.enquireContent h3 {
+  font-size: 2.25rem;
+  font-weight: 500;
+  line-height: 1.1;
+  margin-bottom: 1.75rem;
+  text-transform: uppercase;
+}
+
+.enquireFormGroup {
+  margin-bottom: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.enquireFormGroup label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.enquireFormGroup input,
+.enquireFormGroup textarea {
+  width: 100%;
+  padding: 0.5rem 0;
+  border: none;
+  border-bottom: 1px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  outline: none;
+}
+
+.enquireFormGroup textarea {
+  min-height: 10rem;
+  max-height: 20rem;
+  resize: vertical;
+}
+
+.enquireFormGroupButton {
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: transparent;
+  color: #fff;
+  margin: 0;
+  margin-top: 0.5rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  border-radius: 0.25rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #fff;
+  transition: all 0.3s ease-in-out;
+}
+.enquireFormGroupButton:hover {
+  background-color: #fff;
+  color: #000;
 }

@@ -4,6 +4,9 @@ export type WorkContentfulType = {
   slug: string;
   title: string;
   details: string;
+  artist: {
+    name: string;
+  };
   workImagesCollection: {
     items: {
       url: string;
@@ -72,6 +75,9 @@ query($slug: String!){
           slug
           title
           details
+          artist{
+            name
+          }
           workImagesCollection(limit: 1){
             items{
               url

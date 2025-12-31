@@ -3,6 +3,7 @@ import { WorkType } from "./Work";
 import ReactMarkdown from "react-markdown";
 import styles from "./WorksSection.module.css";
 import Cross from "../Cross";
+import WorkModalEnquireForm from "./WorkModalEnquireForm";
 
 type WorkModalProps = {
   work: WorkType;
@@ -14,11 +15,13 @@ type WorkModalProps = {
 };
 
 type WorkEnquireModalProps = {
+  work: WorkType;
   enquireOpen: boolean;
   handleEnquireClose: () => void;
 };
 
 const WorkEnquireModal = ({
+  work,
   enquireOpen,
   handleEnquireClose,
 }: WorkEnquireModalProps) => {
@@ -27,6 +30,10 @@ const WorkEnquireModal = ({
       className={`${styles.enquireContainer} ${enquireOpen ? styles.enquireOpen : ""}`}
     >
       <Cross className={styles.enquireCloseBtn} onClick={handleEnquireClose} />
+      <div className={styles.enquireContent}>
+        <h3>Enquire</h3>
+        <WorkModalEnquireForm work={work} />
+      </div>
     </div>
   );
 };
@@ -39,6 +46,7 @@ const WorkModal = ({
   handleEnquireOpen,
   handleEnquireClose,
 }: WorkModalProps) => {
+  const { title, artist, workImagesCollection, details, enquire } = work;
   return (
     <div
       className={`${styles.workDetailContainer} ${workDetailOpen ? styles.workDetailOpen : ""}`}
@@ -54,12 +62,12 @@ const WorkModal = ({
             <div
               className={styles.workDetailImageBlur}
               style={{
-                backgroundImage: `url(${work.workImagesCollection.items[0].url})`,
+                backgroundImage: `url(${workImagesCollection.items[0].url})`,
               }}
             />
             <Image
-              src={work.workImagesCollection.items[0].url}
-              alt={work.workImagesCollection.items[0].title}
+              src={workImagesCollection.items[0].url}
+              alt={workImagesCollection.items[0].title}
               width={1000}
               height={1000}
               className={styles.workDetailImage}
@@ -67,21 +75,30 @@ const WorkModal = ({
           </div>
           <div className={styles.workDetailContent}>
             <div>
-              <h3>{work.title}</h3>
+              <div className={styles.workDetailTitle}>
+                <div className={styles.workDetailTitleSeparator} />
+                <div className={styles.workDetailTitleText}>
+                  <h3>{title}</h3>
+                  <h4>{artist?.name}</h4>
+                </div>
+              </div>
               <div className={styles.workDetailDescription}>
-                <ReactMarkdown>{work.details}</ReactMarkdown>
+                <ReactMarkdown>{details}</ReactMarkdown>
               </div>
             </div>
-            <button
-              className={styles.workDetailEnquireBtn}
-              onClick={handleEnquireOpen}
-            >
-              Enquire
-            </button>
+            {enquire && (
+              <button
+                className={styles.workDetailEnquireBtn}
+                onClick={handleEnquireOpen}
+              >
+                Enquire
+              </button>
+            )}
           </div>
         </div>
       </div>
       <WorkEnquireModal
+        work={work}
         enquireOpen={enquireOpen}
         handleEnquireClose={handleEnquireClose}
       />
