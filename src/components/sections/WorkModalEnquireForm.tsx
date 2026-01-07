@@ -29,6 +29,7 @@ ${details}`);
           placeholder="Your Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          required
         />
       </div>
       <div className={styles.enquireFormGroup}>
@@ -40,6 +41,7 @@ ${details}`);
           placeholder="Your Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
       </div>
       <div className={styles.enquireFormGroup}>
@@ -49,7 +51,19 @@ ${details}`);
           name="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          required
         />
+      </div>
+      <div className={styles.privacyPolicyContainer}>
+        <input
+          type="checkbox"
+          name="privacyPolicy"
+          id="privacyPolicy"
+          required
+        />
+        <label htmlFor="privacyPolicy">
+          I agree to the <a href="/privacy-policy">privacy policy</a>
+        </label>
       </div>
       <button type="submit" className={styles.enquireFormGroupButton}>
         Send

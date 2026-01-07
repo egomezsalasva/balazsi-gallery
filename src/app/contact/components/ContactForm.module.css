@@ -1,0 +1,61 @@
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  margin-bottom: 3.5rem;
+}
+
+.contactForm input,
+.contactForm textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  width: 100%;
+  padding: 0.5rem 0;
+  border: none;
+  border-bottom: 1px solid #000;
+  background-color: transparent;
+  outline: none;
+}
+
+.contactForm textarea {
+  min-height: 10rem;
+  max-height: 20rem;
+  resize: vertical;
+}
+
+.contactFormButton {
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: transparent;
+  color: #000;
+  margin: 0 auto;
+  margin-top: 0.5rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  border-radius: 0.25rem;
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  border: 1px solid #000;
+  transition: all 0.3s ease-in-out;
+}
+.contactFormButton:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.privacyPolicyContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.privacyPolicyContainer input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: #000;
+}
+.privacyPolicyContainer a {
+  color: #000;
+  text-decoration: underline;
+}

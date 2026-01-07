@@ -283,10 +283,15 @@
   font-weight: 500;
   line-height: 1.1;
   text-transform: uppercase;
+  font-family: var(--font-display);
 }
 
 .enquireFormGroup input,
 .enquireFormGroup textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.75;
   width: 100%;
   padding: 0.5rem 0;
   border: none;
@@ -300,6 +305,24 @@
   min-height: 10rem;
   max-height: 20rem;
   resize: vertical;
+}
+
+.privacyPolicyContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.privacyPolicyContainer input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: #fff;
+}
+
+.privacyPolicyContainer a {
+  color: #fff;
+  text-decoration: underline;
 }
 
 .enquireFormGroupButton {
