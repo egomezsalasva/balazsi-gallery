@@ -8,6 +8,7 @@ type AnimateIndicatorProps = {
   indicatorNextRef: React.RefObject<HTMLDivElement | null>;
   DURATION: number;
   EASE: string;
+  direction: 1 | -1;
 };
 
 type InitializeIndicatorProps = {
@@ -41,14 +42,18 @@ export const animateIndicator = ({
   indicatorNextRef,
   DURATION,
   EASE,
+  direction,
 }: AnimateIndicatorProps) => {
   const isWrappingFromLastToFirst =
-    currentIndex === numSlides - 1 && nextIndex === 0;
+    currentIndex === numSlides - 1 && nextIndex === 0 && direction > 0;
   const isWrappingFromFirstToLast =
-    currentIndex === 0 && nextIndex === numSlides - 1;
-  const isLeavingFirstAfterWrap = currentIndex === 0 && nextIndex === 1;
+    currentIndex === 0 && nextIndex === numSlides - 1 && direction < 0;
+  const isLeavingFirstAfterWrap =
+    numSlides > 2 && currentIndex === 0 && nextIndex === 1;
   const isLeavingLastAfterWrap =
-    currentIndex === numSlides - 1 && nextIndex === numSlides - 2;
+    numSlides > 2 &&
+    currentIndex === numSlides - 1 &&
+    nextIndex === numSlides - 2;
 
   if (indicatorPreviousRef.current && indicatorNextRef.current) {
     if (isWrappingFromLastToFirst) {
