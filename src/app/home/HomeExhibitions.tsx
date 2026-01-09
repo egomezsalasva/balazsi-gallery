@@ -6,7 +6,7 @@ import { HomeExhibitionsContentfulType } from "./utils/fetchHomeExhibitions";
 import { artistNameDisplay } from "../exhibitions/utils/artistNameDisplay";
 import HomeSlideshowLayout from "./components/HomeSlideshowLayout";
 import styles from "./HomeExhibitions.module.css";
-import useSlideshowAnimation from "./utils/useSlideshowAnimation";
+import useSlideshowAnimation from "@/components/slideshows/utils/useSlideshowAnimation";
 
 type SlideshowItemType = {
   img: {

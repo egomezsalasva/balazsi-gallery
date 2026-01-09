@@ -5,6 +5,8 @@ import Image from "next/image";
 import DateLabel from "../DateLabel";
 import ReadMoreBtn from "../ReadMoreBtn";
 import styles from "./ThreeColSlideshow.module.css";
+import useSlideshowAnimation from "./utils/useSlideshowAnimation";
+import SlideshowLayout from "./SlideshowLayout";
 
 type slideshowItemType = {
   slug: string;
@@ -26,19 +28,17 @@ type ThreeColSlideshowProps = {
 
 type SlideshowItemProps = {
   slideItem: slideshowItemType;
-  className: string;
   urlPrefix: string;
   btnLabel: string;
 };
 
 const SlideshowItem = ({
   slideItem,
-  className,
   urlPrefix,
   btnLabel,
 }: SlideshowItemProps) => {
   return (
-    <div className={className}>
+    <div>
       <Image
         src={slideItem.heroImage.url}
         alt={slideItem.heroImage.title}
@@ -63,77 +63,59 @@ const ThreeColSlideshow = ({
   btnLabel,
 }: ThreeColSlideshowProps) => {
   const SLIDESHOW_ITEM_WIDTH = 3;
-  const numItems = Math.ceil(slideshowItems.length / SLIDESHOW_ITEM_WIDTH);
-  const [currentFairLeftIndex, setCurrentFairLeftIndex] = useState(0);
-  const [currentFairCenterIndex, setCurrentFairCenterIndex] = useState(1);
-  const [currentFairRightIndex, setCurrentFairRightIndex] = useState(2);
-  const [currentIndicatorIndex, setCurrentIndicatorIndex] = useState(0);
+  const {
+    numSlides,
+    currentIndex,
+    gotoSlide,
+    dataListGroups,
+    slidesRef,
+    indicatorPreviousRef,
+    indicatorNextRef,
+  } = useSlideshowAnimation<slideshowItemType>({
+    slideshowColNumber: SLIDESHOW_ITEM_WIDTH,
+    dataList: slideshowItems,
+  });
 
-  const handlePreviousClick = () => {
-    if (currentFairLeftIndex > 0) {
-      setCurrentFairLeftIndex(currentFairLeftIndex - SLIDESHOW_ITEM_WIDTH);
-      setCurrentFairCenterIndex(currentFairCenterIndex - SLIDESHOW_ITEM_WIDTH);
-      setCurrentFairRightIndex(currentFairRightIndex - SLIDESHOW_ITEM_WIDTH);
-    } else {
-      const lastPairStartIndex = (numItems - 1) * SLIDESHOW_ITEM_WIDTH;
-      setCurrentFairLeftIndex(lastPairStartIndex);
-      setCurrentFairCenterIndex(lastPairStartIndex + 1);
-      setCurrentFairRightIndex(lastPairStartIndex + 2);
-    }
+  const colStyles = (index: number) => {
+    return index === 0
+      ? styles.fair_left
+      : index === 1
+        ? styles.fair_center
+        : styles.fair_right;
   };
-  const handleNextClick = () => {
-    if (currentFairLeftIndex < slideshowItems.length - SLIDESHOW_ITEM_WIDTH) {
-      setCurrentFairLeftIndex(currentFairLeftIndex + SLIDESHOW_ITEM_WIDTH);
-      setCurrentFairCenterIndex(currentFairCenterIndex + SLIDESHOW_ITEM_WIDTH);
-      setCurrentFairRightIndex(currentFairRightIndex + SLIDESHOW_ITEM_WIDTH);
-    } else {
-      setCurrentFairLeftIndex(0);
-      setCurrentFairCenterIndex(1);
-      setCurrentFairRightIndex(2);
-    }
-  };
-
-  useEffect(() => {
-    setCurrentIndicatorIndex(currentFairLeftIndex / SLIDESHOW_ITEM_WIDTH);
-  }, [currentFairLeftIndex]);
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{title}</h2>
-      <div className={styles.fairs}>
-        <SlideshowItem
-          slideItem={slideshowItems[currentFairLeftIndex]}
-          className={styles.fair_left}
-          urlPrefix={urlPrefix}
-          btnLabel={btnLabel}
-        />
-        {currentFairCenterIndex < slideshowItems.length && (
-          <SlideshowItem
-            slideItem={slideshowItems[currentFairCenterIndex]}
-            className={styles.fair_center}
-            urlPrefix={urlPrefix}
-            btnLabel={btnLabel}
-          />
-        )}
-        {currentFairRightIndex < slideshowItems.length && (
-          <SlideshowItem
-            slideItem={slideshowItems[currentFairRightIndex]}
-            className={styles.fair_right}
-            urlPrefix={urlPrefix}
-            btnLabel={btnLabel}
-          />
-        )}
-        {slideshowItems.length > SLIDESHOW_ITEM_WIDTH && (
-          <SlideshowIndicator
-            numItems={numItems}
-            classNameIndicator={styles.indicatorContainer}
-            classNameArrows={styles.arrowsContainer}
-            currentIndex={currentIndicatorIndex}
-            onPreviousClick={handlePreviousClick}
-            onNextClick={handleNextClick}
-          />
-        )}
-      </div>
+      <SlideshowLayout
+        numItems={numSlides}
+        currentIndex={currentIndex}
+        onPreviousClick={() => gotoSlide(-1)}
+        onNextClick={() => gotoSlide(1)}
+        indicatorPreviousRef={indicatorPreviousRef}
+        indicatorNextRef={indicatorNextRef}
+        indicator={slideshowItems.length > SLIDESHOW_ITEM_WIDTH}
+      >
+        {dataListGroups.map((group, slideIndex) => (
+          <div
+            key={`slide-${slideIndex}`}
+            ref={(el) => {
+              slidesRef.current[slideIndex] = el;
+            }}
+            className={styles.fairsSlideshowDisplayContainer}
+          >
+            {group.map((item, index) => (
+              <div key={item.title + index} className={colStyles(index)}>
+                <SlideshowItem
+                  slideItem={item}
+                  urlPrefix={urlPrefix}
+                  btnLabel={btnLabel}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </SlideshowLayout>
     </div>
   );
 };

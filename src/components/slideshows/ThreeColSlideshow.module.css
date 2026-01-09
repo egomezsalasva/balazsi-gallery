@@ -10,10 +10,43 @@
   margin-bottom: 1.5rem;
 }
 
-.fairs {
+.fairsSlideshowContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  gap: 1rem;
+}
+
+.fairsSlideshowContentContainer {
+  grid-column: 1 / 13;
+  grid-row: 1 / 12;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 1rem;
+  overflow-x: hidden;
+}
+
+.fairsSlideshowDisplayContainer {
+  grid-column: 1 / 13;
+  grid-row: 1 / 12;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  position: relative;
+  top: 0;
+  left: -0.5rem;
+  width: calc(100% + 1rem);
+  height: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  box-sizing: border-box;
+  opacity: 0;
+}
+
+.fairsSlideshowDisplayContainer > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .fair_left {

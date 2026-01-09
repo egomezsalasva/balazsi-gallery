@@ -1,11 +1,10 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
 import HomeSectionLayout from "./components/HomeSectionLayout";
 import HomeSlideshowLayout from "./components/HomeSlideshowLayout";
 import styles from "./HomeNews.module.css";
 import Image from "next/image";
 import { HomeNewsContentfulType } from "./utils/fetchHomeNews";
-import useSlideshowAnimation from "./utils/useSlideshowAnimation";
+import useSlideshowAnimation from "@/components/slideshows/utils/useSlideshowAnimation";
 
 type SlideshowItemType = {
   img: {
