@@ -1,3 +1,19 @@
+.newsContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  gap: 1rem;
+}
+
+.newsContentContainer {
+  grid-column: 1 / 13;
+  grid-row: 1 / 12;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  overflow-x: hidden;
+}
+
 .newsSlideshowLeftContainer {
   grid-column: 1 / 5;
 }
@@ -10,8 +26,9 @@
   grid-column: 9 / 13;
 }
 
-.slideshowImage {
+.vimeoContainer {
   object-fit: cover;
   width: 100%;
   height: 20rem;
+  border: none;
 }

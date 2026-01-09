@@ -2,44 +2,42 @@ import Image from "next/image";
 import HomeSectionLayout from "./components/HomeSectionLayout";
 import HomeSlideshowLayout from "./components/HomeSlideshowLayout";
 import styles from "./HomeMedia.module.css";
+import { fetchMedia, MediaContentfulType } from "./utils/fetchMedia";
 
-type SlideshowItemType = {
-  src: string;
-};
-
-const SlideshowItem = ({ src }: SlideshowItemType) => {
+const SlideshowItem = ({ vimeoId }: MediaContentfulType) => {
   return (
     <>
-      <video
-        src={src}
-        muted
-        playsInline
-        controls={true}
-        className={styles.slideshowImage}
+      <iframe
+        src={`https://player.vimeo.com/video/${vimeoId}`}
+        allow="fullscreen"
+        className={styles.vimeoContainer}
       />
     </>
   );
 };
 
-const HomeMedia = () => {
-  const numNews = 3;
+const HomeMedia = async () => {
+  const media = await fetchMedia();
+  if (!media || media.length === 0) return null;
   return (
     <HomeSectionLayout title="Media Library" linkHref="/media-library">
-      <HomeSlideshowLayout
-        numItems={numNews}
-        indicator={numNews <= 3 ? false : true}
-        styleContainer={{ paddingBottom: "1.5rem" }}
-      >
-        <div className={styles.newsSlideshowLeftContainer}>
-          <SlideshowItem src="/web-opening.mp4" />
+      <div className={styles.newsContainer}>
+        <div className={styles.newsContentContainer}>
+          <div className={styles.newsSlideshowLeftContainer}>
+            <SlideshowItem vimeoId={media[0].vimeoId} />
+          </div>
+          {media[1] && (
+            <div className={styles.newsSlideshowCenterContainer}>
+              <SlideshowItem vimeoId={media[1].vimeoId} />
+            </div>
+          )}
+          {media[2] && (
+            <div className={styles.newsSlideshowRightContainer}>
+              <SlideshowItem vimeoId={media[2].vimeoId} />
+            </div>
+          )}
         </div>
-        <div className={styles.newsSlideshowCenterContainer}>
-          <SlideshowItem src="/web-opening.mp4" />
-        </div>
-        <div className={styles.newsSlideshowRightContainer}>
-          <SlideshowItem src="/web-opening.mp4" />
-        </div>
-      </HomeSlideshowLayout>
+      </div>
     </HomeSectionLayout>
   );
 };
