@@ -5,6 +5,9 @@ export type ArtistContentfulType = {
   yearOfBirth: string;
   placeOfBirth: string;
   fullText: string;
+  cvPdf: {
+    url: string;
+  };
   portraitImage: {
     url: string;
     title: string;
@@ -19,6 +22,9 @@ query($slug: String!){
       yearOfBirth
       placeOfBirth
       fullText
+      cvPdf{
+        url
+      }
       portraitImage{
         url
         title

@@ -8,7 +8,8 @@ type ArtistDetailsProps = {
 };
 
 const ArtistDetails = ({ artist }: ArtistDetailsProps) => {
-  const { name, placeOfBirth, yearOfBirth, fullText, portraitImage } = artist;
+  const { name, placeOfBirth, yearOfBirth, fullText, portraitImage, cvPdf } =
+    artist;
   return (
     <div className={styles.contentContainer}>
       <div className={styles.infoContainer}>
@@ -22,6 +23,11 @@ const ArtistDetails = ({ artist }: ArtistDetailsProps) => {
           {placeOfBirth}, {yearOfBirth}
         </p>
         <DescriptionFadeToggle>{fullText}</DescriptionFadeToggle>
+        {cvPdf && (
+          <a href={cvPdf.url} target="_blank" className={styles.readMoreBtn}>
+            View CV ↓
+          </a>
+        )}
       </div>
       <div className={styles.imageContainer}>
         <Image
