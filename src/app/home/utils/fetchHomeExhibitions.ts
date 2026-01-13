@@ -20,7 +20,7 @@ const HOME_EXHIBITIONS_QUERY = `
 query($today: DateTime!){
   exhibitionCollection(
     limit: 6, 
-    order: endDate_DESC,
+    order: startDate_DESC,
     where: { startDate_lte: $today }
   ){
     items{
