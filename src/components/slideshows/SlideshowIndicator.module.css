@@ -23,14 +23,18 @@
 }
 
 .arrowPrevious,
-.arrowNext {
+.arrowNext,
+.pauseIcon,
+.playIcon {
   height: 1.125rem;
   opacity: 0.5;
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;
 }
 .arrowPrevious:hover,
-.arrowNext:hover {
+.arrowNext:hover,
+.pauseIcon:hover,
+.playIcon:hover {
   opacity: 1;
 }
 .arrowNext {

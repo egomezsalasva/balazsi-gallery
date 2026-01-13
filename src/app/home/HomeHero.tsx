@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
 import SlideshowIndicator from "@/components/slideshows/SlideshowIndicator";
 import {
   HomeFairsContentfulType,
@@ -8,6 +9,8 @@ import {
 import styles from "./HomeHero.module.css";
 import { artistNameDisplay } from "../exhibitions/utils/artistNameDisplay";
 import { formatDate } from "@/utils/formatDate";
+import Image from "next/image";
+import useSlideshowAnimation from "@/components/slideshows/utils/useSlideshowAnimation";
 
 type HomeHeroData = {
   exhibitions: HomeExhibitionsContentfulType[];
@@ -15,7 +18,9 @@ type HomeHeroData = {
 };
 
 const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
-  const numExhibitions = 2;
+  const [isPlaying, setIsPlaying] = useState(true);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
   const today = new Date();
   const mergedData = [...heroData.exhibitions, ...heroData.fairs].sort(
     (a, b) => {
@@ -23,35 +28,86 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
       const bStartDate = new Date(b.startDate);
       const aIsCurrent = aStartDate <= today;
       const bIsCurrent = bStartDate <= today;
-      // If one is current and the other is upcoming, current comes first
       if (aIsCurrent && !bIsCurrent) return -1;
       if (!aIsCurrent && bIsCurrent) return 1;
-      // Both are current: show the one ending soonest first
       if (aIsCurrent && bIsCurrent) {
         return new Date(a.endDate).getTime() - new Date(b.endDate).getTime();
       }
-      // Both are upcoming: show the one starting soonest first
       return aStartDate.getTime() - bStartDate.getTime();
     },
   );
-  const numItems = mergedData.length;
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const onPreviousClick = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
+
+  const {
+    numSlides,
+    currentIndex,
+    gotoSlide,
+    dataListGroups,
+    slidesRef,
+    indicatorPreviousRef,
+    indicatorNextRef,
+  } = useSlideshowAnimation<
+    HomeFairsContentfulType | HomeExhibitionsContentfulType
+  >({
+    slideshowColNumber: 1,
+    dataList: mergedData,
+  });
+
+  const detailsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const dashRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  const handleSlideChange = (direction: 1 | -1) => {
+    const currentDetails = detailsRef.current[currentIndex];
+
+    let nextIndex: number;
+
+    if (slidesRef.current[currentIndex + direction]) {
+      nextIndex = currentIndex + direction;
     } else {
-      setCurrentIndex(numItems - 1);
+      nextIndex = direction > 0 ? 0 : numSlides - 1;
     }
-  };
-  const onNextClick = () => {
-    if (currentIndex < numItems - 1) {
-      setCurrentIndex(currentIndex + 1);
-    } else {
-      setCurrentIndex(0);
+
+    const nextDetails = detailsRef.current[nextIndex];
+    const nextDash = dashRef.current[nextIndex];
+
+    const SLIDES_DURATION = 1.25;
+    const FADE_DURATION = SLIDES_DURATION / 2;
+    const DASH_DURATION = SLIDES_DURATION / 2;
+
+    // Fade out current details
+    gsap.to(currentDetails, {
+      opacity: 0,
+      duration: FADE_DURATION,
+      ease: "sine.inOut",
+    });
+
+    // Fade in next details
+    gsap.fromTo(
+      nextDetails,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: FADE_DURATION,
+        delay: SLIDES_DURATION,
+        ease: "sine.inOut",
+      },
+    );
+
+    if (nextDash) {
+      gsap.fromTo(
+        nextDash,
+        { width: 0 },
+        {
+          width: "1.25rem",
+          duration: DASH_DURATION,
+          delay: SLIDES_DURATION + DASH_DURATION, // Start after details fade in
+          ease: "power2.out",
+        },
+      );
     }
+
+    gotoSlide(direction);
   };
 
-  const isExhibition = "artistsCollection" in mergedData[currentIndex];
   const getStatusLabel = (
     startDate: string,
     endDate: string,
@@ -64,56 +120,123 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
     const typeLabel = type === "exhibition" ? "Exhibition" : "Fair";
     return isCurrent ? `Current ${typeLabel}` : `Upcoming ${typeLabel}`;
   };
-  const statusLabel = getStatusLabel(
-    mergedData[currentIndex].startDate,
-    mergedData[currentIndex].endDate,
-    isExhibition ? "exhibition" : "fair",
-  );
+
+  useEffect(() => {
+    if (isPlaying) {
+      const AUTO_ADVANCE_INTERVAL = 7500;
+      intervalRef.current = setInterval(() => {
+        handleSlideChange(1);
+      }, AUTO_ADVANCE_INTERVAL);
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [currentIndex, isPlaying]);
 
   return (
     <div className={styles.container}>
-      <div
-        className={styles.imageContainer}
-        style={{
-          backgroundImage: `url(${mergedData[currentIndex].heroImage.url})`,
-        }}
-      >
-        <div className={styles.detailsContainer}>
-          <div className={styles.detailsBox}>
-            <div className={styles.detailsLabel}>{statusLabel}</div>
-            <div className={styles.detailsTitleContainer}>
-              {isExhibition && <div className={styles.detailsDash} />}
-              <div>
-                <h3 className={styles.detailsTitle}>
-                  {mergedData[currentIndex].title}
-                </h3>
-                <h3 className={styles.detailsArtist}>
-                  {"artistsCollection" in mergedData[currentIndex]
-                    ? artistNameDisplay(
-                        (
-                          mergedData[
-                            currentIndex
-                          ] as HomeExhibitionsContentfulType
-                        ).artistsCollection.items,
-                      )
-                    : ""}
-                </h3>
+      <div className={styles.imageContainer}>
+        {dataListGroups.map((group, slideIndex) => {
+          const item = group[0];
+
+          return (
+            <div
+              key={`slide-${slideIndex}`}
+              ref={(el) => {
+                slidesRef.current[slideIndex] = el;
+              }}
+              className={styles.slideContainer}
+            >
+              <Image
+                src={item.heroImage.url}
+                alt={item.heroImage.title}
+                width={1000}
+                height={1000}
+                className={styles.image}
+              />
+            </div>
+          );
+        })}
+
+        {dataListGroups.map((group, slideIndex) => {
+          const item = group[0];
+          const isExhibition = "artistsCollection" in item;
+          const statusLabel = getStatusLabel(
+            item.startDate,
+            item.endDate,
+            isExhibition ? "exhibition" : "fair",
+          );
+
+          return (
+            <div
+              key={`details-${slideIndex}`}
+              ref={(el) => {
+                detailsRef.current[slideIndex] = el;
+              }}
+              className={styles.detailsContainer}
+              style={{ opacity: slideIndex === 0 ? 1 : 0 }}
+            >
+              <div className={styles.detailsBox}>
+                <div className={styles.detailsLabel}>{statusLabel}</div>
+                <div className={styles.detailsTitleContainer}>
+                  {isExhibition && (
+                    <div className={styles.detailsDashContainer}>
+                      <div
+                        ref={(el) => {
+                          dashRef.current[slideIndex] = el;
+                        }}
+                        className={styles.detailsDash}
+                        style={{ width: slideIndex === 0 ? "1.25rem" : 0 }}
+                      />
+                    </div>
+                  )}
+                  <div className={styles.detailsTextWrapper}>
+                    <div className={styles.detailsTextOverflow}>
+                      <h3 className={styles.detailsTitle}>{item.title}</h3>
+                    </div>
+                    <div className={styles.detailsTextOverflow}>
+                      <h3 className={styles.detailsArtist}>
+                        {"artistsCollection" in item
+                          ? artistNameDisplay(
+                              (item as HomeExhibitionsContentfulType)
+                                .artistsCollection.items,
+                            )
+                          : ""}
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.detailsDate}>
+                  {formatDate(item.startDate)} — {formatDate(item.endDate)}
+                </div>
               </div>
             </div>
-            <div className={styles.detailsDate}>
-              {formatDate(mergedData[currentIndex].startDate)} —{" "}
-              {formatDate(mergedData[currentIndex].endDate)}
-            </div>
-          </div>
-        </div>
-        {numExhibitions > 1 && (
+          );
+        })}
+
+        {numSlides > 1 && (
           <SlideshowIndicator
-            numItems={numItems}
+            numItems={numSlides}
             currentIndex={currentIndex}
-            onPreviousClick={onPreviousClick}
-            onNextClick={onNextClick}
+            onPreviousClick={() => handleSlideChange(-1)}
+            onNextClick={() => handleSlideChange(1)}
             classNameIndicator={styles.indicatorContainer}
             classNameArrows={styles.arrowsContainer}
+            indicatorPreviousRef={indicatorPreviousRef}
+            indicatorNextRef={indicatorNextRef}
+            pausePlayIcon={{
+              display: true,
+              isPlaying: isPlaying,
+              onPlayClick: () => setIsPlaying(true),
+              onPauseClick: () => setIsPlaying(false),
+            }}
           />
         )}
       </div>
