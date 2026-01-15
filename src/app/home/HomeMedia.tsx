@@ -1,6 +1,4 @@
-import Image from "next/image";
 import HomeSectionLayout from "./components/HomeSectionLayout";
-import HomeSlideshowLayout from "./components/HomeSlideshowLayout";
 import styles from "./HomeMedia.module.css";
 import { fetchMedia, MediaContentfulType } from "./utils/fetchMedia";
 

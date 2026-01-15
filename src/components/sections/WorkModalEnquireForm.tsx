@@ -1,23 +1,23 @@
 "use client";
-import { useEffect, useState } from "react";
-import { WorkType } from "./Work";
+import { useState } from "react";
 import styles from "./WorksSection.module.css";
+import type { WorkContentfulType } from "@/app/fair/[slug]/utils/fetchFair";
 
 type WorkModalEnquireFormProps = {
-  work: WorkType;
+  work: WorkContentfulType;
 };
 
 const WorkModalEnquireForm = ({ work }: WorkModalEnquireFormProps) => {
   const { title, details, artist } = work;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  useEffect(() => {
-    setMessage(`I would like to enquire about the work ${title} by ${artist?.name}.
+  const [message, setMessage] = useState(
+    `I would like to enquire about the work ${title} by ${artist?.name}.
 
 With the following details: 
-${details}`);
-  }, [work]);
+${details}`,
+  );
+
   return (
     <form>
       <div className={styles.enquireFormGroup}>

@@ -138,7 +138,7 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
         clearInterval(intervalRef.current);
       }
     };
-  }, [currentIndex, isPlaying]);
+  }, [currentIndex, isPlaying]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className={styles.container}>

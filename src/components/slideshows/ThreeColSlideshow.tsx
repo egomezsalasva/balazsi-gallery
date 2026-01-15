@@ -1,6 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
-import SlideshowIndicator from "./SlideshowIndicator";
 import Image from "next/image";
 import DateLabel from "../DateLabel";
 import ReadMoreBtn from "../ReadMoreBtn";

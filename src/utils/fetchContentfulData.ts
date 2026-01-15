@@ -1,6 +1,6 @@
 export const fetchContentfulData = async (
   query: string,
-  variables?: Record<string, any>,
+  variables?: Record<string, unknown>,
 ) => {
   const res = await fetch(
     `https://graphql.contentful.com/content/v1/spaces/${process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID}`,

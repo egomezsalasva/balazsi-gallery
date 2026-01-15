@@ -4,14 +4,13 @@ import SlideshowIndicator from "./SlideshowIndicator";
 import { NewsPostContentfulType } from "@/app/news/[slug]/utils/fetchNewsPost";
 import styles from "./OneColSlideshow.module.css";
 import useSlideshowAnimation from "./utils/useSlideshowAnimation";
-import SlideshowLayout from "./SlideshowLayout";
 
 type OneColSlideshowProps = {
   additionalImages: NewsPostContentfulType["additionalImagesCollection"]["items"];
 };
 
 const OneColSlideshow = ({ additionalImages }: OneColSlideshowProps) => {
-  const SLIDESHOW_ITEM_WIDTH = 1; // Single column
+  const SLIDESHOW_ITEM_WIDTH = 1;
 
   const {
     numSlides,

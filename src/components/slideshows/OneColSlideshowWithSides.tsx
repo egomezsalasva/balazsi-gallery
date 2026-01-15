@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SlideshowIndicator from "./SlideshowIndicator";
 import styles from "./OneColSlideshowWithSides.module.css";
 
@@ -12,22 +12,11 @@ const OneColSlideshowWithSides = ({
   images,
 }: OneColSlideshowWithSidesProps) => {
   const numItems = images.length;
-  const [previousIndex, setPreviousIndex] = useState(numItems - 1);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [nextIndex, setNextIndex] = useState(1);
 
-  useEffect(() => {
-    if (currentIndex === 0) {
-      setPreviousIndex(images.length - 1);
-    } else {
-      setPreviousIndex(currentIndex - 1);
-    }
-    if (currentIndex === images.length - 1) {
-      setNextIndex(0);
-    } else {
-      setNextIndex(currentIndex + 1);
-    }
-  }, [currentIndex]);
+  const previousIndex =
+    currentIndex === 0 ? images.length - 1 : currentIndex - 1;
+  const nextIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
 
   return (
     <div className={styles.container}>

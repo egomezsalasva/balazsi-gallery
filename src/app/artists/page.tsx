@@ -15,10 +15,12 @@ export const metadata: Metadata = {
 export default async function Artists() {
   const exhibitions = await fetchExhibitionsForArtists();
   const soloArtistsExhibitions = exhibitions.filter(
-    (exhibition: any) => exhibition.artistsCollection.items.length === 1,
+    (exhibition: ExhibitionForArtistsContentfulType) =>
+      exhibition.artistsCollection.items.length === 1,
   );
   const groupArtists = exhibitions.filter(
-    (exhibition: any) => exhibition.artistsCollection.items.length > 1,
+    (exhibition: ExhibitionForArtistsContentfulType) =>
+      exhibition.artistsCollection.items.length > 1,
   );
 
   // Create a map of unique artists with their most recent exhibition date
