@@ -1,5 +1,5 @@
 import styles from "./layout.module.css";
-import { NavLink } from "@/components/Header";
+import NavLink from "@/components/header/NavLink";
 
 const ExhibitionsLayout = ({ children }: { children: React.ReactNode }) => {
   return (

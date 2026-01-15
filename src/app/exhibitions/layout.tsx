@@ -1,6 +1,6 @@
 import { fetchContentfulData } from "@/utils/fetchContentfulData";
 import styles from "./layout.module.css";
-import { NavLink } from "@/components/Header";
+import NavLink from "@/components/header/NavLink";
 import { getByStatus } from "@/utils/getByStatus";
 
 const EXHIBITIONS_QUERY = `
