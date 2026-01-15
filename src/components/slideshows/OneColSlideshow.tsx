@@ -1,50 +1,66 @@
 "use client";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import SlideshowIndicator from "./SlideshowIndicator";
 import { NewsPostContentfulType } from "@/app/news/[slug]/utils/fetchNewsPost";
 import styles from "./OneColSlideshow.module.css";
+import useSlideshowAnimation from "./utils/useSlideshowAnimation";
+import SlideshowLayout from "./SlideshowLayout";
 
 type OneColSlideshowProps = {
   additionalImages: NewsPostContentfulType["additionalImagesCollection"]["items"];
 };
 
 const OneColSlideshow = ({ additionalImages }: OneColSlideshowProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const handlePreviousClick = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    } else {
-      setCurrentIndex(additionalImages.length - 1);
-    }
-  };
-  const handleNextClick = () => {
-    if (currentIndex < additionalImages.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    } else {
-      setCurrentIndex(0);
-    }
-  };
-  useEffect(() => {
-    setCurrentIndex(currentIndex);
-  }, [currentIndex]);
+  const SLIDESHOW_ITEM_WIDTH = 1; // Single column
+
+  const {
+    numSlides,
+    currentIndex,
+    gotoSlide,
+    dataListGroups,
+    slidesRef,
+    indicatorPreviousRef,
+    indicatorNextRef,
+  } = useSlideshowAnimation<
+    NewsPostContentfulType["additionalImagesCollection"]["items"][0]
+  >({
+    slideshowColNumber: SLIDESHOW_ITEM_WIDTH,
+    dataList: additionalImages,
+  });
 
   return (
     <div className={styles.additionalImagesContainer}>
-      <Image
-        src={additionalImages[currentIndex].url}
-        alt={additionalImages[currentIndex].title}
-        width={1000}
-        height={1000}
-        className={styles.additionalImage}
-      />
+      <div className={styles.slideshowWrapper}>
+        {dataListGroups.map((group, slideIndex) => (
+          <div
+            key={`slide-${slideIndex}`}
+            ref={(el) => {
+              slidesRef.current[slideIndex] = el;
+            }}
+            className={styles.slideshowDisplayContainer}
+          >
+            {group.map((image) => (
+              <Image
+                key={image.url}
+                src={image.url}
+                alt={image.title}
+                width={1000}
+                height={1000}
+                className={styles.additionalImage}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
       <SlideshowIndicator
-        numItems={additionalImages.length}
+        numItems={numSlides}
         classNameIndicator={styles.indicator}
         classNameArrows={styles.arrows}
-        onPreviousClick={handlePreviousClick}
-        onNextClick={handleNextClick}
+        onPreviousClick={() => gotoSlide(-1)}
+        onNextClick={() => gotoSlide(1)}
         currentIndex={currentIndex}
+        indicatorPreviousRef={indicatorPreviousRef}
+        indicatorNextRef={indicatorNextRef}
       />
     </div>
   );
