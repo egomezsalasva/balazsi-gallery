@@ -24,6 +24,7 @@
   top: 4.5rem;
   margin-top: 3.5rem;
   align-self: start;
+  background: #fff;
 }
 
 .activeNavLink {
@@ -49,4 +50,33 @@
   width: 8px;
   margin-right: 3px;
   margin-left: 12px;
+}
+
+@media (max-width: 1025px) {
+  .container {
+    padding: var(--padding-medium);
+  }
+
+  .exhibitionsHeader {
+    grid-column: 1 / 13;
+    order: 1;
+    justify-content: center;
+    top: 3.5rem;
+    margin-top: 0;
+    padding: 0.5rem 0;
+  }
+
+  .exhibitions {
+    grid-column: 2 / 12;
+    order: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-small);
+  }
+  .exhibitions {
+    grid-column: 1 / 13;
+  }
 }
