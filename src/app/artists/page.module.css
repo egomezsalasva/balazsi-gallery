@@ -35,3 +35,22 @@
   grid-template-columns: repeat(12, 1fr);
   gap: 1rem;
 }
+
+@media (max-width: 1025px) {
+  .container {
+    padding: var(--padding-medium);
+  }
+  .soloArtistTitle {
+    grid-column: 1 / 13;
+    text-align: center;
+  }
+  .groupArtistTitle {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-small);
+  }
+}

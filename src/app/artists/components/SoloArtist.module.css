@@ -52,3 +52,23 @@
 .birthInfo {
   margin-bottom: 1rem;
 }
+
+@media (max-width: 1025px) {
+  .imageContainer {
+    grid-column: 2 / 12;
+    order: 1;
+  }
+  .detailsContainer {
+    grid-column: 2 / 12;
+    order: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .imageContainer {
+    grid-column: 1 / 13;
+  }
+  .detailsContainer {
+    grid-column: 1 / 13;
+  }
+}
