@@ -7,12 +7,12 @@
   min-height: 100vh;
 }
 
-.exhibitions {
+.fairs {
   grid-column: 1 / 10;
   margin-top: 3.5rem;
 }
 
-.exhibitionsHeader {
+.fairsHeader {
   grid-column: 10 / 13;
   display: flex;
   justify-content: end;
@@ -24,6 +24,7 @@
   top: 4.5rem;
   margin-top: 3.5rem;
   align-self: start;
+  background: #fff;
 }
 
 .activeNavLink {
@@ -32,21 +33,59 @@
   color: rgba(0, 0, 0, 1);
 }
 
-.exhibitionsHeader a {
+.fairsHeader a {
   display: flex;
   align-items: center;
   transition: color 0.2s ease-in-out;
 }
 
-.exhibitionsHeader a:hover {
+.fairsHeader a:hover {
   color: rgba(0, 0, 0, 1);
 }
 
-.exhibitionsHeader span {
+.fairsHeader span {
   display: inline-block;
   background: #fff;
   height: 2px;
   width: 8px;
   margin-right: 3px;
   margin-left: 12px;
+}
+
+@media (max-width: 1280px) {
+  .fairsHeader {
+    grid-column: 9 / 13;
+  }
+  .fairs {
+    grid-column: 1 / 9;
+  }
+}
+
+@media (max-width: 1025px) {
+  .container {
+    padding: var(--padding-medium);
+  }
+
+  .fairsHeader {
+    grid-column: 1 / 13;
+    order: 1;
+    justify-content: center;
+    top: 3.5rem;
+    margin-top: 0;
+    padding: 0.5rem 0;
+  }
+
+  .fairs {
+    grid-column: 2 / 12;
+    order: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-small);
+  }
+  .fairs {
+    grid-column: 1 / 13;
+  }
 }
