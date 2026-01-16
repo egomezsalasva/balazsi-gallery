@@ -37,6 +37,9 @@
   padding-right: 0.5rem;
   box-sizing: border-box;
   opacity: 0;
+  will-change: transform;
+  transform: translate3d(0, 0, 0); /* Force GPU acceleration */
+  backface-visibility: hidden;
 }
 
 .exhibitionsSlideshowDisplayContainer > div {

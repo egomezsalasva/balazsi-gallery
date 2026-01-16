@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { animateSlides, initializeSlidesAnimation } from "./animateSlides";
 import {
   animateIndicator,
@@ -59,14 +59,19 @@ const useSlideshowAnimation = <T>({
       EASE,
       direction,
       isTweeningRef,
+      onComplete: () => {
+        setCurrentIndex(nextIndex);
+      },
     });
-    setCurrentIndex(nextIndex);
   };
 
-  const dataListGroups = [];
-  for (let i = 0; i < dataList.length; i += slideshowColNumber) {
-    dataListGroups.push(dataList.slice(i, i + slideshowColNumber));
-  }
+  const dataListGroups = useMemo(() => {
+    const groups = [];
+    for (let i = 0; i < dataList.length; i += slideshowColNumber) {
+      groups.push(dataList.slice(i, i + slideshowColNumber));
+    }
+    return groups;
+  }, [dataList, slideshowColNumber]);
 
   return {
     numSlides,

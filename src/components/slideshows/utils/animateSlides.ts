@@ -41,7 +41,8 @@ export const animateSlides = ({
   EASE,
   direction,
   isTweeningRef,
-}: AnimateSlidesProps) => {
+  onComplete,
+}: AnimateSlidesProps & { onComplete?: () => void }) => {
   const currentSlide = slidesRef.current[currentIndex];
   const nextSlide = slidesRef.current[nextIndex];
 
@@ -69,6 +70,7 @@ export const animateSlides = ({
     ease: EASE,
     onComplete: () => {
       isTweeningRef.current = false;
+      onComplete?.(); // Call state update here
     },
   });
 };

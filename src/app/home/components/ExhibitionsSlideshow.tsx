@@ -37,6 +37,8 @@ const SlideshowItem = ({
         width={1200}
         height={1000}
         className={styles.slideshowImage}
+        priority
+        loading="eager"
       />
       <div>
         <div className={styles.slideshowStatus}>{status}</div>
