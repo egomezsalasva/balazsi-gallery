@@ -134,7 +134,7 @@
 
 @media (max-width: 1025px) {
   .imageContainer {
-    padding: 2rem;
+    padding: var(--padding-medium);
   }
   .slideContainer {
     padding: 2rem;
@@ -148,14 +148,14 @@
 
 @media (max-width: 640px) {
   .imageContainer {
-    padding: 1rem;
+    padding: var(--padding-small);
   }
   .slideContainer {
-    padding: 1rem;
+    padding: var(--padding-small);
   }
   .image {
-    width: calc(100% + 2rem);
-    height: calc(100% + 1rem);
-    margin-left: -1rem;
+    width: calc(100% + (var(--padding-small) * 2));
+    height: calc(100% + var(--padding-small));
+    margin-left: calc(-1 * var(--padding-small));
   }
 }

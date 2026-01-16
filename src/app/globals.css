@@ -1,6 +1,10 @@
 :root {
   --font-display: "Test American Grotesk", Arial, Helvetica, sans-serif;
   --font-body: "Haas Grot Disp R Trial", Arial, Helvetica, sans-serif;
+
+  --padding-small: 1.5rem;
+  --padding-medium: 2rem;
+  --padding-large: 3.5rem;
 }
 
 html,
