@@ -1,3 +1,11 @@
+.twoColumnSlideshow {
+  display: block;
+}
+
+.oneColumnSlideshow {
+  display: none;
+}
+
 .exhibitionsSlideshowContainer {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -91,4 +99,18 @@
   grid-column: 11 / 12;
   grid-row: 12 / 13;
   width: calc(100% + 1rem);
+}
+
+@media (max-width: 1025px) {
+  .twoColumnSlideshow {
+    display: none;
+  }
+
+  .oneColumnSlideshow {
+    display: block;
+  }
+
+  .oneColumnSlideshow .exhibitionsSlideshowLeftContainer {
+    grid-column: 1 / 13;
+  }
 }

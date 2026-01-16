@@ -1,3 +1,15 @@
+.threeColumnSlideshow {
+  display: block;
+}
+
+.twoColumnSlideshow {
+  display: none;
+}
+
+.oneColumnSlideshow {
+  display: none;
+}
+
 .newsSlideshowContainer {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -65,4 +77,38 @@
   font-weight: 500;
   line-height: 1.1;
   text-transform: uppercase;
+}
+
+@media (max-width: 1025px) {
+  .threeColumnSlideshow {
+    display: none;
+  }
+
+  .twoColumnSlideshow {
+    display: block;
+  }
+
+  /* Adjust column spans for 2-column layout */
+  .twoColumnSlideshow .newsSlideshowLeftContainer {
+    grid-column: 1 / 7; /* 6 columns */
+  }
+
+  .twoColumnSlideshow .newsSlideshowCenterContainer {
+    grid-column: 7 / 13; /* 6 columns */
+  }
+}
+
+@media (max-width: 768px) {
+  .twoColumnSlideshow {
+    display: none;
+  }
+
+  .oneColumnSlideshow {
+    display: block;
+  }
+
+  /* Full width for 1-column layout */
+  .oneColumnSlideshow .newsSlideshowLeftContainer {
+    grid-column: 1 / 13; /* full width */
+  }
 }

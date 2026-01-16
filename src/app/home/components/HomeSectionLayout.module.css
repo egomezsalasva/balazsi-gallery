@@ -6,7 +6,6 @@
 /* first container should have no padding-top */
 .container:first-child {
   padding-top: 0;
-  background: red;
 }
 
 .separatorLine {
@@ -34,4 +33,16 @@
 }
 .viewAllBtnContainer:hover {
   color: rgba(0, 0, 0, 1);
+}
+
+@media (max-width: 1025px) {
+  .container {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
 }
