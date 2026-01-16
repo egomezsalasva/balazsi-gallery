@@ -33,3 +33,23 @@
   height: 35rem;
   object-fit: cover;
 }
+
+@media (max-width: 1025px) {
+  .container {
+    padding: var(--padding-medium);
+  }
+  .contentContainer {
+    grid-column: 1 / 13;
+  }
+  .imageContainer {
+    grid-column: 1 / 13;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-small);
+  }
+}

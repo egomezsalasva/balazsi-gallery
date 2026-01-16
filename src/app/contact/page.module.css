@@ -76,3 +76,66 @@
   font-weight: 500;
   line-height: 1.1;
 }
+
+@media (max-width: 1025px) {
+  .container {
+    padding: var(--padding-medium);
+  }
+  .contentContainer {
+    grid-column: 1 / 13;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+  }
+  .contentContainer h1 {
+    grid-column: 1 / 13;
+  }
+  .contactInfoContainer {
+    grid-column: 1 / 6;
+    margin-top: 0;
+  }
+  .contactLinksContainer {
+    grid-column: 6 / 13;
+  }
+
+  .mapContainer {
+    grid-column: 1 / 13;
+    margin-top: 3rem;
+    height: 30rem;
+  }
+  .formInnerContainer {
+    grid-column: 2 / 12;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-small);
+  }
+  .contentContainer h1 {
+    grid-column: 1 / 13;
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+  .contactInfoContainer {
+    grid-column: 1 / 13;
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+  .contactLinksContainer {
+    grid-column: 1 / 13;
+    text-align: center;
+  }
+  .mapContainer {
+    grid-column: 1 / 13;
+    margin-top: 3rem;
+    height: 20rem;
+    margin-bottom: 1.25rem;
+  }
+  .formContainer {
+    margin-top: 5rem;
+  }
+  .formInnerContainer {
+    grid-column: 1 / 13;
+  }
+}

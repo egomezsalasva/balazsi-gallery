@@ -13,7 +13,7 @@ export default async function News() {
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
-        <h2 className={styles.soloArtistTitle}>News</h2>
+        <h2 className={styles.newsTitle}>News</h2>
       </div>
       <div className={styles.eventSectionContainer}>
         {news.map((newsItem: NewsContentfulType) => (

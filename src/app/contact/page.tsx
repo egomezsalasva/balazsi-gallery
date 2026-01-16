@@ -54,7 +54,7 @@ export default function Contact() {
               </p>
             </ContactInfo>
           </div>
-          <div>
+          <div className={styles.contactLinksContainer}>
             <ContactLink
               emailHref="mailto:info@balazsi.com"
               email="info@balazsi.com"

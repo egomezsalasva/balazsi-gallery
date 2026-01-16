@@ -13,7 +13,7 @@ export default async function Events() {
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
-        <h2 className={styles.soloArtistTitle}>Events</h2>
+        <h2 className={styles.eventTitle}>Events</h2>
       </div>
       <div className={styles.eventSectionContainer}>
         {events.map((event: EventContentfulType) => (

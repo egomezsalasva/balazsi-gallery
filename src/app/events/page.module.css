@@ -14,10 +14,26 @@
   z-index: 10;
 }
 
-.soloArtistTitle {
+.eventTitle {
   grid-column: 1 / 5;
   font-size: 1.75rem;
   line-height: 3.5rem;
   text-transform: uppercase;
   background: #fff;
+}
+
+@media (max-width: 1025px) {
+  .container {
+    padding: var(--padding-medium);
+  }
+  .eventTitle {
+    grid-column: 1 / 13;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-small);
+  }
 }
