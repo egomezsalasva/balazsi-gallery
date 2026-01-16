@@ -1,9 +1,11 @@
 .twoColumnSlideshow {
   display: block;
+  touch-action: pan-y pinch-zoom;
 }
 
 .oneColumnSlideshow {
   display: none;
+  touch-action: pan-y pinch-zoom;
 }
 
 .exhibitionsSlideshowContainer {
