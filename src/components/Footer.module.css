@@ -139,6 +139,8 @@
 @media (max-width: 768px) {
   .container {
     padding: var(--padding-small);
+    min-height: calc(100lvh - 3.5rem);
+    align-content: space-evenly;
   }
 
   .footerNewsletterContainer {
