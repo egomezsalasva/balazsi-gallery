@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import styles from "./WorksSection.module.css";
+import styles from "./WorkModalEnquireForm.module.css";
 import type { WorkContentfulType } from "@/app/fair/[slug]/utils/fetchFair";
 
 type WorkModalEnquireFormProps = {

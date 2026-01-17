@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { WorkType } from "./Work";
 import ReactMarkdown from "react-markdown";
-import styles from "./WorksSection.module.css";
 import Cross from "../Cross";
 import WorkModalEnquireForm from "./WorkModalEnquireForm";
+import styles from "./WorkModal.module.css";
 
 type WorkModalProps = {
   work: WorkType;
@@ -33,6 +33,11 @@ const WorkEnquireModal = ({
       <div className={styles.enquireContent}>
         <h3>Enquire</h3>
         <WorkModalEnquireForm work={work} />
+        <div className={styles.detailsBtnContainer}>
+          <button className={styles.detailsBtn} onClick={handleEnquireClose}>
+            View Details
+          </button>
+        </div>
       </div>
     </div>
   );
