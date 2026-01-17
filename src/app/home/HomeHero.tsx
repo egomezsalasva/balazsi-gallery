@@ -73,6 +73,17 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
     const FADE_DURATION = SLIDES_DURATION / 2;
     const DASH_DURATION = SLIDES_DURATION / 2;
 
+    // Kill any existing animations to prevent conflicts and stuck states
+    gsap.killTweensOf(detailsRef.current);
+    gsap.killTweensOf(dashRef.current);
+
+    // Immediately set all other details to opacity 0 to prevent stuck text
+    detailsRef.current.forEach((detail, index) => {
+      if (index !== currentIndex && index !== nextIndex && detail) {
+        gsap.set(detail, { opacity: 0 });
+      }
+    });
+
     // Fade out current details
     gsap.to(currentDetails, {
       opacity: 0,
