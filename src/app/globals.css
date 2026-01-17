@@ -1,3 +1,35 @@
+@font-face {
+  font-family: "Test American Grotesk";
+  src: url("/fonts/TestAmericanGrotesk-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Test American Grotesk";
+  src: url("/fonts/TestAmericanGrotesk-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Test American Grotesk";
+  src: url("/fonts/TestAmericanGrotesk-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Haas Grot Disp R Trial";
+  src: url("/fonts/neuehaasgrotdispround-65medium-trial.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --font-display: "Test American Grotesk", Arial, Helvetica, sans-serif;
   --font-body: "Haas Grot Disp R Trial", Arial, Helvetica, sans-serif;
