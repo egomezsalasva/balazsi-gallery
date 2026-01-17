@@ -73,3 +73,14 @@
   text-decoration: underline;
   text-underline-offset: 0.25rem;
 }
+
+@media (max-width: 1025px) {
+  .imageContainer {
+    grid-column: 1 / 13;
+    order: 1;
+  }
+  .infoContainer {
+    grid-column: 1 / 13;
+    order: 2;
+  }
+}

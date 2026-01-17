@@ -3,3 +3,15 @@
   padding: 3.5rem;
   min-height: 100vh;
 }
+
+@media (max-width: 1025px) {
+  .container {
+    padding: var(--padding-medium);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-small);
+  }
+}
