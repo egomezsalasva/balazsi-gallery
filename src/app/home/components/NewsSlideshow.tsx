@@ -3,8 +3,8 @@ import useSlideshowAnimation from "@/components/slideshows/utils/useSlideshowAni
 import { HomeNewsContentfulType } from "../utils/fetchHomeNews";
 import HomeSlideshowLayout from "./HomeSlideshowLayout";
 import { useSwipeGesture } from "@/components/slideshows/utils/useSwipeGesture";
-import styles from "../HomeNews.module.css";
 import Link from "next/link";
+import styles from "../HomeNews.module.css";
 
 type SlideshowItemType = {
   img: {
