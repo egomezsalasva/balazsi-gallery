@@ -17,6 +17,16 @@
   gap: 1rem;
 }
 
+.slideTitle {
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.readMoreBtnContainer {
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
 .exhibitionsSlideshowContentContainer {
   grid-column: 1 / 13;
   grid-row: 1 / 12;

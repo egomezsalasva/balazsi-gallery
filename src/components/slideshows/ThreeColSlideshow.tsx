@@ -44,12 +44,16 @@ const SlideshowItem = ({
         height={1000}
         className={styles.fairImage}
       />
-      <h3 className={styles.fair_title}>{slideItem.title}</h3>
+      <h3 className={`slideshowTitle ${styles.slideTitle}`}>
+        {slideItem.title}
+      </h3>
       <DateLabel
         startDate={slideItem.startDate}
         endDate={slideItem.endDate ? slideItem.endDate : undefined}
       />
-      <ReadMoreBtn href={`${urlPrefix}/${slideItem.slug}`} title={btnLabel} />
+      <div className={styles.readMoreBtnContainer}>
+        <ReadMoreBtn href={`${urlPrefix}/${slideItem.slug}`} title={btnLabel} />
+      </div>
     </div>
   );
 };

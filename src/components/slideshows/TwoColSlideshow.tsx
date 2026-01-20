@@ -36,15 +36,19 @@ const SlideshowItem = ({ exhibition }: SlideshowItemProps) => {
         height={1000}
         className={styles.exhibitionImage}
       />
-      <h3>{exhibition.title}</h3>
+      <h3 className={`slideshowTitle ${styles.slideTitle}`}>
+        {exhibition.title}
+      </h3>
       <DateLabel
         startDate={exhibition.startDate}
         endDate={exhibition.endDate}
       />
-      <ReadMoreBtn
-        href={`/exhibition/${exhibition.slug}`}
-        title="View Exhibition +"
-      />
+      <div className={styles.readMoreBtnContainer}>
+        <ReadMoreBtn
+          href={`/exhibition/${exhibition.slug}`}
+          title="View Exhibition +"
+        />
+      </div>
     </div>
   );
 };

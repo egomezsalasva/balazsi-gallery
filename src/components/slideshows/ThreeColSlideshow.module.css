@@ -10,6 +10,16 @@
   margin-bottom: 1.5rem;
 }
 
+.slideTitle {
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.readMoreBtnContainer {
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
 .fairsSlideshowContainer {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
