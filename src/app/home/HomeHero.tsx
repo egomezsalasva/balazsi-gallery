@@ -11,6 +11,7 @@ import { artistNameDisplay } from "../exhibitions/utils/artistNameDisplay";
 import { formatDate } from "@/utils/formatDate";
 import Image from "next/image";
 import useSlideshowAnimation from "@/components/slideshows/utils/useSlideshowAnimation";
+import Link from "next/link";
 
 type HomeHeroData = {
   exhibitions: HomeExhibitionsContentfulType[];
@@ -192,9 +193,15 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
                 detailsRef.current[slideIndex] = el;
               }}
               className={styles.detailsContainer}
-              style={{ opacity: slideIndex === 0 ? 1 : 0 }}
+              style={{
+                opacity: slideIndex === 0 ? 1 : 0,
+                pointerEvents: slideIndex === currentIndex ? "auto" : "none",
+              }}
             >
-              <div className={styles.detailsBox}>
+              <Link
+                href={`/${isExhibition ? "exhibition" : "fair"}/${item.slug}`}
+                className={styles.detailsBox}
+              >
                 <div className={styles.detailsLabel}>{statusLabel}</div>
                 <div className={styles.detailsTitleContainer}>
                   {isExhibition && (
@@ -227,7 +234,7 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
                 <div className={styles.detailsDate}>
                   {formatDate(item.startDate)} — {formatDate(item.endDate)}
                 </div>
-              </div>
+              </Link>
             </div>
           );
         })}

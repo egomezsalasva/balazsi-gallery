@@ -7,6 +7,7 @@ import HomeSlideshowLayout from "./HomeSlideshowLayout";
 import useSlideshowAnimation from "@/components/slideshows/utils/useSlideshowAnimation";
 import { useSwipeGesture } from "../../../components/slideshows/utils/useSwipeGesture";
 import styles from "../HomeExhibitions.module.css";
+import Link from "next/link";
 
 type SlideshowItemType = {
   img: {
@@ -103,12 +104,7 @@ const ExhibitionsSlideshow = ({
   };
 
   return (
-    <div
-      className={className}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
+    <div className={className}>
       <HomeSlideshowLayout
         numItems={numSlides}
         currentIndex={currentIndex}
@@ -124,9 +120,13 @@ const ExhibitionsSlideshow = ({
               slidesRef.current[slideIndex] = el;
             }}
             className={styles.exhibitionsSlideshowDisplayContainer}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
             {pair.map((exhibition, index) => (
-              <div
+              <Link
+                href={`/exhibition/${exhibition.slug}`}
                 key={exhibition.title + index}
                 className={getColStyles(index)}
               >
@@ -146,7 +146,7 @@ const ExhibitionsSlideshow = ({
                     endDate: exhibition.endDate,
                   }}
                 />
-              </div>
+              </Link>
             ))}
           </div>
         ))}

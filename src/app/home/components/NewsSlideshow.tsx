@@ -4,6 +4,7 @@ import { HomeNewsContentfulType } from "../utils/fetchHomeNews";
 import HomeSlideshowLayout from "./HomeSlideshowLayout";
 import { useSwipeGesture } from "@/components/slideshows/utils/useSwipeGesture";
 import styles from "../HomeNews.module.css";
+import Link from "next/link";
 
 type SlideshowItemType = {
   img: {
@@ -68,12 +69,7 @@ const NewsSlideshow = ({ news, colNumber, className }: NewsSlideshowProps) => {
   };
 
   return (
-    <div
-      className={className}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
+    <div className={className}>
       <HomeSlideshowLayout
         numItems={numSlides}
         currentIndex={currentIndex}
@@ -89,14 +85,21 @@ const NewsSlideshow = ({ news, colNumber, className }: NewsSlideshowProps) => {
               slidesRef.current[slideIndex] = el;
             }}
             className={styles.newsSlideshowDisplayContainer}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
             {group.map((item, index) => (
-              <div key={item.title + index} className={getColStyles(index)}>
+              <Link
+                href={`/news/${item.slug}`}
+                key={item.title + index}
+                className={getColStyles(index)}
+              >
                 <SlideshowItem
                   img={{ src: item.heroImage.url, alt: item.title }}
                   title={item.title}
                 />
-              </div>
+              </Link>
             ))}
           </div>
         ))}

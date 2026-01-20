@@ -30,14 +30,15 @@ const HomeSlideshowLayout = ({
     onPreviousClick,
   );
   return (
-    <div
-      className={styles.slideshowContainer}
-      style={styleContainer}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
-      <div className={styles.slideshowContentContainer}>{children}</div>
+    <div className={styles.slideshowContainer} style={styleContainer}>
+      <div
+        className={styles.slideshowContentContainer}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        {children}
+      </div>
       {indicator && (
         <SlideshowIndicator
           numItems={numItems}

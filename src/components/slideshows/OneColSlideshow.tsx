@@ -34,12 +34,7 @@ const OneColSlideshow = ({ additionalImages }: OneColSlideshowProps) => {
   );
 
   return (
-    <div
-      className={styles.additionalImagesContainer}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
+    <div className={styles.additionalImagesContainer}>
       <div className={styles.slideshowWrapper}>
         {dataListGroups.map((group, slideIndex) => (
           <div
@@ -48,6 +43,9 @@ const OneColSlideshow = ({ additionalImages }: OneColSlideshowProps) => {
               slidesRef.current[slideIndex] = el;
             }}
             className={styles.slideshowDisplayContainer}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
             {group.map((image) => (
               <Image
