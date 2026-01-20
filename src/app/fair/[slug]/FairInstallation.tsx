@@ -1,12 +1,13 @@
+import OneColSlideshow from "@/components/slideshows/OneColSlideshow";
 import { InstallationImageContentfulType } from "./utils/fetchFair";
-import OneColSlideshowWithSides from "@/components/slideshows/OneColSlideshowWithSides";
+// import OneColSlideshowWithSides from "@/components/slideshows/OneColSlideshowWithSides";
 
 type FairInstallationProps = {
   images: InstallationImageContentfulType[];
 };
 
 const FairInstallation = ({ images }: FairInstallationProps) => {
-  return <OneColSlideshowWithSides images={images} />;
+  return <OneColSlideshow additionalImages={images} />;
 };
 
 export default FairInstallation;
