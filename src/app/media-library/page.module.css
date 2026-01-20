@@ -28,6 +28,9 @@
 }
 
 @media (max-width: 1025px) {
+  .container {
+    padding: var(--padding-medium);
+  }
   .media:nth-child(2n + 1) {
     grid-column: 1 / 7;
   }
@@ -38,6 +41,9 @@
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: var(--padding-small);
+  }
   .media:nth-child(n) {
     grid-column: 1 / 13;
   }

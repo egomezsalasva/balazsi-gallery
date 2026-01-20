@@ -47,10 +47,16 @@
     margin-top: 1.5rem;
     margin-bottom: 2rem;
   }
+  .image {
+    height: 30rem;
+  }
 }
 
 @media (max-width: 768px) {
   .container {
     padding: var(--padding-small);
+  }
+  .image {
+    height: 17.5rem;
   }
 }

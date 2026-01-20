@@ -1,9 +1,10 @@
 "use client";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
-import styles from "./WorksSection.module.css";
 import WorkModal from "./WorkModal";
 import useWorkModal from "./useWorkModal";
+import WorkEnquireMobileModal from "./WorkEnquireMobileModal";
+import styles from "./WorksSection.module.css";
 
 export type WorkType = {
   slug: string;
@@ -30,10 +31,13 @@ const Work = ({ work }: WorkProps) => {
   const {
     workDetailOpen,
     enquireOpen,
+    enquireMobileOpen,
     handleWorkDetailOpen,
     handleWorkDetailClose,
     handleEnquireOpen,
     handleEnquireClose,
+    handleEnquireMobileOpen,
+    handleEnquireMobileClose,
   } = useWorkModal();
 
   return (
@@ -59,6 +63,12 @@ const Work = ({ work }: WorkProps) => {
               >
                 Enquire
               </button>
+              <button
+                className={styles.workEnquireBtnMobile}
+                onClick={handleEnquireMobileOpen}
+              >
+                Enquire
+              </button>
             </div>
           )}
         </div>
@@ -70,6 +80,11 @@ const Work = ({ work }: WorkProps) => {
         handleWorkDetailClose={handleWorkDetailClose}
         handleEnquireOpen={handleEnquireOpen}
         handleEnquireClose={handleEnquireClose}
+      />
+      <WorkEnquireMobileModal
+        work={work}
+        enquireMobileOpen={enquireMobileOpen}
+        handleEnquireMobileClose={handleEnquireMobileClose}
       />
     </div>
   );

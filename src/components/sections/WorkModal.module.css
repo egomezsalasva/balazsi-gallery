@@ -283,6 +283,10 @@
   .workDetailEnquireBtn {
     margin-top: 1.75rem;
   }
+
+  .enquireContainer {
+    grid-column: 3 / 13;
+  }
 }
 
 @media (max-width: 1025px) {
@@ -296,9 +300,6 @@
 
 @media (max-width: 768px) {
   .workDetailContainer {
-    padding: 0 var(--padding-small);
-  }
-  .workDetailBox {
-    width: calc(100% + var(--padding-small) + 1rem);
+    display: none;
   }
 }
