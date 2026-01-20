@@ -53,9 +53,17 @@ const SlideshowItem = ({ exhibition }: SlideshowItemProps) => {
   );
 };
 
-const TwoColSlideshow = ({ slideshowItems }: TwoColSlideshowProps) => {
-  const SLIDESHOW_ITEM_WIDTH = 2;
+type SlideshowContentProps = {
+  slideshowItems: slideshowItemType[];
+  colNumber: number;
+  className: string;
+};
 
+const SlideshowContent = ({
+  slideshowItems,
+  colNumber,
+  className,
+}: SlideshowContentProps) => {
   const {
     numSlides,
     currentIndex,
@@ -65,12 +73,21 @@ const TwoColSlideshow = ({ slideshowItems }: TwoColSlideshowProps) => {
     indicatorPreviousRef,
     indicatorNextRef,
   } = useSlideshowAnimation<slideshowItemType>({
-    slideshowColNumber: SLIDESHOW_ITEM_WIDTH,
+    slideshowColNumber: colNumber,
     dataList: slideshowItems,
   });
 
+  const colStyles = (index: number) => {
+    if (colNumber === 2) {
+      return index === 0 ? styles.exhibition_left : styles.exhibition_right;
+    } else if (colNumber === 1) {
+      return styles.exhibition_full;
+    }
+    return styles.exhibition_left;
+  };
+
   return (
-    <div className={styles.container}>
+    <div className={className}>
       <h2 className={styles.title}>Exhibitions</h2>
       <SlideshowLayout
         numItems={numSlides}
@@ -79,7 +96,7 @@ const TwoColSlideshow = ({ slideshowItems }: TwoColSlideshowProps) => {
         onNextClick={() => gotoSlide(1)}
         indicatorPreviousRef={indicatorPreviousRef}
         indicatorNextRef={indicatorNextRef}
-        indicator={slideshowItems.length > SLIDESHOW_ITEM_WIDTH}
+        indicator={slideshowItems.length > colNumber}
       >
         {dataListGroups.map((pair, slideIndex) => (
           <div
@@ -90,18 +107,30 @@ const TwoColSlideshow = ({ slideshowItems }: TwoColSlideshowProps) => {
             className={styles.exhibitionsSlideshowDisplayContainer}
           >
             {pair.map((exhibition, index) => (
-              <div
-                key={exhibition.title + index}
-                className={
-                  index === 0 ? styles.exhibition_left : styles.exhibition_right
-                }
-              >
+              <div key={exhibition.title + index} className={colStyles(index)}>
                 <SlideshowItem exhibition={exhibition} />
               </div>
             ))}
           </div>
         ))}
       </SlideshowLayout>
+    </div>
+  );
+};
+
+const TwoColSlideshow = ({ slideshowItems }: TwoColSlideshowProps) => {
+  return (
+    <div className={styles.container}>
+      <SlideshowContent
+        slideshowItems={slideshowItems}
+        colNumber={2}
+        className={styles.twoColumnSlideshow}
+      />
+      <SlideshowContent
+        slideshowItems={slideshowItems}
+        colNumber={1}
+        className={styles.oneColumnSlideshow}
+      />
     </div>
   );
 };

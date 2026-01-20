@@ -2,8 +2,9 @@
 import Image from "next/image";
 import SlideshowIndicator from "./SlideshowIndicator";
 import { NewsPostContentfulType } from "@/app/news/[slug]/utils/fetchNewsPost";
-import styles from "./OneColSlideshow.module.css";
 import useSlideshowAnimation from "./utils/useSlideshowAnimation";
+import { useSwipeGesture } from "./utils/useSwipeGesture";
+import styles from "./OneColSlideshow.module.css";
 
 type OneColSlideshowProps = {
   additionalImages: NewsPostContentfulType["additionalImagesCollection"]["items"];
@@ -27,8 +28,18 @@ const OneColSlideshow = ({ additionalImages }: OneColSlideshowProps) => {
     dataList: additionalImages,
   });
 
+  const { handleTouchStart, handleTouchMove, handleTouchEnd } = useSwipeGesture(
+    () => gotoSlide(1),
+    () => gotoSlide(-1),
+  );
+
   return (
-    <div className={styles.additionalImagesContainer}>
+    <div
+      className={styles.additionalImagesContainer}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className={styles.slideshowWrapper}>
         {dataListGroups.map((group, slideIndex) => (
           <div

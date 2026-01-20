@@ -4,9 +4,9 @@ import DateLabel from "@/components/DateLabel";
 import { HomeExhibitionsContentfulType } from "../utils/fetchHomeExhibitions";
 import { artistNameDisplay } from "../../exhibitions/utils/artistNameDisplay";
 import HomeSlideshowLayout from "./HomeSlideshowLayout";
-import styles from "../HomeExhibitions.module.css";
 import useSlideshowAnimation from "@/components/slideshows/utils/useSlideshowAnimation";
-import { useSwipeGesture } from "../utils/useSwipeGesture";
+import { useSwipeGesture } from "../../../components/slideshows/utils/useSwipeGesture";
+import styles from "../HomeExhibitions.module.css";
 
 type SlideshowItemType = {
   img: {

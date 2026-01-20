@@ -2,6 +2,14 @@
   margin: 7rem 0;
 }
 
+.twoColumnSlideshow {
+  display: block;
+}
+
+.oneColumnSlideshow {
+  display: none;
+}
+
 .title {
   font-size: 1.5rem;
   font-weight: 500;
@@ -82,4 +90,18 @@
 .arrowsContainer {
   grid-column: 12 / 13;
   width: 100%;
+}
+
+@media (max-width: 1025px) {
+  .twoColumnSlideshow {
+    display: none;
+  }
+
+  .oneColumnSlideshow {
+    display: block;
+  }
+
+  .exhibition_full {
+    grid-column: 1 / 13;
+  }
 }

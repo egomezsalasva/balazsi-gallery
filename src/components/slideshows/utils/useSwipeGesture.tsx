@@ -6,19 +6,19 @@ export const useSwipeGesture = (
 ) => {
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
-  const touchStartY = useRef<number>(0); // ADD THIS
-  const touchEndY = useRef<number>(0); // ADD THIS
+  const touchStartY = useRef<number>(0);
+  const touchEndY = useRef<number>(0);
 
   const SWIPE_THRESHOLD = 50;
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
-    touchStartY.current = e.touches[0].clientY; // ADD THIS
+    touchStartY.current = e.touches[0].clientY;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     touchEndX.current = e.touches[0].clientX;
-    touchEndY.current = e.touches[0].clientY; // ADD THIS
+    touchEndY.current = e.touches[0].clientY;
 
     // Calculate distances
     const deltaX = Math.abs(touchStartX.current - touchEndX.current);

@@ -1,8 +1,9 @@
+import Image from "next/image";
 import useSlideshowAnimation from "@/components/slideshows/utils/useSlideshowAnimation";
 import { HomeNewsContentfulType } from "../utils/fetchHomeNews";
 import HomeSlideshowLayout from "./HomeSlideshowLayout";
+import { useSwipeGesture } from "@/components/slideshows/utils/useSwipeGesture";
 import styles from "../HomeNews.module.css";
-import Image from "next/image";
 
 type SlideshowItemType = {
   img: {
@@ -47,6 +48,11 @@ const NewsSlideshow = ({ news, colNumber, className }: NewsSlideshowProps) => {
     dataList: news,
   });
 
+  const { handleTouchStart, handleTouchMove, handleTouchEnd } = useSwipeGesture(
+    () => gotoSlide(1),
+    () => gotoSlide(-1),
+  );
+
   const getColStyles = (index: number) => {
     if (colNumber === 1) return styles.newsSlideshowLeftContainer;
     if (colNumber === 2) {
@@ -62,7 +68,12 @@ const NewsSlideshow = ({ news, colNumber, className }: NewsSlideshowProps) => {
   };
 
   return (
-    <div className={className}>
+    <div
+      className={className}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <HomeSlideshowLayout
         numItems={numSlides}
         currentIndex={currentIndex}

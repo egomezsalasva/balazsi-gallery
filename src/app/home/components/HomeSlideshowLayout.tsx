@@ -1,4 +1,5 @@
 import SlideshowIndicator from "@/components/slideshows/SlideshowIndicator";
+import { useSwipeGesture } from "@/components/slideshows/utils/useSwipeGesture";
 import styles from "./HomeSlideshowLayout.module.css";
 
 type HomeSlideshowLayoutProps = {
@@ -24,8 +25,18 @@ const HomeSlideshowLayout = ({
   indicatorNextRef,
   styleContainer,
 }: HomeSlideshowLayoutProps) => {
+  const { handleTouchStart, handleTouchMove, handleTouchEnd } = useSwipeGesture(
+    onNextClick,
+    onPreviousClick,
+  );
   return (
-    <div className={styles.slideshowContainer} style={styleContainer}>
+    <div
+      className={styles.slideshowContainer}
+      style={styleContainer}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className={styles.slideshowContentContainer}>{children}</div>
       {indicator && (
         <SlideshowIndicator

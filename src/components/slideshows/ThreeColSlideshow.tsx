@@ -58,13 +58,23 @@ const SlideshowItem = ({
   );
 };
 
-const ThreeColSlideshow = ({
+type SlideshowContentProps = {
+  title: string;
+  slideshowItems: slideshowItemType[];
+  urlPrefix: string;
+  btnLabel: string;
+  colNumber: number;
+  className: string;
+};
+
+const SlideshowContent = ({
   title,
   slideshowItems,
   urlPrefix,
   btnLabel,
-}: ThreeColSlideshowProps) => {
-  const SLIDESHOW_ITEM_WIDTH = 3;
+  colNumber,
+  className,
+}: SlideshowContentProps) => {
   const {
     numSlides,
     currentIndex,
@@ -74,20 +84,27 @@ const ThreeColSlideshow = ({
     indicatorPreviousRef,
     indicatorNextRef,
   } = useSlideshowAnimation<slideshowItemType>({
-    slideshowColNumber: SLIDESHOW_ITEM_WIDTH,
+    slideshowColNumber: colNumber,
     dataList: slideshowItems,
   });
 
   const colStyles = (index: number) => {
-    return index === 0
-      ? styles.fair_left
-      : index === 1
-        ? styles.fair_center
-        : styles.fair_right;
+    if (colNumber === 3) {
+      return index === 0
+        ? styles.fair_left
+        : index === 1
+          ? styles.fair_center
+          : styles.fair_right;
+    } else if (colNumber === 2) {
+      return index === 0 ? styles.fair_left : styles.fair_right;
+    } else if (colNumber === 1) {
+      return styles.fair_full;
+    }
+    return styles.fair_left;
   };
 
   return (
-    <div className={styles.container}>
+    <div className={className}>
       <h2 className={styles.title}>{title}</h2>
       <SlideshowLayout
         numItems={numSlides}
@@ -96,7 +113,7 @@ const ThreeColSlideshow = ({
         onNextClick={() => gotoSlide(1)}
         indicatorPreviousRef={indicatorPreviousRef}
         indicatorNextRef={indicatorNextRef}
-        indicator={slideshowItems.length > SLIDESHOW_ITEM_WIDTH}
+        indicator={slideshowItems.length > colNumber}
       >
         {dataListGroups.map((group, slideIndex) => (
           <div
@@ -118,6 +135,42 @@ const ThreeColSlideshow = ({
           </div>
         ))}
       </SlideshowLayout>
+    </div>
+  );
+};
+
+const ThreeColSlideshow = ({
+  title,
+  slideshowItems,
+  urlPrefix,
+  btnLabel,
+}: ThreeColSlideshowProps) => {
+  return (
+    <div className={styles.container}>
+      <SlideshowContent
+        title={title}
+        slideshowItems={slideshowItems}
+        urlPrefix={urlPrefix}
+        btnLabel={btnLabel}
+        colNumber={3}
+        className={styles.threeColumnSlideshow}
+      />
+      <SlideshowContent
+        title={title}
+        slideshowItems={slideshowItems}
+        urlPrefix={urlPrefix}
+        btnLabel={btnLabel}
+        colNumber={2}
+        className={styles.twoColumnSlideshow}
+      />
+      <SlideshowContent
+        title={title}
+        slideshowItems={slideshowItems}
+        urlPrefix={urlPrefix}
+        btnLabel={btnLabel}
+        colNumber={1}
+        className={styles.oneColumnSlideshow}
+      />
     </div>
   );
 };

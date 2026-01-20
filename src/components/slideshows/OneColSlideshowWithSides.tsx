@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import SlideshowIndicator from "./SlideshowIndicator";
+import { useSwipeGesture } from "./utils/useSwipeGesture";
 import styles from "./OneColSlideshowWithSides.module.css";
 
 type OneColSlideshowWithSidesProps = {
@@ -18,8 +19,18 @@ const OneColSlideshowWithSides = ({
     currentIndex === 0 ? images.length - 1 : currentIndex - 1;
   const nextIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
 
+  const { handleTouchStart, handleTouchMove, handleTouchEnd } = useSwipeGesture(
+    () => setCurrentIndex(nextIndex),
+    () => setCurrentIndex(previousIndex),
+  );
+
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <h2 className={styles.title}>Installation Views</h2>
       <div className={styles.slideshowContainer}>
         <div className={styles.slideshowPreviousImageContainer}>
