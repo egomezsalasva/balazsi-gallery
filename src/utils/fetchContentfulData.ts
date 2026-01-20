@@ -11,6 +11,7 @@ export const fetchContentfulData = async (
         Authorization: `Bearer ${process.env.CONTENTFUL_ACCESS_TOKEN}`,
       },
       body: JSON.stringify({ query, variables }),
+      cache: "no-store",
     },
   );
 
