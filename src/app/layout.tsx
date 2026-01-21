@@ -1,18 +1,9 @@
 import type { Metadata } from "next";
 import Header from "@/components/header/Header";
 import Footer from "@/components/Footer";
-// import { Geist, Geist_Mono } from "next/font/google";
+import Preloader from "@/components/preloader/Preloader";
+import ContentWrapper from "@/components/preloader/ContentWrapper";
 import "./globals.css";
-
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
 
 export const metadata: Metadata = {
   title: "Balazsi Gallery",
@@ -26,12 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-      // className={`${geistSans.variable} ${geistMono.variable}`}
-      >
-        <Header />
-        {children}
-        <Footer />
+      <body>
+        <Preloader />
+        <ContentWrapper>
+          <Header />
+          {children}
+          <Footer />
+        </ContentWrapper>
       </body>
     </html>
   );
