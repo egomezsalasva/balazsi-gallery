@@ -53,12 +53,7 @@ const SlideshowItem = ({
         endDate={slideItem.endDate ? slideItem.endDate : undefined}
       />
       <div className={styles.readMoreBtnContainer}>
-        <Link
-          href={`${urlPrefix}/${slideItem.slug}`}
-          className={styles.readMoreBtn}
-        >
-          {btnLabel}
-        </Link>
+        <div className={styles.readMoreBtn}>{btnLabel}</div>
       </div>
     </Link>
   );

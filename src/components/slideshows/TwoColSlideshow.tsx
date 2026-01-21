@@ -48,12 +48,7 @@ const SlideshowItem = ({ exhibition }: SlideshowItemProps) => {
         endDate={exhibition.endDate}
       />
       <div className={styles.readMoreBtnContainer}>
-        <Link
-          href={`/exhibition/${exhibition.slug}`}
-          className={styles.readMoreBtn}
-        >
-          View Exhibition +
-        </Link>
+        <div className={styles.readMoreBtn}>View Exhibition +</div>
       </div>
     </Link>
   );
