@@ -37,6 +37,7 @@
   line-height: 1;
   font-family: var(--font-display);
   text-transform: uppercase;
+  font-weight: 500;
 }
 
 .detailsArtistContainer h3 span {
