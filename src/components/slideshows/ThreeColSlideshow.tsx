@@ -5,6 +5,7 @@ import ReadMoreBtn from "../ReadMoreBtn";
 import styles from "./ThreeColSlideshow.module.css";
 import useSlideshowAnimation from "./utils/useSlideshowAnimation";
 import SlideshowLayout from "./SlideshowLayout";
+import Link from "next/link";
 
 type slideshowItemType = {
   slug: string;
@@ -36,7 +37,7 @@ const SlideshowItem = ({
   btnLabel,
 }: SlideshowItemProps) => {
   return (
-    <div>
+    <Link href={`${urlPrefix}/${slideItem.slug}`} className={styles.slideLink}>
       <Image
         src={slideItem.heroImage.url}
         alt={slideItem.heroImage.title}
@@ -52,9 +53,14 @@ const SlideshowItem = ({
         endDate={slideItem.endDate ? slideItem.endDate : undefined}
       />
       <div className={styles.readMoreBtnContainer}>
-        <ReadMoreBtn href={`${urlPrefix}/${slideItem.slug}`} title={btnLabel} />
+        <Link
+          href={`${urlPrefix}/${slideItem.slug}`}
+          className={styles.readMoreBtn}
+        >
+          {btnLabel}
+        </Link>
       </div>
-    </div>
+    </Link>
   );
 };
 

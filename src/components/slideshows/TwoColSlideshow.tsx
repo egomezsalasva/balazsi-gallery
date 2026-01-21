@@ -5,6 +5,7 @@ import ReadMoreBtn from "../ReadMoreBtn";
 import styles from "./TwoColSlideshow.module.css";
 import SlideshowLayout from "./SlideshowLayout";
 import useSlideshowAnimation from "./utils/useSlideshowAnimation";
+import Link from "next/link";
 
 type slideshowItemType = {
   slug: string;
@@ -28,7 +29,10 @@ type SlideshowItemProps = {
 
 const SlideshowItem = ({ exhibition }: SlideshowItemProps) => {
   return (
-    <div>
+    <Link
+      href={`/exhibition/${exhibition.slug}`}
+      className={styles.exhibitionLink}
+    >
       <Image
         src={exhibition.heroImage.url}
         alt={exhibition.heroImage.title}
@@ -44,12 +48,14 @@ const SlideshowItem = ({ exhibition }: SlideshowItemProps) => {
         endDate={exhibition.endDate}
       />
       <div className={styles.readMoreBtnContainer}>
-        <ReadMoreBtn
+        <Link
           href={`/exhibition/${exhibition.slug}`}
-          title="View Exhibition +"
-        />
+          className={styles.readMoreBtn}
+        >
+          View Exhibition +
+        </Link>
       </div>
-    </div>
+    </Link>
   );
 };
 
