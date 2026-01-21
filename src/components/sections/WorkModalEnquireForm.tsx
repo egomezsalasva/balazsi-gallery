@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
+import { sendWorkEnquiry } from "./actions/formSubmission";
 import styles from "./WorkModalEnquireForm.module.css";
 import type { WorkContentfulType } from "@/app/fair/[slug]/utils/fetchFair";
 
@@ -17,9 +18,50 @@ const WorkModalEnquireForm = ({ work }: WorkModalEnquireFormProps) => {
 With the following details: 
 ${details}`,
   );
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setStatusMessage(null);
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    // Add work details to formData
+    formData.append("workTitle", title || "Untitled");
+    formData.append("artistName", artist?.name || "Unknown Artist");
+
+    const result = await sendWorkEnquiry(formData);
+
+    if (result.success) {
+      setStatusMessage({
+        type: "success",
+        text: "Thank you! Your enquiry has been sent.",
+      });
+      // Reset form
+      setName("");
+      setEmail("");
+      setMessage(`I would like to enquire about the work ${title} by ${artist?.name}.
+
+With the following details: 
+${details}`);
+    } else {
+      setStatusMessage({
+        type: "error",
+        text: "Something went wrong. Please try again.",
+      });
+    }
+
+    setIsSubmitting(false);
+  }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className={styles.enquireFormGroup}>
         <label htmlFor="name">Name</label>
         <input
@@ -65,9 +107,29 @@ ${details}`,
           I agree to the <a href="/privacy-policy">privacy policy</a>
         </label>
       </div>
-      <button type="submit" className={styles.enquireFormGroupButton}>
-        Send
+
+      <button
+        type="submit"
+        className={styles.enquireFormGroupButton}
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? "Sending..." : "Send"}
       </button>
+      {statusMessage && (
+        <div
+          style={{
+            padding: "10px",
+            marginBottom: "10px",
+            backgroundColor:
+              statusMessage.type === "success" ? "#d4edda" : "#f8d7da",
+            color: statusMessage.type === "success" ? "#155724" : "#721c24",
+            borderRadius: "4px",
+            fontSize: "14px",
+          }}
+        >
+          {statusMessage.text}
+        </div>
+      )}
     </form>
   );
 };

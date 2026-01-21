@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/components/header/Header";
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer/Footer";
 import Preloader from "@/components/preloader/Preloader";
 import ContentWrapper from "@/components/preloader/ContentWrapper";
 import "./globals.css";

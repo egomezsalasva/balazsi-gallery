@@ -1,8 +1,42 @@
+"use client";
+import React, { useState } from "react";
+import IntagramIcon from "../svgs/Intagram";
+import VimeoIcon from "../svgs/Vimeo";
+import { sendNewsletterSubscription } from "./actions/formSubmission";
 import styles from "./Footer.module.css";
-import IntagramIcon from "./svgs/Intagram";
-import VimeoIcon from "./svgs/Vimeo";
 
 const Footer = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setMessage(null);
+
+    const form = event.currentTarget; // Store the form reference
+    const formData = new FormData(form);
+    const result = await sendNewsletterSubscription(formData);
+
+    if (result.success) {
+      setMessage({
+        type: "success",
+        text: "Thank you for subscribing!",
+      });
+      form.reset();
+    } else {
+      setMessage({
+        type: "error",
+        text: "Something went wrong. Please try again.",
+      });
+    }
+
+    setIsSubmitting(false);
+  }
+
   return (
     <footer className={styles.container}>
       <div className={styles.footerNewsletterContainer}>
@@ -10,16 +44,20 @@ const Footer = () => {
           Subscribe to our Newsletter for artist’s and gallery news, upcoming
           exhibitions, events, releases, and more
         </p>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className={styles.footerNewsletterFormInputContainer}>
             <input
               type="text"
               placeholder="Name"
               className={styles.footerNewsletterFormInputName}
+              name="name"
+              id="name"
             />
             <input
               type="email"
               placeholder="Email"
+              name="email"
+              id="email"
               className={styles.footerNewsletterFormInputEmail}
             />
           </div>
@@ -34,9 +72,28 @@ const Footer = () => {
               I agree to the <a href="/privacy-policy">privacy policy</a>
             </label>
           </div>
-          <button type="submit" className={styles.footerNewsletterFormButton}>
-            Send
+          <button
+            type="submit"
+            className={styles.footerNewsletterFormButton}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Sending..." : "Send"}
           </button>
+          {message && (
+            <div
+              style={{
+                padding: "10px",
+                marginBottom: "10px",
+                backgroundColor:
+                  message.type === "success" ? "#d4edda" : "#f8d7da",
+                color: message.type === "success" ? "#155724" : "#721c24",
+                borderRadius: "4px",
+                fontSize: "14px",
+              }}
+            >
+              {message.text}
+            </div>
+          )}
         </form>
       </div>
       <div className={styles.footerContactSocialsContainer}>
