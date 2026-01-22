@@ -163,4 +163,11 @@
     height: calc(100% + var(--padding-small));
     margin-left: calc(-1 * var(--padding-small));
   }
+  .detailsTitle,
+  .detailsArtist {
+    font-size: 1.75rem;
+  }
+  .detailsDate {
+    font-size: 1rem;
+  }
 }
