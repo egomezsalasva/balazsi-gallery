@@ -21,6 +21,7 @@ type HomeHeroData = {
 const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isAnimatingRef = useRef(false);
 
   const today = new Date();
   const mergedData = [...heroData.exhibitions, ...heroData.fairs].sort(
@@ -57,6 +58,11 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
   const dashRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const handleSlideChange = (direction: 1 | -1) => {
+    // Prevent clicks during animation
+    if (isAnimatingRef.current) return;
+
+    isAnimatingRef.current = true;
+
     const currentDetails = detailsRef.current[currentIndex];
 
     let nextIndex: number;
@@ -101,6 +107,10 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
         duration: FADE_DURATION,
         delay: SLIDES_DURATION,
         ease: "sine.inOut",
+        onComplete: () => {
+          // Unlock animations when complete
+          isAnimatingRef.current = false;
+        },
       },
     );
 
