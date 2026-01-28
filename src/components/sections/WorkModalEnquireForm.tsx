@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import posthog from "posthog-js";
 import { sendWorkEnquiry } from "./actions/formSubmission";
 import styles from "./WorkModalEnquireForm.module.css";
 import type { WorkContentfulType } from "@/app/fair/[slug]/utils/fetchFair";
@@ -50,6 +51,13 @@ ${details}`,
 
 With the following details: 
 ${details}`);
+
+      posthog.capture("enquire", {
+        work_title: title,
+        artist_name: artist?.name,
+        user_email: email,
+        user_name: name,
+      });
     } else {
       setStatusMessage({
         type: "error",
