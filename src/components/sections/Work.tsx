@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import WorkModal from "./WorkModal";
 import useWorkModal from "./useWorkModal";
 import WorkEnquireMobileModal from "./WorkEnquireMobileModal";
+import Arrow from "../Arrow";
 import styles from "./WorksSection.module.css";
 
 export type WorkType = {
@@ -61,13 +62,13 @@ const Work = ({ work }: WorkProps) => {
                 className={styles.workEnquireBtn}
                 onClick={handleEnquireOpen}
               >
-                Enquire
+                Enquire <Arrow className={styles.workEnquireArrow} />
               </button>
               <button
                 className={styles.workEnquireBtnMobile}
                 onClick={handleEnquireMobileOpen}
               >
-                Enquire
+                Enquire <Arrow className={styles.workEnquireArrow} />
               </button>
             </div>
           )}

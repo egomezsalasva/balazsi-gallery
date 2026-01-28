@@ -60,11 +60,22 @@
   margin: 0;
   font-family: var(--font-body);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .workEnquireBtn:hover,
 .workEnquireBtnMobile:hover {
   text-decoration: underline;
   text-underline-offset: 0.375rem;
+}
+
+.workEnquireArrow {
+  --size: 0.8rem;
+  width: var(--size);
+  height: var(--size);
+  margin-left: 0.25rem;
+  transform: rotate(180deg);
 }
 
 .workEnquireBtnMobile {
