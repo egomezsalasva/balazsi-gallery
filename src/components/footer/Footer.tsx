@@ -99,7 +99,7 @@ const Footer = () => {
       <div className={styles.footerContactSocialsContainer}>
         <div className={styles.socialsContainer}>
           <a
-            href="https://www.instagram.com/balazsi.gallery/"
+            href="https://www.instagram.com/tube__gallery/"
             target="_blank"
             className={styles.socialIcon}
           >
