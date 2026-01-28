@@ -49,7 +49,8 @@ export default async function Artists() {
 
   // Convert map to array and sort by most recent exhibition date (descending)
   const uniqueSoloArtists = Array.from(artistsMap.values())
-    .sort((a, b) => b.mostRecentDate.localeCompare(a.mostRecentDate))
+    // .sort((a, b) => b.mostRecentDate.localeCompare(a.mostRecentDate))
+    .sort((a, b) => a.artist.name.localeCompare(b.artist.name))
     .map((entry) => entry.artist);
 
   return (
