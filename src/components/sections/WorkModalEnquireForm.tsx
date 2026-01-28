@@ -40,6 +40,13 @@ ${details}`,
     const result = await sendWorkEnquiry(formData);
 
     if (result.success) {
+      posthog.capture("enquire", {
+        work_title: title,
+        artist_name: artist?.name,
+        user_email: email,
+        user_name: name,
+      });
+
       setStatusMessage({
         type: "success",
         text: "Thank you! Your enquiry has been sent.",
@@ -51,13 +58,6 @@ ${details}`,
 
 With the following details: 
 ${details}`);
-
-      posthog.capture("enquire", {
-        work_title: title,
-        artist_name: artist?.name,
-        user_email: email,
-        user_name: name,
-      });
     } else {
       setStatusMessage({
         type: "error",
