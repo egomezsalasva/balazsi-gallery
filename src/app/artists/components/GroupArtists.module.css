@@ -47,7 +47,7 @@
   font-size: 1.25rem;
   text-decoration: none;
   color: #000;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 @media (max-width: 1025px) {

@@ -34,7 +34,7 @@
   font-weight: 500;
   line-height: 1.1;
   font-family: var(--font-display);
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .titleContainer h2 {
