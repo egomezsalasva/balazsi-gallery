@@ -3,8 +3,6 @@
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(12, auto);
   gap: 1rem;
-  margin-top: 7rem;
-  margin-bottom: 3.5rem;
 }
 
 .slideshowWrapper {

@@ -3,6 +3,7 @@ import { fetchExhibition } from "./utils/fetchExhibition";
 import ExhibitionDetails from "./ExhibitionDetails";
 import ExhibitionInstallation from "./ExhibitionInstallation";
 import ExhibitionWorks from "./ExhibitionWorks";
+import SectionLineContainer from "@/components/sections/SectionLineContainer";
 import styles from "./page.module.css";
 
 type PageProps = {
@@ -19,12 +20,16 @@ export default async function Page({ params }: PageProps) {
     <div className={styles.container}>
       <ExhibitionDetails exhibition={exhibition} />
       {exhibition.installationImagesCollection.items.length > 0 && (
-        <ExhibitionInstallation
-          images={exhibition.installationImagesCollection.items}
-        />
+        <SectionLineContainer>
+          <ExhibitionInstallation
+            images={exhibition.installationImagesCollection.items}
+          />
+        </SectionLineContainer>
       )}
       {exhibition.worksCollection.items.length > 0 && (
-        <ExhibitionWorks works={exhibition.worksCollection.items} />
+        <SectionLineContainer>
+          <ExhibitionWorks works={exhibition.worksCollection.items} />
+        </SectionLineContainer>
       )}
     </div>
   );

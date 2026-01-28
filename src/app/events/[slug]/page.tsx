@@ -3,6 +3,7 @@ import { fetchEvent } from "./utils/fetchEvent";
 import EventDetails from "./EventDetails";
 import styles from "./page.module.css";
 import EventAdditionalImages from "./EventAdditionalImages";
+import SectionLineContainer from "@/components/sections/SectionLineContainer";
 
 type PageProps = {
   params: { slug: string };
@@ -17,9 +18,11 @@ export default async function Page({ params }: PageProps) {
   return (
     <div className={styles.container}>
       <EventDetails event={event} />
-      <EventAdditionalImages
-        additionalImages={event.additionalImagesCollection.items}
-      />
+      <SectionLineContainer>
+        <EventAdditionalImages
+          additionalImages={event.additionalImagesCollection.items}
+        />
+      </SectionLineContainer>
     </div>
   );
 }

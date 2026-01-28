@@ -4,6 +4,7 @@ import FairDetails from "./FairDetails";
 import styles from "./page.module.css";
 import FairWorks from "./FairWorks";
 import FairInstallation from "./FairInstallation";
+import SectionLineContainer from "@/components/sections/SectionLineContainer";
 
 type PageProps = {
   params: { slug: string };
@@ -19,10 +20,14 @@ export default async function Page({ params }: PageProps) {
     <div className={styles.container}>
       <FairDetails fair={fair} />
       {fair.installationImagesCollection.items.length > 0 && (
-        <FairInstallation images={fair.installationImagesCollection.items} />
+        <SectionLineContainer>
+          <FairInstallation images={fair.installationImagesCollection.items} />
+        </SectionLineContainer>
       )}
       {fair.worksCollection.items.length > 0 && (
-        <FairWorks works={fair.worksCollection.items} />
+        <SectionLineContainer>
+          <FairWorks works={fair.worksCollection.items} />
+        </SectionLineContainer>
       )}
     </div>
   );

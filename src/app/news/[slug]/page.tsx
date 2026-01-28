@@ -3,6 +3,7 @@ import { fetchNewsPost } from "./utils/fetchNewsPost";
 import NewsPostDetails from "./NewsPostDetails";
 import NewsAdditionalImages from "./NewsAdditionalImages";
 import styles from "./page.module.css";
+import SectionLineContainer from "@/components/sections/SectionLineContainer";
 
 type PageProps = {
   params: { slug: string };
@@ -17,9 +18,11 @@ export default async function Page({ params }: PageProps) {
   return (
     <div className={styles.container}>
       <NewsPostDetails newsPost={newsPost} />
-      <NewsAdditionalImages
-        additionalImages={newsPost.additionalImagesCollection.items}
-      />
+      <SectionLineContainer>
+        <NewsAdditionalImages
+          additionalImages={newsPost.additionalImagesCollection.items}
+        />
+      </SectionLineContainer>
     </div>
   );
 }
