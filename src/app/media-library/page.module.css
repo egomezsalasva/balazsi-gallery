@@ -1,7 +1,7 @@
 .container {
   width: 100%;
   padding: 3.5rem;
-  min-height: 100vh;
+  min-height: 100lvh;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 1rem;

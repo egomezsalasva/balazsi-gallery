@@ -52,7 +52,7 @@
 
 .workDetailCover {
   width: 100vw;
-  height: 100vh;
+  height: 100lvh;
   background-color: transparent;
   position: absolute;
   top: 0;
@@ -65,7 +65,7 @@
   z-index: 10;
   grid-column: 2 / 13;
   background-color: #fff;
-  height: calc(100vh - 3.5rem);
+  height: calc(100lvh - 3.5rem);
   width: calc(100% + 3.5rem + 1rem);
   margin-left: -1rem;
   box-shadow: -3.5rem 0 7rem 0 rgba(0, 0, 0, 0.1);
@@ -84,7 +84,7 @@
   grid-column: 2 / 9;
   grid-row: 1;
   width: calc(100% + 1rem);
-  max-height: calc(100vh - 3.5rem);
+  max-height: calc(100lvh - 3.5rem);
   margin-left: -1rem;
   padding: 3.5rem 0;
   position: relative;
@@ -92,7 +92,7 @@
 
 .workDetailImageBlur {
   width: 100%;
-  max-height: calc(100vh - 3.5rem);
+  max-height: calc(100lvh - 3.5rem);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -125,7 +125,7 @@
   /* transition-delay: 0.25s; */
   position: absolute;
   bottom: 0;
-  height: calc(100vh - 3.5rem);
+  height: calc(100lvh - 3.5rem);
   background-color: #000;
   z-index: 10;
   grid-column: 10 / 13;
