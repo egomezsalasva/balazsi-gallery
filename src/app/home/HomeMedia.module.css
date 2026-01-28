@@ -26,6 +26,20 @@
   grid-column: 9 / 13;
 }
 
+.mediaContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mediaContainer h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
 .vimeoContainer {
   width: 100%;
   height: auto;

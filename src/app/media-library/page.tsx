@@ -12,12 +12,15 @@ export default async function MediaLibrary() {
   return (
     <div className={styles.container}>
       {mediaLibrary.map((item) => (
-        <iframe
-          key={item.vimeoId}
-          src={`https://player.vimeo.com/video/${item.vimeoId}`}
-          allow="fullscreen"
-          className={styles.media}
-        />
+        <div key={item.title} className={styles.mediaContainer}>
+          <iframe
+            key={item.vimeoId}
+            src={`https://player.vimeo.com/video/${item.vimeoId}`}
+            allow="fullscreen"
+            className={styles.media}
+          />
+          <h3>{item.title}</h3>
+        </div>
       ))}
     </div>
   );

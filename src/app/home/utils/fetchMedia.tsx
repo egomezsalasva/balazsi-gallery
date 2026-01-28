@@ -1,6 +1,7 @@
 import { fetchContentfulData } from "@/utils/fetchContentfulData";
 
 export type MediaContentfulType = {
+  title: string;
   vimeoId: number;
 };
 
@@ -8,6 +9,7 @@ const MEDIA_QUERY = `
 query{
    mediaLibraryCollection(limit: 3, order: vimeoId_ASC){
     items{
+      title
       vimeoId
     }
   }

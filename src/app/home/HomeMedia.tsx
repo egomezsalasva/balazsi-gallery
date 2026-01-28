@@ -2,15 +2,21 @@ import HomeSectionLayout from "./components/HomeSectionLayout";
 import styles from "./HomeMedia.module.css";
 import { fetchMedia, MediaContentfulType } from "./utils/fetchMedia";
 
-const SlideshowItem = ({ vimeoId }: MediaContentfulType) => {
+type SlideshowItemType = {
+  mediaData: MediaContentfulType;
+};
+
+const SlideshowItem = ({ mediaData }: SlideshowItemType) => {
+  const { title, vimeoId } = mediaData;
   return (
-    <>
+    <div className={styles.mediaContainer}>
       <iframe
         src={`https://player.vimeo.com/video/${vimeoId}`}
         allow="fullscreen"
         className={styles.vimeoContainer}
       />
-    </>
+      <h3>{title}</h3>
+    </div>
   );
 };
 
@@ -22,16 +28,16 @@ const HomeMedia = async () => {
       <div className={styles.newsContainer}>
         <div className={styles.newsContentContainer}>
           <div className={styles.newsSlideshowLeftContainer}>
-            <SlideshowItem vimeoId={media[0].vimeoId} />
+            <SlideshowItem mediaData={media[0]} />
           </div>
           {media[1] && (
             <div className={styles.newsSlideshowCenterContainer}>
-              <SlideshowItem vimeoId={media[1].vimeoId} />
+              <SlideshowItem mediaData={media[1]} />
             </div>
           )}
           {media[2] && (
             <div className={styles.newsSlideshowRightContainer}>
-              <SlideshowItem vimeoId={media[2].vimeoId} />
+              <SlideshowItem mediaData={media[2]} />
             </div>
           )}
         </div>

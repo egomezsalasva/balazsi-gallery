@@ -1,6 +1,7 @@
 import { fetchContentfulData } from "@/utils/fetchContentfulData";
 
 export type MediaLibraryContentfulType = {
+  title: string;
   vimeoId: number;
 };
 
@@ -8,6 +9,7 @@ const MEDIA_LIBRARY_QUERY = `
 query{
     mediaLibraryCollection{
       items{
+        title
         vimeoId
       }
    }
