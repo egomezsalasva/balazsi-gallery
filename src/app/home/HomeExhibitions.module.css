@@ -54,6 +54,7 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   margin-bottom: 0.25rem;
+  margin-top: 0.5rem;
 }
 
 .slideshowTitleContainer {
@@ -65,7 +66,7 @@
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 1.1;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .slideshowTitle {
