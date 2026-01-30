@@ -3,6 +3,7 @@ import { fetchContentfulData } from "@/utils/fetchContentfulData";
 export type HomeExhibitionsContentfulType = {
   slug: string;
   title: string;
+  titleHeroColor: boolean | null;
   startDate: string;
   endDate: string;
   artistsCollection: {
@@ -19,6 +20,7 @@ export type HomeExhibitionsContentfulType = {
 export type HomeFairsContentfulType = {
   slug: string;
   title: string;
+  titleHeroColor: boolean | null;
   startDate: string;
   endDate: string;
   heroImage: {
@@ -37,6 +39,7 @@ query($today: DateTime!){
     items{
       slug
       title
+      titleHeroColor
       startDate
       endDate
       artistsCollection(limit: 30){
@@ -58,6 +61,7 @@ query($today: DateTime!){
     items{
       slug
       title
+      titleHeroColor
       startDate
       endDate
       heroImage{

@@ -20,6 +20,7 @@ type HomeHeroData = {
 
 const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
   const [isPlaying, setIsPlaying] = useState(true);
+  const [indicatorColor, setIndicatorColor] = useState('#000');
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const isAnimatingRef = useRef(false);
 
@@ -162,6 +163,12 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
     };
   }, [currentIndex, isPlaying]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    // If titleHeroColor is "false" string → white, otherwise (true/null/any string) → black
+    const currentColor = mergedData[currentIndex]?.titleHeroColor === false ? '#fff' : '#000';
+    setIndicatorColor(currentColor);
+  }, [currentIndex, mergedData]);
+
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
@@ -206,6 +213,7 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
               style={{
                 opacity: slideIndex === 0 ? 1 : 0,
                 pointerEvents: slideIndex === currentIndex ? "auto" : "none",
+                color: item.titleHeroColor === false ? '#fff' : '#000',
               }}
             >
               <Link
@@ -221,7 +229,10 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
                           dashRef.current[slideIndex] = el;
                         }}
                         className={styles.detailsDash}
-                        style={{ width: slideIndex === 0 ? "1.25rem" : 0 }}
+                        style={{ 
+                          width: slideIndex === 0 ? "1.25rem" : 0,
+                          background: item.titleHeroColor === false ? '#fff' : '#000',
+                        }}
                       />
                     </div>
                   )}
@@ -259,6 +270,7 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
             classNameArrows={styles.arrowsContainer}
             indicatorPreviousRef={indicatorPreviousRef}
             indicatorNextRef={indicatorNextRef}
+            color={indicatorColor} 
             pausePlayIcon={{
               display: true,
               isPlaying: isPlaying,

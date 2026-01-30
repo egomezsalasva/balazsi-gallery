@@ -12,6 +12,7 @@ type SlideshowIndicatorProps = {
   currentIndex: number;
   indicatorPreviousRef?: React.RefObject<HTMLDivElement | null>;
   indicatorNextRef?: React.RefObject<HTMLDivElement | null>;
+  color?: string;
   pausePlayIcon?: {
     display: boolean;
     isPlaying: boolean;
@@ -28,6 +29,7 @@ const SlideshowIndicator = ({
   onNextClick,
   indicatorPreviousRef,
   indicatorNextRef,
+  color,
   pausePlayIcon = {
     display: false,
     isPlaying: false,
@@ -53,7 +55,7 @@ const SlideshowIndicator = ({
           }}
         />
       </div>
-      <div className={`${styles.arrowsContainer} ${classNameArrows}`}>
+      <div className={`${styles.arrowsContainer} ${classNameArrows}`} style={{ color: color }}>
         <Arrow className={styles.arrowPrevious} onClick={onPreviousClick} />
         {pausePlayIcon.display &&
           (pausePlayIcon.isPlaying ? (
