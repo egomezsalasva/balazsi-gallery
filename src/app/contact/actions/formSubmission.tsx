@@ -9,19 +9,19 @@ export async function sendContactEmail(formData: FormData) {
   const message = formData.get("message") as string;
 
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: "smtp.ilait.se",
     port: 587,
     secure: false,
     auth: {
-      user: process.env.GMAIL_MAIL,
-      pass: process.env.GMAIL_APP_PASSWORD,
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD,
     },
   });
 
   try {
     await transporter.sendMail({
-      from: `"Balazsi Gallery" <${process.env.GMAIL_MAIL}>`,
-      to: process.env.GMAIL_MAIL,
+      from: `"Balazsi Gallery" <${process.env.GALLERY_EMAIL}>`,
+      to: process.env.GALLERY_EMAIL,
       replyTo: email,
       subject: `New Contact Form - ${name}`,
       html: `
