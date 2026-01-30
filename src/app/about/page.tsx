@@ -34,8 +34,8 @@ export default function About() {
       </div>
       <div className={styles.imageContainer}>
         <Image
-          src="/tube-gallery-about.jpg"
-          alt="Tube Gallery About"
+          src="/about.webp"
+          alt="Balazsi Gallery About"
           width={1000}
           height={1000}
           className={styles.image}
