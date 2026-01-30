@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import DateLabel from "../DateLabel";
-import ReadMoreBtn from "../ReadMoreBtn";
 import styles from "./ThreeColSlideshow.module.css";
 import useSlideshowAnimation from "./utils/useSlideshowAnimation";
 import SlideshowLayout from "./SlideshowLayout";
