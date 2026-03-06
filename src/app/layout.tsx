@@ -48,12 +48,12 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Preloader />
-        <ContentWrapper>
-          <Header />
-          {children}
-          <Footer />
-        </ContentWrapper>
+        {/* <Preloader /> */}
+        {/* <ContentWrapper> */}
+        <Header />
+        {children}
+        <Footer />
+        {/* </ContentWrapper> */}
       </body>
     </html>
   );
