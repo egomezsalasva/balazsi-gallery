@@ -16,6 +16,11 @@
   margin-bottom: 0.75rem;
 }
 
+.descriptionContainer strong {
+  font-weight: 900;
+  font-style: normal;
+}
+
 .descriptionContainer p:last-child {
   margin-bottom: 0;
 }
