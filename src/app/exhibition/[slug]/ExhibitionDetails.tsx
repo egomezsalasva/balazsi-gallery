@@ -26,19 +26,17 @@ const ExhibitionDetails = ({ exhibition }: ExhibitionDetailsProps) => {
           </div>
         </div>
         <DateLabel startDate={startDate} endDate={endDate} withMargin />
-        {isGroupShow && (
-          <p className={styles.groupShowText}>
-            With:{" "}
-            {artistsCollection.items.map(
-              (artist: { name: string; slug: string }, index: number) => (
-                <span key={artist.name}>
-                  <Link href={`/artist/${artist.slug}`}>{artist.name}</Link>
-                  {index < artistsCollection.items.length - 1 ? ", " : "."}
-                </span>
-              ),
-            )}
-          </p>
-        )}
+        <p className={styles.groupShowText}>
+          With:{" "}
+          {artistsCollection.items.map(
+            (artist: { name: string; slug: string }, index: number) => (
+              <span key={artist.name}>
+                <Link href={`/artist/${artist.slug}`}>{artist.name}</Link>
+                {index < artistsCollection.items.length - 1 ? ", " : "."}
+              </span>
+            ),
+          )}
+        </p>
         <DescriptionFadeToggle>{fullText}</DescriptionFadeToggle>
       </div>
       <div className={styles.imageContainer}>
