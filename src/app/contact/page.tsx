@@ -11,6 +11,7 @@ type ContactLinkProps = {
   emailHref: string;
   email: string;
   title: string;
+  name?: string;
 };
 
 type ContactInfoProps = {
@@ -27,10 +28,11 @@ const ContactInfo = ({ title, children }: ContactInfoProps) => {
   );
 };
 
-const ContactLink = ({ emailHref, email, title }: ContactLinkProps) => {
+const ContactLink = ({ emailHref, email, title, name }: ContactLinkProps) => {
   return (
     <div className={styles.contactLinksInnerContainer}>
       <h2>{title}</h2>
+      {name && <p style={{ fontWeight: 900 }}>{name}</p>}
       <a href={emailHref}>{email}</a>
     </div>
   );
@@ -58,17 +60,25 @@ export default function Contact() {
             <ContactLink
               emailHref="mailto:info@balazsi.com"
               email="info@balazsi.com"
-              title="General inquiries"
+              title="General Inquiries"
             />
             <ContactLink
               emailHref="mailto:axel@balazsi.com"
               email="axel@balazsi.com"
-              title="Sales inquiries"
+              title="Founder"
+              name="Axel Balazsi"
+            />
+            <ContactLink
+              emailHref="mailto:nicolas@balazsi.com"
+              email="nicolas@balazsi.com"
+              title="Director"
+              name="Nicolás Mirasso Vanoli"
             />
             <ContactLink
               emailHref="mailto:elena@balazsi.com"
               email="elena@balazsi.com"
-              title="Press and Comunication inquiries"
+              title="Press and Comunication"
+              name="Elena Covas López"
             />
           </div>
         </div>
