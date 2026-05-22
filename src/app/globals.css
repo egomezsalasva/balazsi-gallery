@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "Test American Grotesk";
+  font-family: "American Grotesk";
   src: url("/fonts/AmericanGrotesk-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
@@ -7,7 +7,7 @@
 }
 
 @font-face {
-  font-family: "Test American Grotesk";
+  font-family: "American Grotesk";
   src: url("/fonts/AmericanGrotesk-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
@@ -15,7 +15,7 @@
 }
 
 @font-face {
-  font-family: "Test American Grotesk";
+  font-family: "American Grotesk";
   src: url("/fonts/AmericanGrotesk-MediumItalic.woff2") format("woff2");
   font-weight: 500;
   font-style: italic;
@@ -23,16 +23,24 @@
 }
 
 @font-face {
-  font-family: "Neue Haas Grotesk Display Round";
+  font-family: "Neue Haas Grotesk Display";
   src: url("/fonts/NHaasGroteskDSPro-55Rg.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: optimal;
 }
 
+@font-face {
+  font-family: "Neue Haas Grotesk Display";
+  src: url("/fonts/NHaasGroteskDSPro-95Blk.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: optimal;
+}
+
 :root {
-  --font-display: "Test American Grotesk", Arial, Helvetica, sans-serif;
-  --font-body: "Haas Grot Disp R Trial", Arial, Helvetica, sans-serif;
+  --font-display: "American Grotesk", Arial, Helvetica, sans-serif;
+  --font-body: "Neue Haas Grotesk Display", Arial, Helvetica, sans-serif;
 
   --padding-small: 1.5rem;
   --padding-medium: 2rem;
