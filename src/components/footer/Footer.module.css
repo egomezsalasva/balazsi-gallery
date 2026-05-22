@@ -130,6 +130,10 @@
   transform: translateY(0.25px);
 }
 
+.linkedInIconImage {
+  transform: translate(0.5px, -1px) scale(0.9);
+}
+
 @media (max-width: 1025px) {
   .container {
     padding: var(--padding-medium);

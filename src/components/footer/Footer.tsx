@@ -4,6 +4,7 @@ import IntagramIcon from "../svgs/Intagram";
 import VimeoIcon from "../svgs/Vimeo";
 import { sendNewsletterSubscription } from "./actions/formSubmission";
 import styles from "./Footer.module.css";
+import LinkedInIcon from "../svgs/LinkedIn";
 
 const Footer = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -99,19 +100,28 @@ const Footer = () => {
       <div className={styles.footerContactSocialsContainer}>
         <div className={styles.socialsContainer}>
           <a
-            href="https://www.instagram.com/tube__gallery/"
+            href="https://www.instagram.com/balazsigallery/"
             target="_blank"
             className={styles.socialIcon}
           >
             <IntagramIcon className={styles.socialIconImage} />
           </a>
           <a
-            href="https://vimeo.com/balazsi.gallery"
+            href="https://vimeo.com/balazsigallery"
             target="_blank"
             className={styles.socialIcon}
           >
             <VimeoIcon
               className={`${styles.socialIconImage} ${styles.vimeoIconImage}`}
+            />
+          </a>
+          <a
+            href="https://www.linkedin.com/company/balazsi/posts/?feedView=all"
+            target="_blank"
+            className={styles.socialIcon}
+          >
+            <LinkedInIcon
+              className={`${styles.socialIconImage} ${styles.linkedInIconImage}`}
             />
           </a>
         </div>
