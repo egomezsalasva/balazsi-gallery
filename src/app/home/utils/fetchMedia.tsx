@@ -7,7 +7,7 @@ export type MediaContentfulType = {
 
 const MEDIA_QUERY = `
 query{
-   mediaLibraryCollection(limit: 3, order: vimeoId_ASC){
+   mediaLibraryCollection(limit: 3, order:sys_firstPublishedAt_DESC){
     items{
       title
       vimeoId
