@@ -55,7 +55,10 @@ const SlideshowIndicator = ({
           }}
         />
       </div>
-      <div className={`${styles.arrowsContainer} ${classNameArrows}`} style={{ color: color }}>
+      <div
+        className={`${styles.arrowsContainer} ${classNameArrows}`}
+        style={{ color: color }}
+      >
         <Arrow className={styles.arrowPrevious} onClick={onPreviousClick} />
         {pausePlayIcon.display &&
           (pausePlayIcon.isPlaying ? (

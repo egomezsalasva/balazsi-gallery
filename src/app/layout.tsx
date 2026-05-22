@@ -41,7 +41,7 @@ export default function RootLayout({
         />
         <link
           rel="preload"
-          href="/fonts/neuehaasgrotdispround-65medium-trial.woff2"
+          href="/fonts/NHaasGroteskDSPro-55Rg.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
