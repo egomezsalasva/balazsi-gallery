@@ -95,6 +95,9 @@ export default function Contact() {
         <div className={styles.formInnerContainer}>
           <h2>Contact Form</h2>
           <ContactForm />
+          <p className={styles.formNote}>
+            *Please note that the gallery does not accept unsolicited proposals.
+          </p>
         </div>
       </div>
     </div>

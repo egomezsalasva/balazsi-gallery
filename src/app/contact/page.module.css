@@ -78,6 +78,11 @@
   line-height: 1.1;
 }
 
+.formNote {
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
 @media (max-width: 1025px) {
   .container {
     padding: var(--padding-medium);
