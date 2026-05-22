@@ -34,7 +34,7 @@ export default function About() {
       </div>
       <div className={styles.imageContainer}>
         <Image
-          src="/about.webp"
+          src="/about-gallery.webp"
           alt="Balazsi Gallery About"
           width={1000}
           height={1000}
