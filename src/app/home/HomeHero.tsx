@@ -36,7 +36,7 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
       if (aIsCurrent && bIsCurrent) {
         return new Date(b.endDate).getTime() - new Date(a.endDate).getTime();
       }
-      return aStartDate.getTime() - bStartDate.getTime();
+      return bStartDate.getTime() - aStartDate.getTime();
     },
   );
 
