@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Fair from "../components/Fair";
-import { FairContentfulType, fetchFairs } from "../utils/fetchFairs";
-import { getByStatus } from "@/utils/getByStatus";
+import { FairContentfulType } from "../utils/fetchFairs";
+import { fetchCurrentAndUpcomingFairs } from "../utils/fetchCurrentAndUpcomingFairs";
 
 export const metadata: Metadata = {
   title: "Fairs On View / Upcoming | Balazsi Gallery",
@@ -10,10 +10,7 @@ export const metadata: Metadata = {
 };
 
 const FairsOnViewUpcoming = async () => {
-  const fairs = await fetchFairs();
-  const currentFairs = getByStatus(fairs, "Current");
-  const upcomingFairs = getByStatus(fairs, "Upcoming");
-  const currentAndUpcomingFairs = [...currentFairs, ...upcomingFairs];
+  const currentAndUpcomingFairs = await fetchCurrentAndUpcomingFairs();
   if (currentAndUpcomingFairs.length === 0) {
     redirect("/fairs/archive");
   }
