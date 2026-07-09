@@ -2,11 +2,7 @@ import styles from "./layout.module.css";
 import NavLink from "@/components/header/NavLink";
 import { fetchCurrentAndUpcomingFairs } from "./utils/fetchCurrentAndUpcomingFairs";
 
-const FairsLayout = async ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+const FairsLayout = async ({ children }: { children: React.ReactNode }) => {
   const currentAndUpcomingFairs = await fetchCurrentAndUpcomingFairs();
   return (
     <div className={styles.container}>

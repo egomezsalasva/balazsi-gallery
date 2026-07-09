@@ -1,14 +1,13 @@
 import Link from "next/link";
 import styles from "./ReadMoreBtn.module.css";
 
-type ReadMoreBtnProps = {
-  href: string;
+type ReadMoreBtnProps = React.ComponentPropsWithoutRef<typeof Link> & {
   title?: string;
 };
 
-const ReadMoreBtn = ({ href, title = "Read More +" }: ReadMoreBtnProps) => {
+const ReadMoreBtn = ({ title = "Read More +", ...props }: ReadMoreBtnProps) => {
   return (
-    <Link href={href} className={styles.readMoreBtn}>
+    <Link {...props} className={styles.readMoreBtn}>
       {title}
     </Link>
   );
