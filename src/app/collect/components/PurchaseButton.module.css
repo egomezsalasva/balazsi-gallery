@@ -1,0 +1,21 @@
+.purchaseBtn {
+  font-size: 1rem;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+
+.purchaseBtn:hover:not(:disabled) {
+  text-decoration: underline;
+  text-underline-offset: 0.375rem;
+}
+
+.purchaseBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

@@ -1,0 +1,82 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  margin: 2rem 0 7rem;
+}
+
+.detailsContainer {
+  grid-column: 1 / 5;
+}
+
+.imageContainer {
+  grid-column: 6 / 12;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  min-height: 25rem;
+  aspect-ratio: 682 / 400;
+  object-fit: cover;
+}
+
+.detailsArtistContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.detailsArtistDash {
+  width: 1.25rem;
+  height: 3px;
+  background: #000;
+}
+
+.detailsArtistContainer h3 {
+  font-size: 2.25rem;
+  line-height: 1;
+  font-family: var(--font-display);
+  /* text-transform: uppercase; */
+  font-weight: 500;
+}
+
+.detailsArtistContainer h3 span {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+.labelsContainer {
+  margin-bottom: 1rem;
+}
+
+.labelsContainer p {
+  margin-bottom: 0.25rem;
+}
+.description {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 1025px) {
+  .imageContainer {
+    grid-column: 2 / 12;
+    order: 1;
+  }
+  .detailsContainer {
+    grid-column: 2 / 12;
+    order: 2;
+  }
+  .image {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .imageContainer {
+    grid-column: 1 / 13;
+  }
+  .detailsContainer {
+    grid-column: 1 / 13;
+  }
+}

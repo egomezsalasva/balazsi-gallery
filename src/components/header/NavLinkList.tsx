@@ -16,6 +16,9 @@ const NavLinkList = () => {
       <NavLink href="/news">News</NavLink>
       <NavLink href="/events">Events</NavLink>
       <NavLink href="/media-library">Media Library</NavLink>
+      <NavLink href="/collect" additionalHref="/collect">
+        Collect
+      </NavLink>
       <NavLink href="/about">About</NavLink>
       <NavLink href="/contact">Contact</NavLink>
     </>
