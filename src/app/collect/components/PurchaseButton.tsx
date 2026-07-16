@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { createCheckoutSession } from "../actions/createCheckoutSession";
+import { useState, useTransition } from "react";
+import { addToCart } from "../actions/addToCart";
 import styles from "./PurchaseButton.module.css";
 
 type PurchaseButtonProps = {
@@ -9,28 +9,31 @@ type PurchaseButtonProps = {
 };
 
 export default function PurchaseButton({ slug }: PurchaseButtonProps) {
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
 
-  async function handlePurchase() {
-    setLoading(true);
-    const result = await createCheckoutSession(slug);
-
-    if ("url" in result && result.url) {
-      window.location.href = result.url;
-    } else {
-      alert(result.error ?? "Something went wrong");
-      setLoading(false);
-    }
+  function handlePurchase() {
+    setError(null);
+    startTransition(async () => {
+      try {
+        await addToCart(slug);
+      } catch {
+        setError("Something went wrong");
+      }
+    });
   }
 
   return (
-    <button
-      type="button"
-      onClick={handlePurchase}
-      disabled={loading}
-      className={styles.purchaseBtn}
-    >
-      {loading ? "Loading..." : "Purchase"}
-    </button>
+    <>
+      <button
+        type="button"
+        onClick={handlePurchase}
+        disabled={isPending}
+        className={styles.purchaseBtn}
+      >
+        {isPending ? "Loading..." : "Purchase"}
+      </button>
+      {error && <p>{error}</p>}
+    </>
   );
 }

@@ -1,26 +1,7 @@
 import { headers } from "next/headers";
 import { stripe } from "@/lib/stripe";
 
-export async function POST(req: Request) {
-  const signature = (await headers()).get("stripe-signature");
-  if (!signature) return new Response(null, { status: 400 });
-
-  let event;
-  try {
-    event = stripe.webhooks.constructEvent(
-      await req.text(),
-      signature,
-      process.env.STRIPE_WEBHOOK_SECRET!,
-    );
-  } catch {
-    return new Response(null, { status: 400 });
-  }
-
-  if (event.type !== "checkout.session.completed") return new Response("OK");
-
-  const collectId = event.data.object.metadata?.collectId;
-  if (!collectId) return new Response("OK");
-
+async function markCollectPieceSold(collectId: string) {
   const url = `https://api.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master/entries/${collectId}`;
   const auth = {
     Authorization: `Bearer ${process.env.CONTENTFUL_MANAGEMENT_TOKEN}`,
@@ -44,6 +25,35 @@ export async function POST(req: Request) {
     method: "PUT",
     headers: { ...auth, "X-Contentful-Version": String(updated.sys.version) },
   });
+}
+
+export async function POST(req: Request) {
+  const signature = (await headers()).get("stripe-signature");
+  if (!signature) return new Response(null, { status: 400 });
+
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(
+      await req.text(),
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET!,
+    );
+  } catch {
+    return new Response(null, { status: 400 });
+  }
+
+  if (event.type !== "checkout.session.completed") return new Response("OK");
+
+  const metadata = event.data.object.metadata ?? {};
+  const collectIds = metadata.collectIds
+    ? metadata.collectIds.split(",").filter(Boolean)
+    : metadata.collectId
+      ? [metadata.collectId]
+      : [];
+
+  if (collectIds.length === 0) return new Response("OK");
+
+  await Promise.all(collectIds.map(markCollectPieceSold));
 
   return new Response("OK");
 }

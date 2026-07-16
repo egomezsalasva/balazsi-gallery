@@ -1,0 +1,24 @@
+.checkout {
+  width: 100%;
+  min-height: 600px;
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+  background: white;
+}
+
+.checkout > div {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+@media (max-width: 1025px) {
+  .container {
+    padding: var(--padding-medium);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--padding-small);
+  }
+}
