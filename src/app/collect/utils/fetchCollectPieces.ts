@@ -8,6 +8,7 @@ export type CollectPiecesContentfulType = {
   inventory: number;
   artist?: {
     name: string;
+    slug: string;
   } | null;
   imagesCollection: {
     items: {
@@ -19,7 +20,7 @@ export type CollectPiecesContentfulType = {
 
 const COLLECT_QUERY = `
 query {
-  collectCollection(order: sys_publishedAt_DESC) {
+  collectCollection(order: title_ASC) {
     items {
       slug
       title
@@ -28,6 +29,7 @@ query {
       inventory
       artist {
         name
+        slug
       }
       imagesCollection {
         items {
