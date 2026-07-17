@@ -3,7 +3,6 @@ import { CollectType, fetchCollectPieces } from "../utils/fetchCollectPieces";
 
 export default async function CollectPiecesPage() {
   const collectPieces = await fetchCollectPieces("Pieces" as CollectType);
-  console.log(collectPieces);
   return (
     <div>
       {collectPieces.map((item) => (

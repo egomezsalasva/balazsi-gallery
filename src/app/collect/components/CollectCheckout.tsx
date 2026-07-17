@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import {
   EmbeddedCheckout,
   EmbeddedCheckoutProvider,
@@ -13,7 +14,18 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
 );
 
+function forceScrollTop(ms = 1500) {
+  const toTop = () => window.scrollTo(0, 0);
+  toTop();
+  window.addEventListener("scroll", toTop, { passive: true });
+  window.setTimeout(() => window.removeEventListener("scroll", toTop), ms);
+}
+
 export default function CollectCheckout() {
+  useEffect(() => {
+    forceScrollTop();
+  }, []);
+
   return (
     <div className={styles.checkout}>
       <EmbeddedCheckoutProvider
@@ -45,7 +57,7 @@ export default function CollectCheckout() {
                 errorMessage: result.error,
               };
             }
-
+            forceScrollTop();
             return { type: "accept" };
           },
         }}
