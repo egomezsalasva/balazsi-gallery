@@ -9,8 +9,11 @@ export type CollectPieceContentfulType = {
   price: number;
   inventory: number;
   shippingFallback: number;
-  shippingSpain: number;
-  shippingUsa: number;
+  shippingSpain: number | null;
+  shippingUsa: number | null;
+  shippingSingapore: number | null;
+  shippingSweden: number | null;
+  shippingUk: number | null;
 };
 
 const COLLECT_PIECE_QUERY = `

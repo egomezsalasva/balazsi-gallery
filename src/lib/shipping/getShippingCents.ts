@@ -1,8 +1,8 @@
-import type { CollectPiecesContentfulType } from "@/app/collect/utils/fetchCollectPieces";
+import type { CollectPieceContentfulType } from "@/app/collect/utils/fetchCollectPieceBySlug";
 import { SHIPPING_COUNTRIES } from "./constants";
 
 export function getShippingCents(
-  piece: CollectPiecesContentfulType,
+  piece: CollectPieceContentfulType,
   countryCode: string,
 ) {
   const country = SHIPPING_COUNTRIES.find((c) => c.code === countryCode);

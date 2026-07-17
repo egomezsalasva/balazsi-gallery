@@ -6,6 +6,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { createCheckoutSession } from "../actions/createCheckoutSession";
+import { updateShippingOptions } from "../actions/updateShippingOptions";
 import styles from "./CollectCheckout.module.css";
 
 const stripePromise = loadStripe(
@@ -28,6 +29,24 @@ export default function CollectCheckout() {
             throw new Error(
               "error" in result ? result.error : "Failed to create session",
             );
+          },
+          onShippingDetailsChange: async ({
+            checkoutSessionId,
+            shippingDetails,
+          }) => {
+            const result = await updateShippingOptions({
+              checkoutSessionId,
+              shippingDetails,
+            });
+
+            if ("error" in result && result.error) {
+              return {
+                type: "reject",
+                errorMessage: result.error,
+              };
+            }
+
+            return { type: "accept" };
           },
         }}
       >
