@@ -10,8 +10,15 @@ type CollectItemProps = {
 };
 
 const CollectItem = ({ collectItem }: CollectItemProps) => {
-  const { slug, title, artist, imagesCollection, summaryText, price, status } =
-    collectItem;
+  const {
+    slug,
+    title,
+    artist,
+    imagesCollection,
+    summaryText,
+    price,
+    inventory,
+  } = collectItem;
   const heroImage = imagesCollection?.items?.[0];
   return (
     <div className={styles.container}>
@@ -27,11 +34,7 @@ const CollectItem = ({ collectItem }: CollectItemProps) => {
           <div className={styles.priceContainer}>
             <p>Price: {formatEuroFromCents(price)}</p>
           </div>
-          {status === "available" ? (
-            <PurchaseButton slug={slug} />
-          ) : (
-            <p>Sold</p>
-          )}
+          {inventory > 0 ? <PurchaseButton slug={slug} /> : <p>Sold</p>}
         </div>
       </div>
       <div className={styles.imageContainer}>

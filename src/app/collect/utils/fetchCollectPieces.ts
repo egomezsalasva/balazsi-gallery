@@ -5,7 +5,7 @@ export type CollectPiecesContentfulType = {
   title: string;
   summaryText: string;
   price: number;
-  status: "available" | "sold";
+  inventory: number;
   artist?: {
     name: string;
   } | null;
@@ -25,7 +25,7 @@ query {
       title
       summaryText
       price
-      status
+      inventory
       artist {
         name
       }

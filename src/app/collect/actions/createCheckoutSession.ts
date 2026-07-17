@@ -14,7 +14,7 @@ export async function createCheckoutSession() {
   const validPieces = pieces.filter(Boolean);
 
   if (validPieces.length === 0) return { error: "Not found" };
-  if (validPieces.some((piece) => piece.status !== "available")) {
+  if (validPieces.some((piece) => piece.inventory < 1)) {
     return { error: "One or more items are no longer available" };
   }
 

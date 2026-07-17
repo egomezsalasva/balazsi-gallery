@@ -7,7 +7,7 @@ export type CollectPieceContentfulType = {
   slug: string;
   title: string;
   price: number;
-  status: string;
+  inventory: number;
   shippingFallback: number;
   shippingSpain: number;
   shippingUsa: number;
@@ -23,7 +23,7 @@ query ($slug: String!) {
       slug
       title
       price
-      status
+      inventory
       shippingFallback
       shippingSpain
       shippingUsa

@@ -1,13 +1,16 @@
 import { headers } from "next/headers";
 import { stripe } from "@/lib/stripe";
 
-async function markCollectPieceSold(collectId: string) {
+async function decrementCollectInventory(collectId: string) {
   const url = `https://api.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master/entries/${collectId}`;
   const auth = {
     Authorization: `Bearer ${process.env.CONTENTFUL_MANAGEMENT_TOKEN}`,
   };
 
   const entry = await fetch(url, { headers: auth }).then((r) => r.json());
+  const currentInventory = entry.fields.inventory?.["en-US"] ?? 0;
+
+  if (currentInventory < 1) return;
 
   const updated = await fetch(url, {
     method: "PUT",
@@ -17,7 +20,10 @@ async function markCollectPieceSold(collectId: string) {
       "X-Contentful-Version": String(entry.sys.version),
     },
     body: JSON.stringify({
-      fields: { ...entry.fields, status: { "en-US": "sold" } },
+      fields: {
+        ...entry.fields,
+        inventory: { "en-US": currentInventory - 1 },
+      },
     }),
   }).then((r) => r.json());
 
@@ -53,7 +59,7 @@ export async function POST(req: Request) {
 
   if (collectIds.length === 0) return new Response("OK");
 
-  await Promise.all(collectIds.map(markCollectPieceSold));
+  await Promise.all(collectIds.map(decrementCollectInventory));
 
   return new Response("OK");
 }
