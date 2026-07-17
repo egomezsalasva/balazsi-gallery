@@ -18,6 +18,7 @@ const CollectItem = ({ collectItem }: CollectItemProps) => {
     imagesCollection,
     summaryText,
     price,
+    type,
     inventory,
   } = collectItem;
   const heroImage = imagesCollection?.items?.[0];
@@ -41,7 +42,7 @@ const CollectItem = ({ collectItem }: CollectItemProps) => {
           </div>
           <div className={styles.priceContainer}>
             <p>Price: {formatEuroFromCents(price)}</p>
-            {inventory > 1 && (
+            {inventory > 0 && type === "Merch" && (
               <p className={styles.remainingInventory}>{inventory} left</p>
             )}
           </div>
