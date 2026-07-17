@@ -1,11 +1,26 @@
 .container {
-  max-width: 32rem;
   padding: 3.5rem;
+  min-height: 100lvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.innerContainer {
+  max-width: 32rem;
   min-height: 50lvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .container h1 {
   margin-bottom: 1.5rem;
+  font-size: 2.25rem;
+  line-height: 1;
+  font-family: var(--font-display);
 }
 
 .container p {
@@ -17,13 +32,12 @@
   display: inline-block;
   margin-top: 1.5rem;
   text-transform: uppercase;
-  font-size: 15px;
-  color: rgba(0, 0, 0, 0.5);
-  transition: color 0.2s ease-in-out;
+  font-size: 1rem;
 }
 
 .link:hover {
-  color: rgba(0, 0, 0, 1);
+  text-underline-offset: 0.25rem;
+  text-decoration: underline;
 }
 
 @media (max-width: 1025px) {

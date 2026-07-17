@@ -28,9 +28,14 @@ const CollectItem = ({ collectItem }: CollectItemProps) => {
           <div className={styles.collectTitleContainer}>
             <h3>{title}</h3>
           </div>
-          <Link href={`/artist/${artist?.slug}`} className={styles.artistLink}>
-            {artist?.name}
-          </Link>
+          {artist && (
+            <Link
+              href={`/artist/${artist?.slug}`}
+              className={styles.artistLink}
+            >
+              {artist?.name}
+            </Link>
+          )}
           <div className={styles.description}>
             <ReactMarkdown>{summaryText}</ReactMarkdown>
           </div>
