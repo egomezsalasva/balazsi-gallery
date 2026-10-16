@@ -1,5 +1,4 @@
 "use server";
-
 import { redirect } from "next/navigation";
 import { setCartSlugs } from "@/lib/cart/cart";
 

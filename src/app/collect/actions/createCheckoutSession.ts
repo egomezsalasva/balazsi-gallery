@@ -1,5 +1,4 @@
 "use server";
-
 import { stripe } from "@/lib/stripe";
 import { getCartSlugs } from "@/lib/cart/cart";
 import { CURRENCY } from "@/lib/shipping/constants";
@@ -20,22 +19,25 @@ export async function createCheckoutSession() {
 
   const origin = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const collectIds = validPieces.map((piece) => piece.sys.id).join(",");
-  const shippingCents = Math.max(
-    ...validPieces.map((piece) => piece.shippingFallback),
-  );
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
-    ui_mode: "embedded_page",
+    ui_mode: "elements",
     payment_method_types: ["card"],
-    line_items: validPieces.map((piece) => ({
-      price_data: {
-        currency: CURRENCY,
-        product_data: { name: piece.title },
-        unit_amount: piece.price,
-      },
-      quantity: 1,
-    })),
+    line_items: validPieces.map((piece) => {
+      const imageUrl = piece.imagesCollection?.items?.[0]?.url;
+      return {
+        price_data: {
+          currency: CURRENCY,
+          product_data: {
+            name: piece.title,
+            ...(imageUrl ? { images: [imageUrl] } : {}),
+          },
+          unit_amount: piece.price,
+        },
+        quantity: 1,
+      };
+    }),
     metadata: { collectIds },
     shipping_address_collection: {
       allowed_countries: [...ALL_SHIPPING_COUNTRIES],
@@ -43,9 +45,9 @@ export async function createCheckoutSession() {
     shipping_options: [
       {
         shipping_rate_data: {
-          display_name: "International Shipping",
+          display_name: "Shipping",
           type: "fixed_amount",
-          fixed_amount: { amount: shippingCents, currency: CURRENCY },
+          fixed_amount: { amount: 0, currency: CURRENCY },
         },
       },
     ],

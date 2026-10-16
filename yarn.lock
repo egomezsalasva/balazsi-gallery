@@ -1576,17 +1576,17 @@
   dependencies:
     tslib "^2.6.2"
 
-"@stripe/react-stripe-js@^6.8.0":
-  version "6.8.0"
-  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-6.8.0.tgz#388bb7b2fca7de99097ef31a1f08f6261a9d18e4"
-  integrity sha512-nRrPkos00CmUeqXHxtJkXmSbl9/6ybGI4jVebzsiA6QaE5A4iw9dn1C4hUx2tBmQQV2e6pm2aLkPYov4hdta2w==
+"@stripe/react-stripe-js@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-7.0.0.tgz#21d7475215558b6555b1ec4c2360cad4089d58a6"
+  integrity sha512-wKw6YM0p/IpGj7hcwdJL7UAb7s0hlO8kLJIXn0CezewYILQ8j/A7j55EHuHHjF6dV+cr4yZhbhg4QLRjovfM4A==
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^9.10.0":
-  version "9.10.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-9.10.0.tgz#58f73aae3d07685f39870def2c94daca47684aec"
-  integrity sha512-rxkKgWLAWtjvJhqEynPJ5zPXoKx5cK4eIUunnMGxwUJDRHKv3MlpA1mCCXdeiXzui5YZNWJKUJBTpe7m30jhOA==
+"@stripe/stripe-js@^10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-10.1.0.tgz#9423e29bd86ba04c0c950c5b21890b7242f7c460"
+  integrity sha512-sLRPukMKMxvRVrgV3Za8LM0Yd2azrixQjfaiuzS8Fivlu/Gt7VbBuRiRZJIvfL3XxAw+FdfdmhHSvjAfLG3lkA==
 
 "@swc/helpers@0.5.15":
   version "0.5.15"

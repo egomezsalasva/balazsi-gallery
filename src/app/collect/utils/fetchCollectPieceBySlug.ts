@@ -14,6 +14,11 @@ export type CollectPieceContentfulType = {
   shippingSingapore: number | null;
   shippingSweden: number | null;
   shippingUk: number | null;
+  imagesCollection: {
+    items: {
+      url: string;
+    }[];
+  };
 };
 
 const COLLECT_PIECE_QUERY = `
@@ -33,6 +38,11 @@ query ($slug: String!) {
       shippingSingapore
       shippingSweden
       shippingUk
+      imagesCollection(limit: 1) {
+        items {
+          url
+        }
+      }
     }
   }
 }

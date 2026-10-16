@@ -5,16 +5,17 @@ import { CURRENCY, SHIPPING_COUNTRIES } from "@/lib/shipping/constants";
 import { getShippingCents } from "@/lib/shipping/getShippingCents";
 import { getCartSlugs } from "@/lib/cart/cart";
 import { fetchCollectPieceBySlug } from "../utils/fetchCollectPieceBySlug";
+import { formatEuroFromCents } from "../utils/formatEuroFromCents";
 
 type ShippingDetails = {
-  name: string;
+  name?: string | null;
   address: {
     line1?: string | null;
     line2?: string | null;
     city?: string | null;
     state?: string | null;
     postal_code?: string | null;
-    country: string;
+    country?: string | null;
   };
 };
 
@@ -30,11 +31,9 @@ export async function updateShippingOptions({
   checkoutSessionId: string;
   shippingDetails: ShippingDetails;
 }) {
-  const { name, address } = shippingDetails;
-  const { country, line1 } = address;
-
-  if (!country || !line1) {
-    return { error: "Please enter a complete shipping address." };
+  const country = shippingDetails.address.country?.toUpperCase();
+  if (!country) {
+    return { error: "Please select a shipping country." };
   }
 
   const session = await stripe.checkout.sessions.retrieve(checkoutSessionId);
@@ -57,25 +56,13 @@ export async function updateShippingOptions({
   const shippingCents = Math.max(
     ...validPieces.map((piece) => getShippingCents(piece, country)),
   );
+  const displayName = getShippingDisplayName(country);
 
   await stripe.checkout.sessions.update(checkoutSessionId, {
-    collected_information: {
-      shipping_details: {
-        name,
-        address: {
-          line1,
-          line2: address.line2 ?? undefined,
-          city: address.city ?? undefined,
-          state: address.state ?? undefined,
-          postal_code: address.postal_code ?? undefined,
-          country,
-        },
-      },
-    },
     shipping_options: [
       {
         shipping_rate_data: {
-          display_name: getShippingDisplayName(country),
+          display_name: displayName,
           type: "fixed_amount",
           fixed_amount: { amount: shippingCents, currency: CURRENCY },
         },
@@ -83,5 +70,9 @@ export async function updateShippingOptions({
     ],
   });
 
-  return { success: true };
+  return {
+    success: true as const,
+    displayName,
+    amount: formatEuroFromCents(shippingCents),
+  };
 }

@@ -42,7 +42,7 @@ const CollectItem = ({ collectItem }: CollectItemProps) => {
           </div>
           <div className={styles.priceContainer}>
             <p>Price: {formatEuroFromCents(price)}</p>
-            {inventory > 0 && type === "Merch" && (
+            {inventory > 0 && type === "Books" && (
               <p className={styles.remainingInventory}>{inventory} left</p>
             )}
           </div>
