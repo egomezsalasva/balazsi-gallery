@@ -281,7 +281,13 @@ function CheckoutInner() {
 
         <section>
           <h2 className={styles.sectionTitle}>Payment method</h2>
-          <PaymentElement />
+          <PaymentElement
+            options={{
+              terms: {
+                card: "never",
+              },
+            }}
+          />
         </section>
 
         {error && <p className={styles.error}>{error}</p>}

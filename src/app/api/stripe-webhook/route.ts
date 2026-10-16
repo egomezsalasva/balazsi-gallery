@@ -9,8 +9,13 @@ async function decrementCollectInventory(collectId: string) {
   };
 
   const entry = await fetch(url, { headers: auth }).then((r) => r.json());
-  const currentInventory = entry.fields.inventory?.["en-US"] ?? 0;
 
+  if (!entry?.fields) {
+    console.error("Contentful entry fetch failed:", collectId, entry);
+    return;
+  }
+
+  const currentInventory = entry.fields.inventory?.["en-US"] ?? 0;
   if (currentInventory < 1) return;
 
   const updated = await fetch(url, {
@@ -27,6 +32,11 @@ async function decrementCollectInventory(collectId: string) {
       },
     }),
   }).then((r) => r.json());
+
+  if (!updated?.sys?.version) {
+    console.error("Contentful inventory update failed:", collectId, updated);
+    return;
+  }
 
   await fetch(`${url}/published`, {
     method: "PUT",
@@ -45,14 +55,19 @@ export async function POST(req: Request) {
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!,
     );
-  } catch {
+  } catch (error) {
+    console.error("Stripe webhook signature failed:", error);
     return new Response(null, { status: 400 });
   }
 
   if (event.type !== "checkout.session.completed") return new Response("OK");
 
   const session = event.data.object;
-  const metadata = session.metadata ?? {};
+  const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
+    expand: ["line_items"],
+  });
+  const metadata = fullSession.metadata ?? {};
+
   const collectIds = metadata.collectIds
     ? metadata.collectIds.split(",").filter(Boolean)
     : metadata.collectId
@@ -60,24 +75,23 @@ export async function POST(req: Request) {
       : [];
 
   if (collectIds.length > 0 && metadata.inventoryDecremented !== "true") {
-    await Promise.all(collectIds.map(decrementCollectInventory));
-    await stripe.checkout.sessions.update(session.id, {
-      metadata: { ...metadata, inventoryDecremented: "true" },
-    });
+    try {
+      await Promise.all(collectIds.map(decrementCollectInventory));
+      await stripe.checkout.sessions.update(session.id, {
+        metadata: { ...metadata, inventoryDecremented: "true" },
+      });
+    } catch (error) {
+      console.error("Inventory decrement failed:", error);
+    }
   }
 
-  // Idempotent: skip if we already emailed for this session (Stripe retries / double delivery)
   if (metadata.purchaseEmailSent !== "true") {
     try {
-      const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
-        expand: ["line_items"],
-      });
-
       const lineItems =
         fullSession.line_items?.data.map((item) => ({
           name: item.description ?? "Item",
           quantity: item.quantity ?? 1,
-          amount: new Intl.NumberFormat("en-EU", {
+          amount: new Intl.NumberFormat("en", {
             style: "currency",
             currency: (item.currency ?? "eur").toUpperCase(),
           }).format((item.amount_total ?? 0) / 100),
@@ -87,7 +101,7 @@ export async function POST(req: Request) {
 
       await stripe.checkout.sessions.update(session.id, {
         metadata: {
-          ...fullSession.metadata,
+          ...metadata,
           inventoryDecremented: "true",
           purchaseEmailSent: "true",
         },
