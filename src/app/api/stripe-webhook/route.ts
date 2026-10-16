@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import { stripe } from "@/lib/stripe";
+import { sendPurchaseEmails } from "@/lib/email/sendPurchaseEmails";
 
 async function decrementCollectInventory(collectId: string) {
   const url = `https://api.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master/entries/${collectId}`;
@@ -50,16 +51,51 @@ export async function POST(req: Request) {
 
   if (event.type !== "checkout.session.completed") return new Response("OK");
 
-  const metadata = event.data.object.metadata ?? {};
+  const session = event.data.object;
+  const metadata = session.metadata ?? {};
   const collectIds = metadata.collectIds
     ? metadata.collectIds.split(",").filter(Boolean)
     : metadata.collectId
       ? [metadata.collectId]
       : [];
 
-  if (collectIds.length === 0) return new Response("OK");
+  if (collectIds.length > 0 && metadata.inventoryDecremented !== "true") {
+    await Promise.all(collectIds.map(decrementCollectInventory));
+    await stripe.checkout.sessions.update(session.id, {
+      metadata: { ...metadata, inventoryDecremented: "true" },
+    });
+  }
 
-  await Promise.all(collectIds.map(decrementCollectInventory));
+  // Idempotent: skip if we already emailed for this session (Stripe retries / double delivery)
+  if (metadata.purchaseEmailSent !== "true") {
+    try {
+      const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
+        expand: ["line_items"],
+      });
+
+      const lineItems =
+        fullSession.line_items?.data.map((item) => ({
+          name: item.description ?? "Item",
+          quantity: item.quantity ?? 1,
+          amount: new Intl.NumberFormat("en-EU", {
+            style: "currency",
+            currency: (item.currency ?? "eur").toUpperCase(),
+          }).format((item.amount_total ?? 0) / 100),
+        })) ?? [];
+
+      await sendPurchaseEmails({ session: fullSession, lineItems });
+
+      await stripe.checkout.sessions.update(session.id, {
+        metadata: {
+          ...fullSession.metadata,
+          inventoryDecremented: "true",
+          purchaseEmailSent: "true",
+        },
+      });
+    } catch (error) {
+      console.error("Purchase email failed:", error);
+    }
+  }
 
   return new Response("OK");
 }
