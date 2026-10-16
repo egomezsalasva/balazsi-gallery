@@ -68,6 +68,9 @@ const appearanceBase = {
       fontSize: "0px",
       opacity: "0",
     },
+    ".AccordionItem": {
+      borderRadius: "0.25rem",
+    },
   },
 };
 
