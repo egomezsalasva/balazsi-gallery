@@ -74,5 +74,6 @@ export async function updateShippingOptions({
     success: true as const,
     displayName,
     amount: formatEuroFromCents(shippingCents),
+    shippingCents,
   };
 }

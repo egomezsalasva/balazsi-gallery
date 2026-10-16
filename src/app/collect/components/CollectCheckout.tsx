@@ -12,6 +12,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { createCheckoutSession } from "../actions/createCheckoutSession";
 import { getShippingQuote } from "../actions/getShippingQuote";
 import { updateShippingOptions } from "../actions/updateShippingOptions";
+import { formatEuroFromCents } from "../utils/formatEuroFromCents";
 import styles from "./CollectCheckout.module.css";
 
 const stripePromise = loadStripe(
@@ -116,6 +117,7 @@ function CheckoutInner() {
   const [error, setError] = useState<string | null>(null);
   const [shippingLabel, setShippingLabel] = useState("Shipping");
   const [shippingAmount, setShippingAmount] = useState<string | null>(null);
+  const [shippingCents, setShippingCents] = useState<number | null>(null);
   const checkoutState = useCheckoutElements();
 
   if (checkoutState.type === "loading") return null;
@@ -126,9 +128,15 @@ function CheckoutInner() {
   const { checkout } = checkoutState;
   const { lineItems, total, canConfirm } = checkout;
 
+  const displayTotal =
+    shippingCents != null
+      ? formatEuroFromCents(total.subtotal.minorUnitsAmount + shippingCents)
+      : total.total.amount;
+
   const syncShippingToSession = async (shippingDetails: ShippingDetails) => {
     let nextLabel = shippingLabel;
     let nextAmount = shippingAmount;
+    let nextCents = shippingCents;
 
     const result = await checkout.runServerUpdate(async () => {
       const updateResult = await updateShippingOptions({
@@ -143,6 +151,7 @@ function CheckoutInner() {
       if ("success" in updateResult && updateResult.success) {
         nextLabel = updateResult.displayName;
         nextAmount = updateResult.amount;
+        nextCents = updateResult.shippingCents;
       }
     });
 
@@ -152,6 +161,7 @@ function CheckoutInner() {
 
     setShippingLabel(nextLabel);
     if (nextAmount) setShippingAmount(nextAmount);
+    if (nextCents != null) setShippingCents(nextCents);
   };
 
   const handleShippingChange = async (event: {
@@ -167,6 +177,7 @@ function CheckoutInner() {
       if ("success" in quote && quote.success) {
         setShippingLabel(quote.displayName);
         setShippingAmount(quote.amount);
+        setShippingCents(quote.shippingCents);
         setError(null);
       } else if ("error" in quote) {
         setError(quote.error);
@@ -220,7 +231,7 @@ function CheckoutInner() {
   return (
     <div className={styles.layout}>
       <aside className={styles.summary}>
-        <p className={styles.totalPrice}>{total.total.amount}</p>
+        <p className={styles.totalPrice}>{displayTotal}</p>
 
         <ul className={styles.lineItems}>
           {lineItems.map((item) => (
@@ -253,7 +264,7 @@ function CheckoutInner() {
           <hr className={styles.divider} />
           <div className={styles.totalDue}>
             <span>Total due</span>
-            <span>{total.total.amount}</span>
+            <span>{displayTotal}</span>
           </div>
         </div>
       </aside>
@@ -281,7 +292,7 @@ function CheckoutInner() {
           disabled={!canConfirm || paying}
           onClick={handlePay}
         >
-          {paying ? "Processing…" : `Pay ${total.total.amount}`}
+          {paying ? "Processing…" : `Pay ${displayTotal}`}
         </button>
       </div>
     </div>
