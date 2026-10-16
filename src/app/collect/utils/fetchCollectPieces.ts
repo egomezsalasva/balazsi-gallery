@@ -1,6 +1,6 @@
 import { fetchContentfulData } from "@/utils/fetchContentfulData";
 
-export type CollectType = "Pieces" | "Merch";
+export type CollectType = "Pieces" | "Books";
 
 export type CollectPiecesContentfulType = {
   slug: string;

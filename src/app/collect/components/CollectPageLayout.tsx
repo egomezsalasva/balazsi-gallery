@@ -7,9 +7,9 @@ const CollectPageLayout = async ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [pieces, merch] = await Promise.all([
+  const [pieces, books] = await Promise.all([
     fetchCollectPieces("Pieces"),
-    fetchCollectPieces("Merch"),
+    fetchCollectPieces("Books"),
   ]);
 
   return (
@@ -17,7 +17,7 @@ const CollectPageLayout = async ({
       <div className={styles.collect}>{children}</div>
       <div className={styles.collectHeader}>
         {pieces.length > 0 && <NavLink href="/collect/pieces">Pieces</NavLink>}
-        {merch.length > 0 && <NavLink href="/collect/merch">Merch</NavLink>}
+        {books.length > 0 && <NavLink href="/collect/books">Books</NavLink>}
       </div>
     </div>
   );

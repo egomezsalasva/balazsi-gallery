@@ -20,6 +20,9 @@ export async function createCheckoutSession() {
 
   const origin = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const collectIds = validPieces.map((piece) => piece.sys.id).join(",");
+  const shippingCents = Math.max(
+    ...validPieces.map((piece) => piece.shippingFallback),
+  );
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
@@ -37,15 +40,12 @@ export async function createCheckoutSession() {
     shipping_address_collection: {
       allowed_countries: [...ALL_SHIPPING_COUNTRIES],
     },
-    permissions: {
-      update_shipping_details: "server_only",
-    },
     shipping_options: [
       {
         shipping_rate_data: {
-          display_name: "Shipping",
+          display_name: "International Shipping",
           type: "fixed_amount",
-          fixed_amount: { amount: 0, currency: CURRENCY },
+          fixed_amount: { amount: shippingCents, currency: CURRENCY },
         },
       },
     ],
