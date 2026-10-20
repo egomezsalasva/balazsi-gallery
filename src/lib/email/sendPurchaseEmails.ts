@@ -47,10 +47,20 @@ export async function sendPurchaseEmails({
 }) {
   const transporter = createTransporter();
   const galleryEmail = process.env.GALLERY_EMAIL!;
+  const siteUrl = (
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.balazsi.com"
+  ).replace(/\/$/, "");
+  const logoUrl = `${siteUrl}/balazsi-logo.png`;
+
   const customerEmail =
     session.customer_details?.email ?? session.customer_email ?? null;
   const customerName = session.customer_details?.name ?? "Customer";
   const total = formatMoney(session.amount_total, session.currency);
+  const shippingAmount = formatMoney(
+    session.shipping_cost?.amount_total ?? 0,
+    session.currency,
+  );
+
   const itemsHtml = lineItems
     .map((item) => `<li>${item.name} × ${item.quantity} — ${item.amount}</li>`)
     .join("");
@@ -62,6 +72,12 @@ export async function sendPurchaseEmails({
     ? `https://dashboard.stripe.com/checkout/sessions/${session.id}`
     : `https://dashboard.stripe.com/test/checkout/sessions/${session.id}`;
 
+  const logoHtml = `
+    <p style="margin: 0 0 24px;">
+      <img src="${logoUrl}" alt="Balazsi Gallery" width="160" style="display: block; width: 160px; height: auto; border: 0;" />
+    </p>
+  `;
+
   // Internal notification for the gallery
   await transporter.sendMail({
     from: `"Balazsi Gallery" <${galleryEmail}>`,
@@ -69,6 +85,7 @@ export async function sendPurchaseEmails({
     replyTo: customerEmail ?? undefined,
     subject: `New collect order — ${total}`,
     html: `
+      ${logoHtml}
       <h2>New collect purchase</h2>
       <p><strong>Session:</strong> ${session.id}</p>
       <p><a href="${stripeSessionUrl}">View in Stripe Dashboard</a></p>
@@ -76,7 +93,10 @@ export async function sendPurchaseEmails({
       <p><strong>Email:</strong> ${customerEmail ?? "Not provided"}</p>
       <p><strong>Total:</strong> ${total}</p>
       <p><strong>Items:</strong></p>
-      <ul>${itemsHtml}</ul>
+      <ul>
+        ${itemsHtml}
+        <li>Shipping — ${shippingAmount}</li>
+      </ul>
       <p><strong>Shipping address:</strong></p>
       <p>${shippingHtml}</p>
     `,
@@ -89,11 +109,15 @@ export async function sendPurchaseEmails({
       to: customerEmail,
       subject: "Thank you for your purchase — Balazsi Gallery",
       html: `
+        ${logoHtml}
         <h2>Thank you, ${customerName}</h2>
         <p>Your purchase from Balazsi Gallery was successful.</p>
         <p>We will be in touch shortly regarding shipping and delivery details.</p>
         <h3>Your order</h3>
-        <ul>${itemsHtml}</ul>
+        <ul>
+          ${itemsHtml}
+          <li>Shipping — ${shippingAmount}</li>
+        </ul>
         <p><strong>Total paid:</strong> ${total}</p>
         <p><strong>Shipping to:</strong></p>
         <p>${shippingHtml}</p>
