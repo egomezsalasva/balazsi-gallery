@@ -1,6 +1,6 @@
 .container {
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   gap: 1rem;
   /* margin: 2rem 0 7rem; */
   margin-bottom: 7rem;
@@ -11,7 +11,7 @@
 }
 
 .imageContainer {
-  grid-column: 5 / 10;
+  grid-column: 5 / 11;
 }
 
 .artistLink {
