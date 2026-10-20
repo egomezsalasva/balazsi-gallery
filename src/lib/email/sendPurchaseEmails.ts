@@ -16,7 +16,7 @@ function createTransporter() {
 function formatMoney(amountTotal: number | null, currency: string | null) {
   if (amountTotal == null) return "—";
   const code = (currency ?? "eur").toUpperCase();
-  return new Intl.NumberFormat("en-EU", {
+  return new Intl.NumberFormat("en", {
     style: "currency",
     currency: code,
   }).format(amountTotal / 100);
@@ -58,26 +58,31 @@ export async function sendPurchaseEmails({
   const shipping = session.collected_information?.shipping_details;
   const shippingHtml = formatAddress(shipping?.address, shipping?.name);
 
-  const orderHtml = `
-    <h2>Order details</h2>
-    <p><strong>Session:</strong> ${session.id}</p>
-    <p><strong>Customer:</strong> ${customerName}</p>
-    <p><strong>Email:</strong> ${customerEmail ?? "Not provided"}</p>
-    <p><strong>Total:</strong> ${total}</p>
-    <p><strong>Items:</strong></p>
-    <ul>${itemsHtml}</ul>
-    <p><strong>Shipping address:</strong></p>
-    <p>${shippingHtml}</p>
-  `;
+  const stripeSessionUrl = session.livemode
+    ? `https://dashboard.stripe.com/checkout/sessions/${session.id}`
+    : `https://dashboard.stripe.com/test/checkout/sessions/${session.id}`;
 
+  // Internal notification for the gallery
   await transporter.sendMail({
     from: `"Balazsi Gallery" <${galleryEmail}>`,
     to: galleryEmail,
     replyTo: customerEmail ?? undefined,
     subject: `New collect order — ${total}`,
-    html: `<h2>New collect purchase</h2>${orderHtml}`,
+    html: `
+      <h2>New collect purchase</h2>
+      <p><strong>Session:</strong> ${session.id}</p>
+      <p><a href="${stripeSessionUrl}">View in Stripe Dashboard</a></p>
+      <p><strong>Customer:</strong> ${customerName}</p>
+      <p><strong>Email:</strong> ${customerEmail ?? "Not provided"}</p>
+      <p><strong>Total:</strong> ${total}</p>
+      <p><strong>Items:</strong></p>
+      <ul>${itemsHtml}</ul>
+      <p><strong>Shipping address:</strong></p>
+      <p>${shippingHtml}</p>
+    `,
   });
 
+  // Confirmation for the buyer
   if (customerEmail) {
     await transporter.sendMail({
       from: `"Balazsi Gallery" <${galleryEmail}>`,
@@ -85,8 +90,14 @@ export async function sendPurchaseEmails({
       subject: "Thank you for your purchase — Balazsi Gallery",
       html: `
         <h2>Thank you, ${customerName}</h2>
-        <p>Your purchase was successful. We will be in touch shortly regarding shipping and delivery details.</p>
-        ${orderHtml}
+        <p>Your purchase from Balazsi Gallery was successful.</p>
+        <p>We will be in touch shortly regarding shipping and delivery details.</p>
+        <h3>Your order</h3>
+        <ul>${itemsHtml}</ul>
+        <p><strong>Total paid:</strong> ${total}</p>
+        <p><strong>Shipping to:</strong></p>
+        <p>${shippingHtml}</p>
+        <p>If you have any questions, reply to this email or contact us at ${galleryEmail}.</p>
       `,
     });
   }
