@@ -34,7 +34,10 @@ query($today: DateTime!){
   exhibitionCollection(
     limit: 6,
     order: startDate_ASC,
-    where: { endDate_gte: $today }
+     where: {
+      endDate_gte: $today,
+      showOnHomepageHero: true
+    }
   ){
     items{
       slug
@@ -56,7 +59,10 @@ query($today: DateTime!){
   fairCollection(
     limit: 6,
     order: startDate_ASC,
-    where: { endDate_gte: $today }
+     where: {
+      endDate_gte: $today,
+      showOnHomepageHero: true
+    }
   ){
     items{
       slug
