@@ -56,10 +56,10 @@
 
 @media (max-width: 1280px) {
   .newsHeader {
-    grid-column: 9 / 13;
+    grid-column: 11 / 13;
   }
   .news {
-    grid-column: 1 / 9;
+    grid-column: 1 / 11;
   }
 }
 
@@ -90,7 +90,7 @@
   .container {
     padding: var(--padding-small);
   }
-  .fairs {
+  .news {
     grid-column: 1 / 13;
   }
 }

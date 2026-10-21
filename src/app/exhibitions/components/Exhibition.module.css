@@ -49,11 +49,11 @@
 
 @media (max-width: 1280px) {
   .imageContainer {
-    grid-column: 1 / 8;
+    grid-column: 1 / 10;
     order: 1;
   }
   .detailsContainer {
-    grid-column: 1 / 8;
+    grid-column: 1 / 7;
     order: 2;
   }
 }
