@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 import { CollectPiecesContentfulType } from "../utils/fetchCollectPieces";
 import ReactMarkdown from "react-markdown";
@@ -21,7 +23,10 @@ const CollectItem = ({ collectItem }: CollectItemProps) => {
     type,
     inventory,
   } = collectItem;
-  const heroImage = imagesCollection?.items?.[0];
+  const images = imagesCollection?.items ?? [];
+  const [activeIndex, setActiveIndex] = useState(0);
+  const heroImage = images[activeIndex];
+
   return (
     <div className={styles.container}>
       <div className={styles.detailsContainer}>
@@ -62,6 +67,28 @@ const CollectItem = ({ collectItem }: CollectItemProps) => {
           height={1000}
           className={styles.image}
         />
+        {images.length > 1 && (
+          <div className={styles.additionalImages}>
+            {images.map((image, index) => (
+              <button
+                key={image.url}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                className={styles.additionalImageButton}
+              >
+                <Image
+                  src={image.url}
+                  alt={image.title || title}
+                  width={400}
+                  height={235}
+                  className={`${styles.additionalImage} ${
+                    index === activeIndex ? styles.additionalImageActive : ""
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

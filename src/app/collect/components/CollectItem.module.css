@@ -72,6 +72,34 @@
   margin-bottom: 1rem;
 }
 
+.additionalImages {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.additionalImageButton {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: calc((100% - 5rem) / 6);
+  flex-shrink: 0;
+}
+.additionalImage {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 600 / 400;
+  object-fit: cover;
+  border: 1px solid transparent;
+  display: block;
+}
+.additionalImageActive {
+  border-color: #000;
+}
+
 @media (max-width: 1280px) {
   .imageContainer {
     grid-column: 1 / 10;
@@ -106,5 +134,8 @@
   }
   .detailsContainer {
     grid-column: 1 / 13;
+  }
+  .additionalImageButton {
+    width: calc((100% - 3rem) / 4); /* 4 thumbs, 3 gaps → 3/12 each */
   }
 }
