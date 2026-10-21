@@ -3,6 +3,7 @@ import { fetchContentfulData } from "@/utils/fetchContentfulData";
 export type ArtistContentfulType = {
   slug: string;
   name: string;
+  represented: boolean | null;
   portraitImage: {
     url: string;
     title: string;
@@ -43,6 +44,7 @@ query{
             title
           }
           name
+          represented
           placeOfBirth
           yearOfBirth
         }

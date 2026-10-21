@@ -48,19 +48,42 @@ export default async function Artists() {
   );
 
   // Convert map to array and sort by most recent exhibition date (descending)
-  const uniqueSoloArtists = Array.from(artistsMap.values())
+  const uniqueSoloFromExhibitions = Array.from(artistsMap.values())
     // .sort((a, b) => b.mostRecentDate.localeCompare(a.mostRecentDate))
     .sort((a, b) => a.artist.name.localeCompare(b.artist.name))
     .map((entry) => entry.artist);
 
+  const uniqueRepresentedArtists = uniqueSoloFromExhibitions.filter(
+    (artist) => artist.represented,
+  );
+  const uniqueSoloArtists = uniqueSoloFromExhibitions.filter(
+    (artist) => !artist.represented,
+  );
+
   return (
     <div className={styles.container}>
+      {uniqueRepresentedArtists.length > 0 && (
+        <div className={styles.representedSection}>
+          <div className={styles.titleContainer}>
+            <h2 className={styles.soloArtistTitle}>Represented Artists</h2>
+          </div>
+          <div className={styles.soloArtistSectionContainer}>
+            {uniqueRepresentedArtists.map((artist) => (
+              <SoloArtist
+                artist={artist}
+                key={artist.slug}
+                variant="represented"
+              />
+            ))}
+          </div>
+        </div>
+      )}
       <div className={styles.titleContainer}>
         <h2 className={styles.soloArtistTitle}>Solo Exhibitions</h2>
       </div>
       <div className={styles.soloArtistSectionContainer}>
         {uniqueSoloArtists.map((artist: ArtistContentfulType) => (
-          <SoloArtist artist={artist} key={artist.slug} />
+          <SoloArtist artist={artist} key={artist.slug} variant="solo" />
         ))}
       </div>
       <div className={styles.titleContainer}>

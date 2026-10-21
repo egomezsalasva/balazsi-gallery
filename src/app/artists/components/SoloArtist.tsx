@@ -5,9 +5,10 @@ import { ArtistContentfulType } from "../utils/fetchExhibitionsForArtists";
 
 type SoloArtitsProps = {
   artist: ArtistContentfulType;
+  variant?: "represented" | "solo";
 };
 
-const SoloArtist = ({ artist }: SoloArtitsProps) => {
+const SoloArtist = ({ artist, variant = "solo" }: SoloArtitsProps) => {
   const { slug, name, portraitImage, heroImage, placeOfBirth, yearOfBirth } =
     artist;
   const imageSrc = heroImage
@@ -25,8 +26,20 @@ const SoloArtist = ({ artist }: SoloArtitsProps) => {
       <div className={styles.detailsContainer}>
         <div className={styles.detailsContainerSticky}>
           <div className={styles.detailsArtistContainer}>
-            <div className={styles.detailsArtistDash} />
-            <h3>
+            <div
+              className={
+                variant === "represented"
+                  ? styles.detailsArtistDashRepresented
+                  : styles.detailsArtistDashSolo
+              }
+            />
+            <h3
+              className={
+                variant === "represented"
+                  ? styles.titleRepresented
+                  : styles.titleSolo
+              }
+            >
               {name}
               {/* {status && status !== "Archive" && <span>{status}</span>} */}
             </h3>
@@ -43,7 +56,9 @@ const SoloArtist = ({ artist }: SoloArtitsProps) => {
           alt={imageAlt}
           width={1000}
           height={1000}
-          className={styles.image}
+          className={
+            variant === "represented" ? styles.imageRepresented : styles.image
+          }
         />
       </div>
     </div>

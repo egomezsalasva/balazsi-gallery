@@ -4,6 +4,10 @@
   min-height: 100lvh;
 }
 
+.representedSection {
+  border-bottom: 0.125rem solid rgba(0, 0, 0, 0.25);
+}
+
 .titleContainer {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
