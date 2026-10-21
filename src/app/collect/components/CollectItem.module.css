@@ -27,6 +27,10 @@
 .priceContainer {
   margin-bottom: 0.5rem;
 }
+.priceAmount {
+  font-weight: 600;
+  padding-left: 0.125rem;
+}
 
 .remainingInventory {
   opacity: 0.66;
@@ -70,6 +74,10 @@
 }
 .description {
   margin-bottom: 1rem;
+  line-height: 1.3;
+}
+.description p {
+  margin-bottom: 0.5rem;
 }
 
 .additionalImages {

@@ -46,7 +46,12 @@ const CollectItem = ({ collectItem }: CollectItemProps) => {
             <ReactMarkdown>{summaryText}</ReactMarkdown>
           </div>
           <div className={styles.priceContainer}>
-            <p>Price: {formatEuroFromCents(price)}</p>
+            <p>
+              Price:{" "}
+              <span className={styles.priceAmount}>
+                {formatEuroFromCents(price)}
+              </span>
+            </p>
             {inventory > 0 && type === "Books" && (
               <p className={styles.remainingInventory}>{inventory} left</p>
             )}
