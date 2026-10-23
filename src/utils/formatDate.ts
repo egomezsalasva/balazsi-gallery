@@ -1,9 +1,7 @@
 export const formatDate = (date: string) => {
-  return new Date(date)
-    .toLocaleDateString("en-GB", {
-      month: "numeric",
-      day: "numeric",
-      year: "2-digit",
-    })
-    .replace(/\//g, ".");
+  const d = new Date(date);
+  const day = String(d.getUTCDate()).padStart(2, "0");
+  const month = String(d.getUTCMonth() + 1).padStart(2, "0");
+  const year = String(d.getUTCFullYear()).slice(-2);
+  return `${day}.${month}.${year}`;
 };
