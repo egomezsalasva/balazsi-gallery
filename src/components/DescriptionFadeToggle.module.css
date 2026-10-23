@@ -16,7 +16,6 @@
 
 .descriptionContainer.expanded {
   flex: none;
-  overflow: visible;
 }
 
 .descriptionContainer p {
@@ -39,6 +38,8 @@
   left: 0;
   right: 0;
   height: 12rem;
+  opacity: 1;
+  transition: opacity var(--expand-duration, 0.45s) ease;
   background: linear-gradient(
     to bottom,
     transparent 0%,
@@ -55,6 +56,11 @@
     white 97%
   );
   pointer-events: none;
+}
+
+.descriptionContainer.hasOverflow.expanded::after,
+.descriptionContainer.hasOverflow.isAnimating::after {
+  opacity: 0;
 }
 
 .readMoreBtn {
