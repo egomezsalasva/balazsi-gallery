@@ -22,6 +22,7 @@ const FairDetails = ({ fair }: FairDetailsProps) => {
           startDate={startDate}
           endDate={endDate ? endDate : undefined}
           withMargin
+          className={styles.dateLabel}
         />
         {artistsCollection.items.length > 0 && (
           <p className={styles.groupShowText}>

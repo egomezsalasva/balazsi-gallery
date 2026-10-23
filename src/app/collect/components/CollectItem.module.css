@@ -2,21 +2,34 @@
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   gap: 1rem;
-  /* margin: 2rem 0 7rem; */
   margin-bottom: 7rem;
+  align-items: stretch;
 }
 
 .detailsContainer {
   grid-column: 1 / 4;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  height: 0;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.detailsContainer:has([data-expanded="true"]) {
+  height: auto;
+  overflow: visible;
 }
 
 .imageContainer {
   grid-column: 5 / 11;
+  grid-row: 1;
 }
 
 .artistLink {
   display: inline-block;
   margin-bottom: 1rem;
+  flex-shrink: 0;
 }
 
 .artistLink:hover {
@@ -25,8 +38,11 @@
 }
 
 .priceContainer {
+  margin-top: 0.75rem;
   margin-bottom: 0.5rem;
+  flex-shrink: 0;
 }
+
 .priceAmount {
   font-weight: 600;
   padding-left: 0.125rem;
@@ -36,6 +52,15 @@
   opacity: 0.66;
   padding-top: 0.25rem;
   font-size: 0.875rem;
+}
+
+.purchaseWrap,
+.sold {
+  flex-shrink: 0;
+}
+
+.sold {
+  opacity: 0.33;
 }
 
 .image {
@@ -51,6 +76,7 @@
   align-items: center;
   gap: 0.25rem;
   margin-bottom: 1.5rem;
+  flex-shrink: 0;
 }
 
 .collectTitleContainer h3 {
@@ -63,21 +89,6 @@
 .collectTitleContainer h3 span {
   font-size: 1rem;
   margin-left: 0.5rem;
-}
-
-.labelsContainer {
-  margin-bottom: 1rem;
-}
-
-.labelsContainer p {
-  margin-bottom: 0.25rem;
-}
-.description {
-  margin-bottom: 1rem;
-  line-height: 1.3;
-}
-.description p {
-  margin-bottom: 0.5rem;
 }
 
 .additionalImages {
@@ -96,6 +107,7 @@
   width: calc((100% - 5rem) / 6);
   flex-shrink: 0;
 }
+
 .additionalImage {
   width: 100%;
   height: auto;
@@ -104,6 +116,7 @@
   border: 1px solid transparent;
   display: block;
 }
+
 .additionalImageActive {
   border-color: #000;
 }
@@ -111,11 +124,17 @@
 @media (max-width: 1280px) {
   .imageContainer {
     grid-column: 1 / 10;
+    grid-row: auto;
     order: 1;
   }
   .detailsContainer {
     grid-column: 1 / 7;
+    grid-row: auto;
     order: 2;
+    display: block;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
   }
 }
 
@@ -130,6 +149,10 @@
   .detailsContainer {
     grid-column: 1 / 13;
     order: 2;
+    display: block;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
   }
   .image {
     min-height: 0;
@@ -144,6 +167,6 @@
     grid-column: 1 / 13;
   }
   .additionalImageButton {
-    width: calc((100% - 3rem) / 4); /* 4 thumbs, 3 gaps → 3/12 each */
+    width: calc((100% - 3rem) / 4);
   }
 }

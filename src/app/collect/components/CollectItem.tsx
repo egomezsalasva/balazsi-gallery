@@ -2,9 +2,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import { CollectPiecesContentfulType } from "../utils/fetchCollectPieces";
-import ReactMarkdown from "react-markdown";
 import { formatEuroFromCents } from "../utils/formatEuroFromCents";
 import PurchaseButton from "./PurchaseButton";
+import DescriptionFadeToggle from "@/components/DescriptionFadeToggle";
 import Link from "next/link";
 import styles from "./CollectItem.module.css";
 
@@ -30,39 +30,34 @@ const CollectItem = ({ collectItem }: CollectItemProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.detailsContainer}>
-        <div className={styles.detailsContainerSticky}>
-          <div className={styles.collectTitleContainer}>
-            <h3>{title}</h3>
-          </div>
-          {artist && (
-            <Link
-              href={`/artist/${artist?.slug}`}
-              className={styles.artistLink}
-            >
-              {artist?.name}
-            </Link>
-          )}
-          <div className={styles.description}>
-            <ReactMarkdown>{summaryText}</ReactMarkdown>
-          </div>
-          <div className={styles.priceContainer}>
-            <p>
-              Price:{" "}
-              <span className={styles.priceAmount}>
-                {formatEuroFromCents(price)}
-              </span>
-            </p>
-            {inventory > 0 && type === "Books" && (
-              <p className={styles.remainingInventory}>{inventory} left</p>
-            )}
-          </div>
-
-          {inventory > 0 ? (
-            <PurchaseButton slug={slug} />
-          ) : (
-            <p style={{ opacity: 0.33 }}>SOLD</p>
+        <div className={styles.collectTitleContainer}>
+          <h3>{title}</h3>
+        </div>
+        {artist && (
+          <Link href={`/artist/${artist?.slug}`} className={styles.artistLink}>
+            {artist?.name}
+          </Link>
+        )}
+        <DescriptionFadeToggle>{summaryText}</DescriptionFadeToggle>
+        <div className={styles.priceContainer}>
+          <p>
+            Price:{" "}
+            <span className={styles.priceAmount}>
+              {formatEuroFromCents(price)}
+            </span>
+          </p>
+          {inventory > 0 && type === "Books" && (
+            <p className={styles.remainingInventory}>{inventory} left</p>
           )}
         </div>
+
+        {inventory > 0 ? (
+          <div className={styles.purchaseWrap}>
+            <PurchaseButton slug={slug} />
+          </div>
+        ) : (
+          <p className={styles.sold}>SOLD</p>
+        )}
       </div>
       <div className={styles.imageContainer}>
         <Image

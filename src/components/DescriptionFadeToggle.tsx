@@ -5,30 +5,33 @@ import useDescriptionFade from "@/utils/useDescriptionFade";
 import ReactMarkdown from "react-markdown";
 
 const DescriptionFadeToggle = ({ children }: { children: React.ReactNode }) => {
-  const { descriptionRef, hasOverflow } = useDescriptionFade(children);
   const [isExpanded, setIsExpanded] = useState(false);
+  const { descriptionRef, hasOverflow } = useDescriptionFade(
+    children,
+    isExpanded,
+  );
+
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
   };
 
   return (
-    <>
+    <div
+      className={styles.root}
+      data-expanded={isExpanded ? "true" : undefined}
+    >
       <div
         ref={descriptionRef}
         className={`${styles.descriptionContainer} ${hasOverflow && !isExpanded ? styles.hasOverflow : ""} ${isExpanded ? styles.expanded : ""}`}
       >
         <ReactMarkdown>{children as string}</ReactMarkdown>
       </div>
-      {!isExpanded ? (
+      {hasOverflow && (
         <button className={styles.readMoreBtn} onClick={handleToggle}>
-          Read More +
-        </button>
-      ) : (
-        <button className={styles.readMoreBtn} onClick={handleToggle}>
-          Close -
+          {isExpanded ? "Close -" : "Read More +"}
         </button>
       )}
-    </>
+    </div>
   );
 };
 
