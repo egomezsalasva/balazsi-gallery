@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import Preloader from "@/components/preloader/Preloader";
-import ContentWrapper from "@/components/preloader/ContentWrapper";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -48,12 +47,11 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <div id="preloader-boot" aria-hidden="true" />
         <Preloader />
-        <ContentWrapper>
-          <Header />
-          {children}
-          <Footer />
-        </ContentWrapper>
+        <Header />
+        {children}
+        <Footer />
       </body>
     </html>
   );

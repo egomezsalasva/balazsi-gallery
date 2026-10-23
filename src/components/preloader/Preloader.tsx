@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import styles from "./Preloader.module.css";
 import PreloaderLogo from "./PreloaderLogo";
@@ -10,9 +10,9 @@ export default function Preloader() {
   const [shouldRender, setShouldRender] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    // Check sessionStorage after mount
+  useLayoutEffect(() => {
     if (sessionStorage.getItem("preloader-shown")) {
+      document.documentElement.classList.add("preloader-done");
       setShouldRender(false);
       return;
     }
@@ -22,8 +22,8 @@ export default function Preloader() {
     gsap.set("#dash-right", { x: "-234.5px" });
     gsap.set("#dash-left", { x: "234.5px" });
 
-    // Should show - make visible
     setIsVisible(true);
+    document.documentElement.classList.add("preloader-done");
 
     const timer = setTimeout(() => {
       const tl = gsap.timeline({
@@ -68,7 +68,6 @@ export default function Preloader() {
           `-=${TIME}`,
         )
         .to({}, { duration: 0.5 })
-        // Swipe everything up
         .to(preloaderRef.current, {
           y: "-100%",
           duration: 1,
@@ -76,7 +75,16 @@ export default function Preloader() {
         });
     }, 200);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      gsap.killTweensOf([
+        "#balazsi",
+        "#gallery",
+        "#dash-right",
+        "#dash-left",
+        preloaderRef.current,
+      ]);
+    };
   }, []);
 
   if (!shouldRender) return null;

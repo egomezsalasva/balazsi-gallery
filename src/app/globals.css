@@ -53,6 +53,17 @@ body {
   /* overflow-x: hidden; */
 }
 
+#preloader-boot {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 10000;
+}
+
+html.preloader-done #preloader-boot {
+  display: none;
+}
+
 body {
   color: #000;
   background: #fff;

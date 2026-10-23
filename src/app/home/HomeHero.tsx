@@ -59,7 +59,6 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
   const dashRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const handleSlideChange = (direction: 1 | -1) => {
-    // Prevent clicks during animation
     if (isAnimatingRef.current) return;
 
     isAnimatingRef.current = true;
@@ -81,25 +80,21 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
     const FADE_DURATION = SLIDES_DURATION / 2;
     const DASH_DURATION = SLIDES_DURATION / 2;
 
-    // Kill any existing animations to prevent conflicts and stuck states
     gsap.killTweensOf(detailsRef.current);
     gsap.killTweensOf(dashRef.current);
 
-    // Immediately set all other details to opacity 0 to prevent stuck text
     detailsRef.current.forEach((detail, index) => {
       if (index !== currentIndex && index !== nextIndex && detail) {
         gsap.set(detail, { opacity: 0 });
       }
     });
 
-    // Fade out current details
     gsap.to(currentDetails, {
       opacity: 0,
       duration: FADE_DURATION,
       ease: "sine.inOut",
     });
 
-    // Fade in next details
     gsap.fromTo(
       nextDetails,
       { opacity: 0 },
@@ -109,7 +104,6 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
         delay: SLIDES_DURATION,
         ease: "sine.inOut",
         onComplete: () => {
-          // Unlock animations when complete
           isAnimatingRef.current = false;
         },
       },
@@ -122,7 +116,7 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
         {
           width: "1.25rem",
           duration: DASH_DURATION,
-          delay: SLIDES_DURATION + DASH_DURATION, // Start after details fade in
+          delay: SLIDES_DURATION + DASH_DURATION,
           ease: "power2.out",
         },
       );
@@ -164,7 +158,6 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
   }, [currentIndex, isPlaying]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    // If titleHeroColor is "false" string → white, otherwise (true/null/any string) → black
     const currentColor =
       mergedData[currentIndex]?.titleHeroColor === false ? "#fff" : "#000";
     setIndicatorColor(currentColor);
@@ -190,6 +183,7 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
                 width={1000}
                 height={1000}
                 className={styles.image}
+                priority={slideIndex === 0}
               />
             </div>
           );

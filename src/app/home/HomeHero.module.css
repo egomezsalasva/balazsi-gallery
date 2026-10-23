@@ -30,6 +30,10 @@
   opacity: 0;
 }
 
+.slideContainer:first-child {
+  opacity: 1;
+}
+
 .image {
   grid-column: 1 / 13;
   grid-row: 1 / 13;
