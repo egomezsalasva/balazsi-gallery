@@ -28,6 +28,7 @@ const MediaLibrarySection = ({
               key={item.vimeoId}
               src={`https://player.vimeo.com/video/${item.vimeoId}`}
               allow="fullscreen"
+              loading="lazy"
               className={styles.media}
             />
             <h3>{item.title}</h3>

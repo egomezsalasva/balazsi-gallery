@@ -13,6 +13,7 @@ const SlideshowItem = ({ mediaData }: SlideshowItemType) => {
       <iframe
         src={`https://player.vimeo.com/video/${vimeoId}`}
         allow="fullscreen"
+        loading="lazy"
         className={styles.vimeoContainer}
       />
       <h3>{title}</h3>
