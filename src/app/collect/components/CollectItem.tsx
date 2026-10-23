@@ -38,7 +38,9 @@ const CollectItem = ({ collectItem }: CollectItemProps) => {
             {artist?.name}
           </Link>
         )}
-        <DescriptionFadeToggle>{summaryText}</DescriptionFadeToggle>
+        <DescriptionFadeToggle buttonClassName={styles.readMoreBtn}>
+          {summaryText}
+        </DescriptionFadeToggle>
         <div className={styles.priceContainer}>
           <p>
             Price:{" "}

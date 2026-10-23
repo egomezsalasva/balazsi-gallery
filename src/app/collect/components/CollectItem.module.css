@@ -121,6 +121,10 @@
   border-color: #000;
 }
 
+.readMoreBtn {
+  margin-bottom: 1.25rem;
+}
+
 @media (max-width: 1280px) {
   .imageContainer {
     grid-column: 1 / 10;

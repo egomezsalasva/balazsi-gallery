@@ -6,7 +6,13 @@ import ReactMarkdown from "react-markdown";
 
 const PX_PER_SECOND = 900;
 
-const DescriptionFadeToggle = ({ children }: { children: React.ReactNode }) => {
+const DescriptionFadeToggle = ({
+  children,
+  buttonClassName,
+}: {
+  children: React.ReactNode;
+  buttonClassName?: string;
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const { descriptionRef, hasOverflow } = useDescriptionFade(
@@ -72,7 +78,10 @@ const DescriptionFadeToggle = ({ children }: { children: React.ReactNode }) => {
         <ReactMarkdown>{children as string}</ReactMarkdown>
       </div>
       {hasOverflow && !isExpanded && (
-        <button className={styles.readMoreBtn} onClick={handleExpand}>
+        <button
+          className={`${styles.readMoreBtn} ${buttonClassName ?? ""}`}
+          onClick={handleExpand}
+        >
           Read More +
         </button>
       )}
