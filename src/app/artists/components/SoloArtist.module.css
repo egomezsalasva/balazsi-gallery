@@ -25,10 +25,6 @@
   object-fit: cover;
 }
 
-.imageRepresented {
-  border: 0.125rem solid #000;
-}
-
 .detailsArtistContainer {
   display: flex;
   align-items: center;
