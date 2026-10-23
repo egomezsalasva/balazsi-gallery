@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "yarn check:sitemap",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "pretty": "prettier --write ."
+    "pretty": "prettier --write .",
+    "check:sitemap": "node scripts/check-sitemap-routes.mjs"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^7.0.0",
