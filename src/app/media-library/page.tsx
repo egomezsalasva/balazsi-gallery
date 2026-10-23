@@ -4,6 +4,7 @@ import {
   MediaLibraryContentfulType,
 } from "./utils/fetchMediaLibrary";
 import styles from "./page.module.css";
+import VimeoEmbed from "@/components/VimeoEmbed";
 
 export const metadata: Metadata = {
   title: "Media Library | Balazsi Gallery",
@@ -24,11 +25,9 @@ const MediaLibrarySection = ({
       <div className={styles.mediaContainerWrapper}>
         {mediaDataList.map((item) => (
           <div key={item.title} className={styles.mediaContainer}>
-            <iframe
-              key={item.vimeoId}
-              src={`https://player.vimeo.com/video/${item.vimeoId}`}
-              allow="fullscreen"
-              loading="lazy"
+            <VimeoEmbed
+              vimeoId={item.vimeoId}
+              title={item.title}
               className={styles.media}
             />
             <h3>{item.title}</h3>

@@ -1,6 +1,7 @@
 import HomeSectionLayout from "./components/HomeSectionLayout";
 import styles from "./HomeMedia.module.css";
 import { fetchMedia, MediaContentfulType } from "./utils/fetchMedia";
+import VimeoEmbed from "@/components/VimeoEmbed";
 
 type SlideshowItemType = {
   mediaData: MediaContentfulType;
@@ -10,10 +11,9 @@ const SlideshowItem = ({ mediaData }: SlideshowItemType) => {
   const { title, vimeoId } = mediaData;
   return (
     <div className={styles.mediaContainer}>
-      <iframe
-        src={`https://player.vimeo.com/video/${vimeoId}`}
-        allow="fullscreen"
-        loading="lazy"
+      <VimeoEmbed
+        vimeoId={vimeoId}
+        title={title}
         className={styles.vimeoContainer}
       />
       <h3>{title}</h3>
