@@ -145,7 +145,6 @@ const Footer = () => {
         </p>
         <div className={styles.footerContactSocialsContainerLinks}>
           <a href="tel:+34660698599">+34 660 698 599</a>
-          <br />
           <a href="mailto:info@balazsi.com">info@balazsi.com</a>
         </div>
       </div>

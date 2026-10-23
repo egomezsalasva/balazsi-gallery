@@ -49,6 +49,12 @@
   margin-bottom: 0;
 }
 
+.contactLinksInnerContainer a {
+  display: inline-block;
+  line-height: 1.4;
+  padding: 0.25rem 0;
+}
+
 .mapContainer {
   grid-column: 6 / 13;
 }
