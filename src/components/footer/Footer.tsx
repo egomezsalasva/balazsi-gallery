@@ -18,7 +18,7 @@ const Footer = () => {
     setIsSubmitting(true);
     setMessage(null);
 
-    const form = event.currentTarget; // Store the form reference
+    const form = event.currentTarget;
     const formData = new FormData(form);
     const result = await sendNewsletterSubscription(formData);
 
@@ -102,26 +102,34 @@ const Footer = () => {
           <a
             href="https://www.instagram.com/balazsigallery/"
             target="_blank"
+            rel="noopener noreferrer"
             className={styles.socialIcon}
+            aria-label="Balazsi Gallery on Instagram"
           >
-            <IntagramIcon className={styles.socialIconImage} />
+            <IntagramIcon className={styles.socialIconImage} aria-hidden />
           </a>
           <a
             href="https://vimeo.com/balazsigallery"
             target="_blank"
+            rel="noopener noreferrer"
             className={styles.socialIcon}
+            aria-label="Balazsi Gallery on Vimeo"
           >
             <VimeoIcon
               className={`${styles.socialIconImage} ${styles.vimeoIconImage}`}
+              aria-hidden
             />
           </a>
           <a
             href="https://www.linkedin.com/company/balazsi/posts/?feedView=all"
             target="_blank"
+            rel="noopener noreferrer"
             className={styles.socialIcon}
+            aria-label="Balazsi Gallery on LinkedIn"
           >
             <LinkedInIcon
               className={`${styles.socialIconImage} ${styles.linkedInIconImage}`}
+              aria-hidden
             />
           </a>
         </div>

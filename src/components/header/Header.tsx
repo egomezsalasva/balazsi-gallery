@@ -8,8 +8,8 @@ const Header = () => {
   return (
     <>
       <header className={styles.container}>
-        <Link href="/">
-          <Logo className={styles.logo} />
+        <Link href="/" aria-label="Balazsi Gallery home">
+          <Logo className={styles.logo} aria-hidden />
         </Link>
         <HeaderNav />
         <MobileNav />
