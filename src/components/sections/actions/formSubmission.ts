@@ -1,8 +1,14 @@
 "use server";
 
 import nodemailer from "nodemailer";
+import { verifyTurnstile } from "@/lib/captcha/verifyTurnstile";
 
 export async function sendWorkEnquiry(formData: FormData) {
+  const verified = await verifyTurnstile(formData.get("cf-turnstile-response"));
+  if (!verified) {
+    return { success: false, error: "Verification failed" };
+  }
+
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const message = formData.get("message") as string;

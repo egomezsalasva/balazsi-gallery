@@ -1,10 +1,12 @@
 "use client";
 import { useState } from "react";
 import { sendContactEmail } from "../actions/formSubmission";
+import TurnstileField from "@/components/captcha/TurnstileField";
 import styles from "./ContactForm.module.css";
 
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [turnstileReset, setTurnstileReset] = useState(0);
   const [message, setMessage] = useState<{
     type: "success" | "error";
     text: string;
@@ -25,6 +27,7 @@ const ContactForm = () => {
         text: "Thank you! Your message has been sent.",
       });
       form.reset();
+      setTurnstileReset((n) => n + 1);
     } else {
       setMessage({
         type: "error",
@@ -58,6 +61,7 @@ const ContactForm = () => {
           I agree to the <a href="/privacy-policy">privacy policy</a>
         </label>
       </div>
+      <TurnstileField resetToken={turnstileReset} />
       <button
         type="submit"
         className={styles.contactFormButton}

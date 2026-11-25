@@ -75,6 +75,22 @@ export default async function PrivacyPolicy() {
           necessary for the correct management of our commercial relationship.
         </p>
         <p>
+          To protect our contact, enquiry, and newsletter forms from automated
+          abuse, we use Cloudflare Turnstile, a security service provided by
+          Cloudflare, Inc. When you submit a form, Cloudflare may process
+          limited technical data (such as IP address and browser information) to
+          verify that the submission is made by a human. Use of Turnstile is
+          subject to Cloudflare&apos;s{" "}
+          <a
+            href="https://www.cloudflare.com/turnstile-privacy-policy/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Turnstile Privacy Addendum
+          </a>
+          .
+        </p>
+        <p>
           In particular, we inform you that your data may be transferred, if
           required, to public bodies and authorities (administrative or
           judicial) in those cases in which a legal regulation so establishes.

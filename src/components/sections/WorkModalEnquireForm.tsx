@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import posthog from "posthog-js";
 import { sendWorkEnquiry } from "./actions/formSubmission";
+import TurnstileField from "@/components/captcha/TurnstileField";
 import styles from "./WorkModalEnquireForm.module.css";
 import type { WorkContentfulType } from "@/app/fair/[slug]/utils/fetchFair";
 
@@ -20,6 +21,7 @@ With the following details:
 ${details}`,
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [turnstileReset, setTurnstileReset] = useState(0);
   const [statusMessage, setStatusMessage] = useState<{
     type: "success" | "error";
     text: string;
@@ -33,7 +35,6 @@ ${details}`,
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Add work details to formData
     formData.append("workTitle", title || "Untitled");
     formData.append("artistName", artist?.name || "Unknown Artist");
 
@@ -51,13 +52,13 @@ ${details}`,
         type: "success",
         text: "Thank you! Your enquiry has been sent.",
       });
-      // Reset form
       setName("");
       setEmail("");
       setMessage(`I would like to enquire about the work ${title} by ${artist?.name}.
 
 With the following details: 
 ${details}`);
+      setTurnstileReset((n) => n + 1);
     } else {
       setStatusMessage({
         type: "error",
@@ -115,6 +116,8 @@ ${details}`);
           I agree to the <a href="/privacy-policy">privacy policy</a>
         </label>
       </div>
+
+      <TurnstileField resetToken={turnstileReset} />
 
       <button
         type="submit"
