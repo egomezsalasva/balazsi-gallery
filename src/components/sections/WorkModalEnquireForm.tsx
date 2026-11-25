@@ -1,8 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import posthog from "posthog-js";
 import { sendWorkEnquiry } from "./actions/formSubmission";
-import TurnstileField from "@/components/captcha/TurnstileField";
+import TurnstileField, {
+  type TurnstileFieldHandle,
+} from "@/components/captcha/TurnstileField";
+import { ensureTurnstileToken } from "@/lib/captcha/ensureTurnstileToken";
 import styles from "./WorkModalEnquireForm.module.css";
 import type { WorkContentfulType } from "@/app/fair/[slug]/utils/fetchFair";
 
@@ -12,6 +15,7 @@ type WorkModalEnquireFormProps = {
 
 const WorkModalEnquireForm = ({ work }: WorkModalEnquireFormProps) => {
   const { title, details, artist } = work;
+  const turnstileRef = useRef<TurnstileFieldHandle>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState(
@@ -38,6 +42,16 @@ ${details}`,
     formData.append("workTitle", title || "Untitled");
     formData.append("artistName", artist?.name || "Unknown Artist");
 
+    if (!(await ensureTurnstileToken(formData, turnstileRef))) {
+      setStatusMessage({
+        type: "error",
+        text: "Something went wrong. Please try again.",
+      });
+      setTurnstileReset((n) => n + 1);
+      setIsSubmitting(false);
+      return;
+    }
+
     const result = await sendWorkEnquiry(formData);
 
     if (result.success) {
@@ -58,7 +72,6 @@ ${details}`,
 
 With the following details: 
 ${details}`);
-      setTurnstileReset((n) => n + 1);
     } else {
       setStatusMessage({
         type: "error",
@@ -66,6 +79,7 @@ ${details}`);
       });
     }
 
+    setTurnstileReset((n) => n + 1);
     setIsSubmitting(false);
   }
 
@@ -117,7 +131,7 @@ ${details}`);
         </label>
       </div>
 
-      <TurnstileField resetToken={turnstileReset} />
+      <TurnstileField ref={turnstileRef} resetToken={turnstileReset} />
 
       <button
         type="submit"

@@ -1,13 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import IntagramIcon from "../svgs/Intagram";
 import VimeoIcon from "../svgs/Vimeo";
 import { sendNewsletterSubscription } from "./actions/formSubmission";
-import TurnstileField from "@/components/captcha/TurnstileField";
+import TurnstileField, {
+  type TurnstileFieldHandle,
+} from "@/components/captcha/TurnstileField";
+import { ensureTurnstileToken } from "@/lib/captcha/ensureTurnstileToken";
 import styles from "./Footer.module.css";
 import LinkedInIcon from "../svgs/LinkedIn";
 
 const Footer = () => {
+  const turnstileRef = useRef<TurnstileFieldHandle>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [turnstileReset, setTurnstileReset] = useState(0);
   const [message, setMessage] = useState<{
@@ -22,6 +26,17 @@ const Footer = () => {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
+
+    if (!(await ensureTurnstileToken(formData, turnstileRef))) {
+      setMessage({
+        type: "error",
+        text: "Something went wrong. Please try again.",
+      });
+      setTurnstileReset((n) => n + 1);
+      setIsSubmitting(false);
+      return;
+    }
+
     const result = await sendNewsletterSubscription(formData);
 
     if (result.success) {
@@ -30,7 +45,6 @@ const Footer = () => {
         text: "Thank you for subscribing!",
       });
       form.reset();
-      setTurnstileReset((n) => n + 1);
     } else {
       setMessage({
         type: "error",
@@ -38,6 +52,7 @@ const Footer = () => {
       });
     }
 
+    setTurnstileReset((n) => n + 1);
     setIsSubmitting(false);
   }
 
@@ -76,7 +91,7 @@ const Footer = () => {
               I agree to the <a href="/privacy-policy">privacy policy</a>
             </label>
           </div>
-          <TurnstileField resetToken={turnstileReset} />
+          <TurnstileField ref={turnstileRef} resetToken={turnstileReset} />
           <button
             type="submit"
             className={styles.footerNewsletterFormButton}

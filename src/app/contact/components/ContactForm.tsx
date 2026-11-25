@@ -1,10 +1,14 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { sendContactEmail } from "../actions/formSubmission";
-import TurnstileField from "@/components/captcha/TurnstileField";
+import TurnstileField, {
+  type TurnstileFieldHandle,
+} from "@/components/captcha/TurnstileField";
+import { ensureTurnstileToken } from "@/lib/captcha/ensureTurnstileToken";
 import styles from "./ContactForm.module.css";
 
 const ContactForm = () => {
+  const turnstileRef = useRef<TurnstileFieldHandle>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [turnstileReset, setTurnstileReset] = useState(0);
   const [message, setMessage] = useState<{
@@ -19,6 +23,17 @@ const ContactForm = () => {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
+
+    if (!(await ensureTurnstileToken(formData, turnstileRef))) {
+      setMessage({
+        type: "error",
+        text: "Something went wrong. Please try again or email us at info@balazsi.com",
+      });
+      setTurnstileReset((n) => n + 1);
+      setIsSubmitting(false);
+      return;
+    }
+
     const result = await sendContactEmail(formData);
 
     if (result.success) {
@@ -27,7 +42,6 @@ const ContactForm = () => {
         text: "Thank you! Your message has been sent.",
       });
       form.reset();
-      setTurnstileReset((n) => n + 1);
     } else {
       setMessage({
         type: "error",
@@ -35,6 +49,7 @@ const ContactForm = () => {
       });
     }
 
+    setTurnstileReset((n) => n + 1);
     setIsSubmitting(false);
   }
 
@@ -61,7 +76,7 @@ const ContactForm = () => {
           I agree to the <a href="/privacy-policy">privacy policy</a>
         </label>
       </div>
-      <TurnstileField resetToken={turnstileReset} />
+      <TurnstileField ref={turnstileRef} resetToken={turnstileReset} />
       <button
         type="submit"
         className={styles.contactFormButton}
