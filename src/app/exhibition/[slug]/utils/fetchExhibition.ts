@@ -30,6 +30,7 @@ export type ExhibitionContentfulType = {
   };
   startDate: string;
   endDate: string;
+  hideEndDate: boolean;
   fullText: string;
   artistsCollection: {
     items: {
@@ -57,6 +58,7 @@ query($slug: String!){
       }
       startDate
       endDate
+      hideEndDate
       fullText
       artistsCollection(limit: 30){
         items{

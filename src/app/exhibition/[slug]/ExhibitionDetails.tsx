@@ -11,8 +11,15 @@ type ExhibitionDetailsProps = {
 };
 
 const ExhibitionDetails = ({ exhibition }: ExhibitionDetailsProps) => {
-  const { title, startDate, endDate, fullText, artistsCollection, heroImage } =
-    exhibition;
+  const {
+    title,
+    startDate,
+    endDate,
+    hideEndDate,
+    fullText,
+    artistsCollection,
+    heroImage,
+  } = exhibition;
   const artistName = artistNameDisplay(artistsCollection.items);
   const isGroupShow = artistsCollection.items.length > 1;
   return (
@@ -25,7 +32,11 @@ const ExhibitionDetails = ({ exhibition }: ExhibitionDetailsProps) => {
             <h2>{artistName}</h2>
           </div>
         </div>
-        <DateLabel startDate={startDate} endDate={endDate} withMargin />
+        <DateLabel
+          startDate={startDate}
+          endDate={hideEndDate ? undefined : endDate}
+          withMargin
+        />
         <p className={styles.groupShowText}>
           With:{" "}
           {artistsCollection.items.map(
