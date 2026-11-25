@@ -21,7 +21,8 @@ const ExhibitionDetails = ({ exhibition }: ExhibitionDetailsProps) => {
     heroImage,
   } = exhibition;
   const artistName = artistNameDisplay(artistsCollection.items);
-  const isGroupShow = artistsCollection.items.length > 1;
+  const artists = artistsCollection.items;
+
   return (
     <div className={styles.contentContainer}>
       <div className={styles.infoContainer}>
@@ -37,17 +38,19 @@ const ExhibitionDetails = ({ exhibition }: ExhibitionDetailsProps) => {
           endDate={hideEndDate ? undefined : endDate}
           withMargin
         />
-        <p className={styles.groupShowText}>
-          With:{" "}
-          {artistsCollection.items.map(
-            (artist: { name: string; slug: string }, index: number) => (
-              <span key={artist.name}>
-                <Link href={`/artist/${artist.slug}`}>{artist.name}</Link>
-                {index < artistsCollection.items.length - 1 ? ", " : "."}
-              </span>
-            ),
-          )}
-        </p>
+        {artists.length > 0 && (
+          <p className={styles.groupShowText}>
+            With:{" "}
+            {artists.map(
+              (artist: { name: string; slug: string }, index: number) => (
+                <span key={artist.name}>
+                  <Link href={`/artist/${artist.slug}`}>{artist.name}</Link>
+                  {index < artists.length - 1 ? ", " : "."}
+                </span>
+              ),
+            )}
+          </p>
+        )}
         <DescriptionFadeToggle>{fullText}</DescriptionFadeToggle>
       </div>
       <div className={styles.imageContainer}>
