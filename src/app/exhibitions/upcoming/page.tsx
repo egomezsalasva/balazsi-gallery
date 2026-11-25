@@ -14,7 +14,9 @@ export const metadata: Metadata = {
 
 const ExhibitionsUpcoming = async () => {
   const exhibitions = await fetchExhibitions();
-  const upcomingExhibitionsList = getByStatus(exhibitions, "Upcoming");
+  const upcomingExhibitionsList = getByStatus(exhibitions, "Upcoming").sort(
+    (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
+  );
   if (upcomingExhibitionsList.length === 0) {
     redirect("/exhibitions/current");
   }
