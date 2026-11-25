@@ -31,6 +31,15 @@ export default function About() {
           foster engagement between artists, collectors, and the public,
           participating actively in national and international art fairs.
         </p>
+        <p>
+          The gallery is conceived as a flexible exhibition space that adapts to
+          the needs of its artistic program. It can function as a single
+          exhibition space or be divided into three independent spaces, allowing
+          multiple exhibitions to take place simultaneously. This configuration
+          offers artists different possibilities for presenting their work while
+          encouraging dialogue between distinct artistic practices within the
+          same setting.
+        </p>
       </div>
       <div className={styles.imageContainer}>
         <Image
