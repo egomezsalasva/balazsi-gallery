@@ -249,7 +249,8 @@ const HomeHero = ({ heroData }: { heroData: HomeHeroData }) => {
                   </div>
                 </div>
                 <div className={styles.detailsDate}>
-                  {formatDate(item.startDate)} — {formatDate(item.endDate)}
+                  {formatDate(item.startDate)}
+                  {!item.hideEndDate && ` — ${formatDate(item.endDate)}`}
                 </div>
               </Link>
             </div>

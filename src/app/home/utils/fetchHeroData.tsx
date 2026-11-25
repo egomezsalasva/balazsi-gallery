@@ -6,6 +6,7 @@ export type HomeExhibitionsContentfulType = {
   titleHeroColor: boolean | null;
   startDate: string;
   endDate: string;
+  hideEndDate: boolean;
   artistsCollection: {
     items: {
       name: string;
@@ -23,6 +24,7 @@ export type HomeFairsContentfulType = {
   titleHeroColor: boolean | null;
   startDate: string;
   endDate: string;
+  hideEndDate: boolean;
   heroImage: {
     url: string;
     title: string;
@@ -45,6 +47,7 @@ query($today: DateTime!){
       titleHeroColor
       startDate
       endDate
+      hideEndDate
       artistsCollection(limit: 30){
         items{
           name
@@ -70,6 +73,7 @@ query($today: DateTime!){
       titleHeroColor
       startDate
       endDate
+      hideEndDate
       heroImage{
         url
         title
