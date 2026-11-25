@@ -24,7 +24,7 @@ export type HomeFairsContentfulType = {
   titleHeroColor: boolean | null;
   startDate: string;
   endDate: string;
-  hideEndDate: boolean;
+  hideEndDate?: boolean;
   heroImage: {
     url: string;
     title: string;
@@ -73,7 +73,6 @@ query($today: DateTime!){
       titleHeroColor
       startDate
       endDate
-      hideEndDate
       heroImage{
         url
         title

@@ -9,7 +9,6 @@ export type FairContentfulType = {
   };
   startDate: string;
   endDate: string;
-  hideEndDate: boolean;
   summaryText: string;
   artistsCollection: {
     items: {
