@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
-import IntagramIcon from "../svgs/Intagram";
+import InstagramIcon from "../svgs/Instagram";
 import VimeoIcon from "../svgs/Vimeo";
 import { sendNewsletterSubscription } from "./actions/formSubmission";
 import TurnstileField, {
@@ -60,7 +60,7 @@ const Footer = () => {
     <footer className={styles.container}>
       <div className={styles.footerNewsletterContainer}>
         <p>
-          Subscribe to our Newsletter for artist’s and gallery news, upcoming
+          Subscribe to our Newsletter for artists’ and gallery news, upcoming
           exhibitions, events, releases, and more
         </p>
         <form onSubmit={handleSubmit}>
@@ -125,7 +125,7 @@ const Footer = () => {
             className={styles.socialIcon}
             aria-label="Balazsi Gallery on Instagram"
           >
-            <IntagramIcon className={styles.socialIconImage} aria-hidden />
+            <InstagramIcon className={styles.socialIconImage} aria-hidden />
           </a>
           <a
             href="https://vimeo.com/balazsigallery"

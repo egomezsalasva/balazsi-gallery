@@ -1,8 +1,8 @@
 import { SVGProps } from "react";
 
-type IntagramIconProps = SVGProps<SVGSVGElement>;
+type InstagramIconProps = SVGProps<SVGSVGElement>;
 
-const IntagramIcon = ({ ...props }: IntagramIconProps) => {
+const InstagramIcon = ({ ...props }: InstagramIconProps) => {
   return (
     <svg
       viewBox="0 0 800 800"
@@ -20,4 +20,4 @@ const IntagramIcon = ({ ...props }: IntagramIconProps) => {
   );
 };
 
-export default IntagramIcon;
+export default InstagramIcon;

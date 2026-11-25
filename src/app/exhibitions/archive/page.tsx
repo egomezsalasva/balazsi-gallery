@@ -7,8 +7,8 @@ import {
 import { getByStatus } from "@/utils/getByStatus";
 
 export const metadata: Metadata = {
-  title: "Exhibitions Upcoming | Balazsi Gallery",
-  description: "Exhibitions Upcoming | Balazsi Gallery",
+  title: "Exhibitions Archive | Balazsi Gallery",
+  description: "Exhibitions Archive | Balazsi Gallery",
 };
 
 const ExhibitionsArchive = async () => {

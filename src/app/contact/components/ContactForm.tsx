@@ -63,7 +63,7 @@ const ContactForm = () => {
         id="email"
         required
       />
-      <input type="phone" placeholder="Phone" name="phone" id="phone" />
+      <input type="tel" placeholder="Phone" name="phone" id="phone" />
       <textarea placeholder="Message" name="message" id="message" required />
       <div className={styles.privacyPolicyContainer}>
         <input

@@ -77,7 +77,7 @@ export default function Contact() {
             <ContactLink
               emailHref="mailto:elena@balazsi.com"
               email="elena@balazsi.com"
-              title="Press and Comunication"
+              title="Press and Communication"
               name="Elena Covas López"
             />
           </div>
